@@ -18,5 +18,7 @@ enum AppGroup {
         static let activitySelection = "activitySelection"
         /// Current streak in days.
         static let streak = "streak"
+        /// Minutes requested by the Siri / Shortcuts / Action Button intent, consumed on next foreground.
+        static let pendingSessionMinutes = "pendingSessionMinutes"
     }
 }

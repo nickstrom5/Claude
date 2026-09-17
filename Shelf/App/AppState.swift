@@ -26,6 +26,17 @@ final class AppState: ObservableObject {
         didSet { save(history, forKey: "history") }
     }
 
+    /// Set when the app comes to the foreground because of the "Shelf my phone" intent.
+    @Published var pendingIntentMinutes: Int?
+
+    /// Reads and clears the minutes left behind by `StartShelfSessionIntent`, if any.
+    func consumePendingIntent() {
+        let minutes = defaults.integer(forKey: AppGroup.Key.pendingSessionMinutes)
+        guard minutes > 0 else { return }
+        defaults.removeObject(forKey: AppGroup.Key.pendingSessionMinutes)
+        pendingIntentMinutes = minutes
+    }
+
     /// Default session length the user last picked.
     @Published var preferredMinutes: Int {
         didSet { defaults.set(preferredMinutes, forKey: "preferredMinutes") }

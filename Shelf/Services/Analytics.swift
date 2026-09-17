@@ -22,6 +22,7 @@ enum AnalyticsEvent: String {
     case restoreTapped = "restore_tapped"
     case storeLoadFailed = "store_load_failed"
     case sessionStarted = "session_started"
+    case sessionStartedFromIntent = "session_started_from_intent"
     case sessionCompleted = "session_completed"
     case sessionAbandoned = "session_abandoned"
     case shareTapped = "share_tapped"

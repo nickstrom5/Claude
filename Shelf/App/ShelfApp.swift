@@ -38,6 +38,7 @@ struct ShelfApp: App {
 /// Routes between onboarding and the main app.
 struct RootView: View {
     @EnvironmentObject private var appState: AppState
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -51,5 +52,8 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.35), value: appState.hasCompletedOnboarding)
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { appState.consumePendingIntent() }
+        }
     }
 }

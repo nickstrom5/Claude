@@ -50,6 +50,15 @@ struct HomeView: View {
         .onChange(of: sessions.lastFinished) { _, finished in
             if let finished, !finished.isTaste { showResult = true }
         }
+        .onChange(of: appState.pendingIntentMinutes) { _, minutes in
+            guard let minutes else { return }
+            appState.pendingIntentMinutes = nil
+            guard !sessions.isActive else { return }
+            appState.preferredMinutes = minutes
+            Analytics.track(.sessionStartedFromIntent, ["minutes": minutes])
+            startTapped()
+        }
+        .onAppear { appState.consumePendingIntent() }
     }
 
     private var idle: some View {
