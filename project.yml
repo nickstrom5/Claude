@@ -95,6 +95,7 @@ targets:
     sources:
       - path: ShelfWidgets
       - path: Shared
+      - path: Shelf/Intents/StartShelfSessionIntent.swift
     entitlements:
       path: ShelfWidgets/ShelfWidgets.entitlements
       properties:

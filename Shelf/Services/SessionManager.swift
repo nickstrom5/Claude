@@ -2,6 +2,7 @@ import ActivityKit
 import Combine
 import Foundation
 import UserNotifications
+import WidgetKit
 
 /// The core loop: start a session → shield up + Live Activity → end → shield down + result.
 @MainActor
@@ -42,6 +43,7 @@ final class SessionManager: ObservableObject {
         startLiveActivity(for: session)
         scheduleCompletionNotification(at: session.plannedEnd)
         scheduleCompletion(at: session.plannedEnd)
+        WidgetCenter.shared.reloadAllTimelines()
 
         Analytics.track(isTaste ? .tasteSessionStarted : .sessionStarted, ["minutes": minutes])
     }
@@ -99,6 +101,7 @@ final class SessionManager: ObservableObject {
         appState.record(session)
         active = nil
         lastFinished = session
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func scheduleCompletion(at end: Date) {

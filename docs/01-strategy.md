@@ -58,6 +58,10 @@ every session is one tap and one fold. The ritual is the product.
 4. Session ends → shield drops → result card ("2h 14m shelved · 6-day streak") → share.
 5. Early exit is allowed but *costs something*: a 10-second hold and your streak resets.
 
+Entry points besides the app: Siri ("Shelf my phone"), the Shortcuts app, the Action Button,
+and a small Home Screen widget with a "Shelf it" button. All run the same intent. Each one is a
+video (see `docs/08-launch-videos.md`).
+
 **What is deliberately not in v1:** schedules, website blocking UI, family plans, Mac app, stats
 beyond streak + minutes, AI anything. Every one of these is a v1.x candidate only if reviews ask.
 

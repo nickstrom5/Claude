@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import WidgetKit
 
 /// Small, persisted app state. Everything here is local; there is no backend in v1.
 @MainActor
@@ -17,8 +18,9 @@ final class AppState: ObservableObject {
     @Published var stats: Stats {
         didSet {
             save(stats, forKey: "stats")
-            // Mirror the streak for the shield extension's subtitle.
+            // Mirror the streak for the shield extension's subtitle and the widget.
             defaults.set(stats.streak, forKey: AppGroup.Key.streak)
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
