@@ -19,9 +19,9 @@ struct SettingsView: View {
                             return
                         }
                         Task {
-                            if screenTime.isAuthorized || (await screenTime.requestAuthorization()) {
-                                showPicker = true
-                            }
+                            var allowed = screenTime.isAuthorized
+                            if !allowed { allowed = await screenTime.requestAuthorization() }
+                            if allowed { showPicker = true }
                         }
                     } label: {
                         HStack {

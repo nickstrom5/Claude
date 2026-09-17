@@ -96,7 +96,9 @@ struct AppsScreen: View {
                         return
                     }
                     Task {
-                        if screenTime.isAuthorized || (await screenTime.requestAuthorization()) {
+                        var allowed = screenTime.isAuthorized
+                        if !allowed { allowed = await screenTime.requestAuthorization() }
+                        if allowed {
                             showPicker = true
                         } else {
                             showDeniedAlert = true
