@@ -44,7 +44,7 @@ enum Analytics {
 }
 
 struct ConsoleAnalytics: AnalyticsSink {
-    private let log = Logger(subsystem: "com.clamapp.ios", category: "analytics")
+    private let log = Logger(subsystem: "app.getclam.clam", category: "analytics")
 
     func track(_ event: AnalyticsEvent, _ properties: [String: Any]) {
         let props = properties.isEmpty ? "" : " \(properties)"

@@ -14,9 +14,9 @@ all three plainly.
 
 **App name:** Clam
 
-**Bundle ID:** `com.clamapp.ios` (then `com.clamapp.ios.shield`, then `com.clamapp.ios.monitor`)
+**Bundle ID:** `app.getclam.clam` (then `app.getclam.clam.shield`, then `app.getclam.clam.monitor`)
 
-**Website:** https://nickstrom5.github.io/Claude/ (or the marketing site once it exists)
+**Website:** https://getclam.app/ (or the marketing site once it exists)
 
 **Describe your app and how it uses Family Controls:**
 
@@ -32,10 +32,10 @@ The app uses:
   the app never requests .child.
 - ManagedSettings: ManagedSettingsStore.shield to restrict the selected applications and
   categories only while a session the user started is running.
-- ManagedSettingsUI (extension bundle com.clamapp.ios.shield): a ShieldConfigurationDataSource
+- ManagedSettingsUI (extension bundle app.getclam.clam.shield): a ShieldConfigurationDataSource
   that customises the appearance and text of the shield so the user understands why the app is
   blocked and how long remains.
-- DeviceActivity (extension bundle com.clamapp.ios.monitor): a DeviceActivityMonitor whose only
+- DeviceActivity (extension bundle app.getclam.clam.monitor): a DeviceActivityMonitor whose only
   job is to remove the shield when the session's scheduled end time is reached, so restrictions
   never outlive the timer even if the app is not running. It does not observe or report usage.
 

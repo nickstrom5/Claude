@@ -56,9 +56,9 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Link("Privacy policy", destination: URL(string: "https://nickstrom5.github.io/Claude/privacy.html")!)
-                    Link("Terms", destination: URL(string: "https://nickstrom5.github.io/Claude/terms.html")!)
-                    Link("Send feedback", destination: URL(string: "mailto:hello@clamapp.example")!)
+                    Link("Privacy policy", destination: URL(string: "https://getclam.app/privacy.html")!)
+                    Link("Terms", destination: URL(string: "https://getclam.app/terms.html")!)
+                    Link("Send feedback", destination: URL(string: "mailto:support@getclam.app")!)
                 } footer: {
                     Text("Clam \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Everything stays on your phone.")
                 }

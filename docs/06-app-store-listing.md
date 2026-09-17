@@ -60,8 +60,8 @@ Clam is free to try for 7 days, then $39.99/year, $7.99/month, or $69.99 once fo
 Subscriptions renew automatically unless cancelled at least 24 hours before the end of the
 current period. Manage or cancel in Settings > Apple ID > Subscriptions.
 
-Privacy policy: https://nickstrom5.github.io/Claude/privacy.html
-Terms of use: https://nickstrom5.github.io/Claude/terms.html
+Privacy policy: https://getclam.app/privacy.html
+Terms of use: https://getclam.app/terms.html
 ```
 
 ## Screenshots (6.9-inch, in this order)
@@ -94,7 +94,7 @@ To test: complete onboarding, pick any apps in the picker, and start the 1-minut
 step 7. The Live Activity appears on the lock screen; opening a picked app shows the shield.
 Purchases can be tested with the yearly plan; the 7-day trial is configured in App Store Connect.
 
-The shield extension (com.clamapp.ios.shield) only customises the block screen's appearance.
+The shield extension (app.getclam.clam.shield) only customises the block screen's appearance.
 ```
 
 ## Category

@@ -28,11 +28,10 @@ Decided 17 September 2026. The app is **Clam**. The verb is **clam up**.
 | Lock In, Locked, Lockr, Lockify, Focus Lock | All exist. Anything with "lock" or "focus" is buried in search. |
 | Foldd | Bets the brand on the Duo, which is a fraction of iPhones. |
 
-## Still to do (ten minutes, needs your accounts)
+## Done / still to do
 
-- App Store: search "Clam" on a phone and confirm nothing new appeared.
-- Domain: try `clam.app`, `clamup.app`, `getclam.app`, `clamapp.co`. Buy the first one available
-  at Cloudflare Registrar. This also unblocks the support email (see the launch checklist).
-- Handles: @clamapp / @clamup on TikTok and Instagram.
-- Bundle ID is already set to `com.clamapp.ios`. If you buy a different domain, change the
-  prefix in `project.yml` before requesting the entitlement.
+- Domain: **getclam.app** bought at Cloudflare on 17 Sep 2026. Bundle IDs are `app.getclam.clam`
+  plus `.shield`, `.monitor`, `.widgets`; App Group `group.app.getclam.clam`.
+- Support address: `support@getclam.app` (Email Routing steps in the launch checklist).
+- Still to do: claim @getclam / @clamup on TikTok and Instagram; search "Clam" on the App Store
+  once more on a phone before submission.

@@ -1,6 +1,6 @@
 name: Clam
 options:
-  bundleIdPrefix: com.clamapp
+  bundleIdPrefix: app.getclam
   deploymentTarget:
     iOS: "17.0"
   xcodeVersion: "16.0"
@@ -33,7 +33,7 @@ targets:
       properties:
         com.apple.developer.family-controls: true
         com.apple.security.application-groups:
-          - group.com.clamapp.ios
+          - group.app.getclam.clam
     info:
       path: Clam/Info.plist
       properties:
@@ -48,7 +48,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.clamapp.ios
+        PRODUCT_BUNDLE_IDENTIFIER: app.getclam.clam
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
     scheme:
@@ -64,7 +64,7 @@ targets:
       - target: Clam
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.clamapp.ios.tests
+        PRODUCT_BUNDLE_IDENTIFIER: app.getclam.clam.tests
         GENERATE_INFOPLIST_FILE: true
 
   ClamShield:
@@ -78,7 +78,7 @@ targets:
       properties:
         com.apple.developer.family-controls: true
         com.apple.security.application-groups:
-          - group.com.clamapp.ios
+          - group.app.getclam.clam
     info:
       path: ClamShield/Info.plist
       properties:
@@ -88,7 +88,7 @@ targets:
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldConfigurationExtension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.clamapp.ios.shield
+        PRODUCT_BUNDLE_IDENTIFIER: app.getclam.clam.shield
 
   ClamMonitor:
     type: app-extension
@@ -101,7 +101,7 @@ targets:
       properties:
         com.apple.developer.family-controls: true
         com.apple.security.application-groups:
-          - group.com.clamapp.ios
+          - group.app.getclam.clam
     info:
       path: ClamMonitor/Info.plist
       properties:
@@ -111,7 +111,7 @@ targets:
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ClamMonitorExtension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.clamapp.ios.monitor
+        PRODUCT_BUNDLE_IDENTIFIER: app.getclam.clam.monitor
 
   ClamWidgets:
     type: app-extension
@@ -124,7 +124,7 @@ targets:
       path: ClamWidgets/ClamWidgets.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.com.clamapp.ios
+          - group.app.getclam.clam
     info:
       path: ClamWidgets/Info.plist
       properties:
@@ -133,4 +133,4 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.clamapp.ios.widgets
+        PRODUCT_BUNDLE_IDENTIFIER: app.getclam.clam.widgets

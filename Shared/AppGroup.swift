@@ -2,7 +2,7 @@ import Foundation
 
 /// Constants shared between the app, the shield extension and the widget extension.
 enum AppGroup {
-    static let identifier = "group.com.clamapp.ios"
+    static let identifier = "group.app.getclam.clam"
 
     /// UserDefaults suite shared across the app and its extensions.
     static var defaults: UserDefaults {

@@ -2,12 +2,10 @@
 
 ## Day 1 (do these before writing another line of code)
 
-- [ ] Create the App ID in the Apple Developer portal with a final bundle ID. It is set to
-      `com.clamapp.ios` in `project.yml`; change it once, everywhere, before requesting the
-      entitlement (entitlements are per bundle ID).
-- [ ] Enable **App Groups** (`group.com.clamapp.ios`) on the app and all three extensions.
+- [ ] Create the App ID `app.getclam.clam` in the Apple Developer portal (matches `project.yml`).
+- [ ] Enable **App Groups** (`group.app.getclam.clam`) on the app and all three extensions.
 - [ ] **Request the Family Controls (Distribution) entitlement** for the main app, the shield
-      extension (`com.clamapp.ios.shield`) and the monitor extension (`com.clamapp.ios.monitor`).
+      extension (`app.getclam.clam.shield`) and the monitor extension (`app.getclam.clam.monitor`).
       Requests are per bundle ID.
       Form: https://developer.apple.com/contact/request/family-controls-distribution
       Draft answers are in `docs/07-entitlement-request.md`.
@@ -17,9 +15,21 @@
       (`clam.yearly`, `clam.monthly`, `clam.lifetime`), one subscription group, 7-day free trial
       intro offer on yearly.
 - [ ] Turn on GitHub Pages: repo Settings → Pages → Deploy from a branch → this branch, folder `/docs`.
-      That publishes `docs/index.html`, `privacy.html` and `terms.html` at
-      https://nickstrom5.github.io/Claude/ which the paywall and settings already link to.
-      Replace `hello@clamapp.example` in those files with a real address.
+      Under "Custom domain" enter `getclam.app` (the `docs/CNAME` file already says so) and tick
+      "Enforce HTTPS" once the certificate appears.
+- [ ] Cloudflare DNS for getclam.app (DNS → Records), all **DNS only** (grey cloud):
+      `A @ 185.199.108.153`, `A @ 185.199.109.153`, `A @ 185.199.110.153`, `A @ 185.199.111.153`,
+      `CNAME www nickstrom5.github.io`. Then https://getclam.app/privacy.html and /terms.html
+      resolve, which is what the app and the App Store listing link to.
+- [ ] Cloudflare Email Routing (Email → Email Routing): add destination Nickstrom5@gmail.com and
+      confirm the verification mail, then custom addresses `support@getclam.app` and
+      `hello@getclam.app`, plus a catch-all, all forwarding to that inbox. Cloudflare adds the MX
+      records itself.
+- [ ] Gmail: Settings → Accounts → "Send mail as" → add `support@getclam.app`, SMTP server
+      `smtp.gmail.com`, port 587, your Gmail address and an App Password
+      (myaccount.google.com → Security → App passwords). Replies then come from the app's address.
+- [ ] Gmail filter: `to:(support@getclam.app OR hello@getclam.app)` → apply label "Clam support",
+      skip inbox.
 
 ## Build
 
