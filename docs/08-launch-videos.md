@@ -16,10 +16,10 @@ Rules for all ten:
 ### 1. The demo (the one everything else points back to)
 **Hook text:** "Fold it. It's locked."
 **Shots:**
-1. (0–1s) Hand taps the yellow "Shelf it" button. Hard cut.
+1. (0–1s) Hand taps the yellow "Clam up" button. Hard cut.
 2. (1–3s) Phone folds shut (or locks). Outer screen / lock screen shows the countdown.
 3. (3–5s) Phone opens. Thumb taps Instagram.
-4. (5–7s) Block screen: "Instagram is on the shelf. 24 min left."
+4. (5–7s) Block screen: "Instagram is clammed up. 24 min left."
 5. (7–8s) Phone folds shut again. End card: app name.
 **Why it works:** Nothing to explain. This is the App Store preview too.
 
@@ -38,7 +38,7 @@ Rules for all ten:
 1. Dark room, phone lights up your face. Unfold.
 2. Tap TikTok. Block screen appears.
 3. Look at camera, defeated. Fold it shut.
-4. End card: "Shelf. Go to sleep."
+4. End card: "Clam. Go to sleep."
 
 ### 4. Slideshow: 5 signs
 **Hook slide:** "5 signs your phone owns you"
@@ -59,7 +59,7 @@ Rules for all ten:
 4. End card.
 **Timing:** Post the week of Oct 23, when the Duo lands.
 
-### 6. Brick vs. Shelf
+### 6. Brick vs. Clam
 **Hook text:** "Brick is $59 and you'll lose it."
 **Shots:**
 1. A Brick (or any NFC tag) on a table. Hand picks it up, looks around, "where is it".
@@ -80,7 +80,7 @@ Rules for all ten:
 ### 8. Action Button
 **Hook text:** "I mapped my Action Button to brick my phone"
 **Shots:**
-1. Settings → Action Button → Shortcut → "Shelf it". 2s.
+1. Settings → Action Button → Shortcut → "Clam up". 2s.
 2. Press the Action Button. Phone locks, Live Activity appears.
 3. Try to open an app. Block screen.
 4. End card.

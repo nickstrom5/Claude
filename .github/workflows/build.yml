@@ -36,22 +36,22 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild build \
-            -project Shelf.xcodeproj \
-            -scheme Shelf \
+            -project Clam.xcodeproj \
+            -scheme Clam \
             -destination "platform=iOS Simulator,name=$DEVICE" \
             -skipPackagePluginValidation \
             CODE_SIGNING_ALLOWED=NO \
-            2>&1 | tee build.log | grep -E "error:|warning: .*Shelf|BUILD (SUCCEEDED|FAILED)|\*\* " || true
+            2>&1 | tee build.log | grep -E "error:|warning: .*Clam|BUILD (SUCCEEDED|FAILED)|\*\* " || true
           grep -q "BUILD SUCCEEDED" build.log
 
       - name: Unit tests
         run: |
           set -o pipefail
           xcodebuild test \
-            -project Shelf.xcodeproj \
-            -scheme Shelf \
+            -project Clam.xcodeproj \
+            -scheme Clam \
             -destination "platform=iOS Simulator,name=$DEVICE" \
-            -only-testing:ShelfTests \
+            -only-testing:ClamTests \
             CODE_SIGNING_ALLOWED=NO \
             2>&1 | tee test.log | grep -E "error:|Test Case|Executed|TEST (SUCCEEDED|FAILED)|\*\* " || true
           grep -q "TEST SUCCEEDED" test.log

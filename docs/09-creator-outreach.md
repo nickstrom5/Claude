@@ -13,7 +13,7 @@ Aim for 30 DMs to land 10 creators. Small creators answer DMs; managers don't.
 ## First DM (keep it under 60 words)
 
 ```
-Hey [name], your "[video title]" video was exactly the problem my app solves. It's called Shelf:
+Hey [name], your "[video title]" video was exactly the problem my app solves. It's called Clam:
 you fold your phone shut and your apps stay locked. Real blocking, one button.
 
 Would you do 3 short videos over 2 weeks? Paid, plus a bonus per trial your code drives.
@@ -24,7 +24,7 @@ Can send the app + a 1-page brief today.
 
 ```
 THE APP
-Shelf locks the apps you choose for 25/50/90 min. Fold or lock your phone; the timer stays on
+Clam locks the apps you choose for 25/50/90 min. Fold or lock your phone; the timer stays on
 the lock screen (outer screen on iPhone Duo). Opening a locked app shows a block screen.
 Quitting early takes a 10-second hold and resets your streak.
 

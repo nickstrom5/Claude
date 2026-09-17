@@ -1,6 +1,6 @@
-# Shelf — Strategy
+# Clam — Strategy
 
-> Working name. One sentence: **Fold your phone shut, and your distracting apps stay shut.**
+> One sentence: **Fold your phone shut, and your distracting apps stay shut.**
 
 ## 1. Why this idea
 
@@ -15,7 +15,7 @@ bigger, more beautiful phone.
 | Proven spend | Opal: 4M+ downloads, ~$100/yr pricing. Jomo, one sec, Brick, Roots, Clearspace, Refocus all charge subscriptions. |
 | Loud complaints | Reviews across the category repeat three things: too easy to bypass, too complicated, too expensive. |
 | 7-second demo | Fold phone → apps locked. Open phone → branded block screen. Timer on the outer screen. Nothing to explain. |
-| Shareable result | "I shelved my phone for 3h 12m today" card. Streaks. Hours saved. Before/after screen-time screenshots. |
+| Shareable result | "I clammed up my phone for 3h 12m today" card. Streaks. Hours saved. Before/after screen-time screenshots. |
 | No backend needed for v1 | Screen Time API + StoreKit 2 + Live Activities all run on device. Zero server cost. |
 
 ## 2. The iPhone Duo angle (and why it still works on every iPhone)
@@ -38,7 +38,7 @@ should be live for.
 
 ## 3. Positioning against the category
 
-| Competitor | What they do well | What users hate | Shelf's answer |
+| Competitor | What they do well | What users hate | Clam's answer |
 |---|---|---|---|
 | Opal | Brand, deep scheduling, stats | Price (~$100/yr), heavy, "too many features" | One button. One price a third of theirs. |
 | Jomo | Cheaper, Mac support | Setup complexity | Zero-config: pick apps once, then one tap. |
@@ -46,20 +46,20 @@ should be live for.
 | Brick | Physical NFC brick is a great ritual | $59 hardware, forget the brick | The *phone itself* is the brick: fold it. |
 | ScreenZen | Free | Free means no push to change; easy to skip | Paid means committed. Early-exit costs a 10-second hold and your streak. |
 
-**One-line differentiation:** Shelf is the simplest real blocker on iOS. Choose apps once, then
+**One-line differentiation:** Clam is the simplest real blocker on iOS. Choose apps once, then
 every session is one tap and one fold. The ritual is the product.
 
 ## 4. Product (v1 = onboarding + paywall + core loop, nothing else)
 
 **Core loop**
-1. Tap **Shelf it** → pick 25 / 50 / 90 min (or custom).
+1. Tap **Clam up** → pick 25 / 50 / 90 min (or custom).
 2. Shield goes up on your chosen apps immediately (ManagedSettings). Live Activity starts.
 3. Lock / fold the phone. Timer stays visible on the outer screen.
-4. Session ends → shield drops → result card ("2h 14m shelved · 6-day streak") → share.
+4. Session ends → shield drops → result card ("2h 14m clammed up · 6-day streak") → share.
 5. Early exit is allowed but *costs something*: a 10-second hold and your streak resets.
 
-Entry points besides the app: Siri ("Shelf my phone"), the Shortcuts app, the Action Button,
-and a small Home Screen widget with a "Shelf it" button. All run the same intent. Each one is a
+Entry points besides the app: Siri ("Clam up my phone"), the Shortcuts app, the Action Button,
+and a small Home Screen widget with a "Clam up" button. All run the same intent. Each one is a
 video (see `docs/08-launch-videos.md`).
 
 **What is deliberately not in v1:** schedules, website blocking UI, family plans, Mac app, stats
@@ -100,7 +100,7 @@ See `docs/03-distribution.md` for hooks, formats and the creator brief. Short ve
 
 1. **Week 0–1:** study 20 winning videos from Opal, Brick, one sec, Jomo, "digital detox"
    creators. Save hook, first frame, time-to-product, CTA.
-2. **Week 1–2:** post 3 videos/day across 2 accounts using the proven formats with Shelf demos.
+2. **Week 1–2:** post 3 videos/day across 2 accounts using the proven formats with Clam demos.
    Volume over cleverness. Track by the tier ladder (views → downloads → trials → paid).
 3. **Week 3 (Duo launch week):** "first apps for the iPhone Duo" and "the iPhone Duo made my
    screen time worse, so I built this" angles. Seed 10 small creators (5k–50k followers, proven
@@ -109,7 +109,7 @@ See `docs/03-distribution.md` for hooks, formats and the creator brief. Short ve
 
 ## 7. Metrics that matter (instrument from day 1)
 
-Events are already defined in `Shelf/Services/Analytics.swift`. Funnel to watch weekly:
+Events are already defined in `Clam/Services/Analytics.swift`. Funnel to watch weekly:
 
 `app_open → onboarding_step(n) → screen_time_authorized → taste_session_completed → paywall_shown → trial_started → paid → session_started (D1, D7) → session_completed`
 

@@ -21,7 +21,7 @@ Don't invent formats. The screen-time category has years of proven short-form co
 1. **Screen-recording demo** — phone locks, tries to open TikTok, hits the block screen. 5–8s.
 2. **"My screen time was X, now it's Y"** — before/after iOS Screen Time screenshots.
 3. **Slideshow / text-on-image** — 5 slides: "Signs your phone is running your life" → slide 5 is the app.
-4. **POV / skit** — "POV: you try to doomscroll at 1am but your phone is on the shelf."
+4. **POV / skit** — "POV: you try to doomscroll at 1am but your phone is clammed up."
 5. **Founder build-in-public** — "I built an app that turns the iPhone Duo into a brick. Day 3."
 6. **Reaction to stat** — "17 years of your life" stat with the app as the answer.
 
@@ -31,15 +31,15 @@ Don't invent formats. The screen-time category has years of proven short-form co
 2. Fold it. It's locked. That's the app.
 3. Your phone is a slot machine. This is the off switch.
 4. I get 27 days a year back with one button.
-5. POV: 1am, you unfold your phone, and Instagram is on the shelf.
+5. POV: 1am, you unfold your phone, and Instagram is clammed up.
 6. Stop deleting Instagram every Sunday.
 7. 96 times. That's how often you unlocked yesterday.
 8. This is the block screen that actually stopped me.
 9. The $2,000 iPhone Duo vs. a $40 app that makes you close it.
-10. I don't have willpower. I have a shelf.
-11. What happens when you try to open TikTok during a Shelf session.
+10. I don't have willpower. I clam up.
+11. What happens when you try to open TikTok during a Clam session.
 12. Brick costs $59 and you'll lose it. Your phone is the brick.
-13. Day 1 vs Day 30 of shelving my phone.
+13. Day 1 vs Day 30 of clamming up my phone.
 14. The one iPhone setting nobody uses, done right.
 15. Screen time apps are bloated. This one has one button.
 16. Fold. Focus. Unfold. Done.

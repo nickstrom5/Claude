@@ -12,16 +12,16 @@ all three plainly.
 
 ## Fields
 
-**App name:** Shelf (or the chosen name)
+**App name:** Clam
 
-**Bundle ID:** `com.shelfapp.ios` (then `com.shelfapp.ios.shield`, then `com.shelfapp.ios.monitor`)
+**Bundle ID:** `com.clamapp.ios` (then `com.clamapp.ios.shield`, then `com.clamapp.ios.monitor`)
 
 **Website:** https://nickstrom5.github.io/Claude/ (or the marketing site once it exists)
 
 **Describe your app and how it uses Family Controls:**
 
 ```
-Shelf is a personal digital-wellbeing app for individual users (not parental control). The user
+Clam is a personal digital-wellbeing app for individual users (not parental control). The user
 chooses the apps they find distracting, then starts a timed focus session of 25, 50 or 90
 minutes. For the duration of that session the chosen apps are shielded so the user cannot open
 them. When the timer ends, the shield is removed automatically.
@@ -32,10 +32,10 @@ The app uses:
   the app never requests .child.
 - ManagedSettings: ManagedSettingsStore.shield to restrict the selected applications and
   categories only while a session the user started is running.
-- ManagedSettingsUI (extension bundle com.shelfapp.ios.shield): a ShieldConfigurationDataSource
+- ManagedSettingsUI (extension bundle com.clamapp.ios.shield): a ShieldConfigurationDataSource
   that customises the appearance and text of the shield so the user understands why the app is
   blocked and how long remains.
-- DeviceActivity (extension bundle com.shelfapp.ios.monitor): a DeviceActivityMonitor whose only
+- DeviceActivity (extension bundle com.clamapp.ios.monitor): a DeviceActivityMonitor whose only
   job is to remove the shield when the session's scheduled end time is reached, so restrictions
   never outlive the timer even if the app is not running. It does not observe or report usage.
 

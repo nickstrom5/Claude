@@ -1,35 +1,38 @@
-# Naming
+# Naming: why "Clam"
 
-**"Shelf" is taken.** There is an existing App Store app, *Shelf – Create Live Activities*, that
-pins things to the Lock Screen and Dynamic Island. Same surface as our Live Activity, so App
-Review and users would both confuse the two. Keep "Shelf" as the internal code name only.
+Decided 17 September 2026. The app is **Clam**. The verb is **clam up**.
 
 ## What the name has to do
 
 1. Say the ritual in one word: you close the phone, the apps close with it.
-2. Read in a 3-second TikTok caption and survive a 7-second demo.
-3. Be free on the App Store search results for "screen time" and "app blocker" (checked below).
-4. Have a usable bundle ID and a .app or .co domain.
+2. Survive a 3-second TikTok caption and a 7-second demo.
+3. Be clear of the App Store results for "screen time" and "app blocker".
+4. Not sit on someone else's trademark.
 
-## Candidates (first pass, September 2026)
+## Why Clam
 
-| Name | Pitch line | App Store collision? | Notes |
-|---|---|---|---|
-| **Latch** | Fold it. Latch it. | None found among screen-time apps | Strong verb, physical, fold-native. Top pick. |
-| **Shut** | Shut the phone. Shut the apps. | None found | Blunt, memorable. "Shut" as an app name may read harsh in the App Store. |
-| **Foldd** | Fold to focus | None found | Ties hard to the Duo, which is only a fraction of iPhones. Risky if the Duo flops. |
-| **Lid** | Close the lid on your apps | Not checked | Short, but generic. |
-| **Closed** | Closed for the next 25 min | Not checked | Reads as a status, which is the point. Hard to search. |
+- A foldable is a clamshell. Closing the phone *is* the product, and the name says so.
+- "Clam up" already means "go quiet". Button copy, block screen and share card write
+  themselves: **Clam up** · *Instagram is clammed up* · *I clammed up for 2h 14m*.
+- No screen-time, focus or productivity app on the App Store uses it. The "Clam" apps that exist
+  (a library network, a zoo species counter, a Japanese salon booking app, a couple of restaurants)
+  are in unrelated categories and none is a consumer brand.
+- Four letters. Works as a handle, a domain and an app icon.
 
-"Locked", "LockedIn", "Lock In", "Lockr", "Lockify", "Focus Lock" all exist already. Avoid
-anything with "lock" or "focus" in the name; the category is saturated with them and search
-results will bury you.
+## Rejected
 
-## Recommendation
+| Name | Why not |
+|---|---|
+| Shelf (original code name) | *Shelf – Create Live Activities* already exists, on the same Lock Screen / Dynamic Island surface we use. Direct confusion. |
+| Latch | *Latch App* is Latchable Inc.'s smart-lock product. An app that "locks apps" under the same name invites a trademark dispute with a company that has lawyers. |
+| Lock In, Locked, Lockr, Lockify, Focus Lock | All exist. Anything with "lock" or "focus" is buried in search. |
+| Foldd | Bets the brand on the Duo, which is a fraction of iPhones. |
 
-**Latch.** App Store title: *Latch: Fold to Focus. App Blocker*. Subtitle: *Close your phone,
-close your apps*. Bundle ID `com.<yourcompany>.latch`.
+## Still to do (ten minutes, needs your accounts)
 
-Before committing: search the App Store on a phone for "Latch" and "Latch app", check
-`latch.app` / `getlatch.co` / `latchapp.co`, and check the @latchapp handles on TikTok and
-Instagram. Ten minutes. Then rename in one commit (search the repo for "Shelf" and "shelf").
+- App Store: search "Clam" on a phone and confirm nothing new appeared.
+- Domain: try `clam.app`, `clamup.app`, `getclam.app`, `clamapp.co`. Buy the first one available
+  at Cloudflare Registrar. This also unblocks the support email (see the launch checklist).
+- Handles: @clamapp / @clamup on TikTok and Instagram.
+- Bundle ID is already set to `com.clamapp.ios`. If you buy a different domain, change the
+  prefix in `project.yml` before requesting the entitlement.
