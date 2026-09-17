@@ -65,6 +65,6 @@ numbers before submission and cite them in the App Store description.
 
 ## Status
 
-Scaffolded end to end; not yet compiled on a Mac. First job on a Mac is `xcodegen generate`,
-build, and fix whatever the compiler flags. Then run the onboarding on a device and watch where
-you stop wanting to continue. That screen is the first thing to fix.
+Builds and runs in the iOS simulator (Xcode 26.5). Not yet run on a physical iPhone, so the
+Screen Time shield and block screen are untested. Next: run the onboarding on a device and watch
+where you stop wanting to continue. That screen is the first thing to fix.
