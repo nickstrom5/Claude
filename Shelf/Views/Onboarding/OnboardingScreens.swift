@@ -90,6 +90,11 @@ struct AppsScreen: View {
         ) {
             VStack(spacing: 16) {
                 Button {
+                    if ScreenTimeManager.isSimulator {
+                        // No real picker in the simulator; pretend four apps were chosen.
+                        screenTime.simulatedSelectionCount = screenTime.hasSelection ? 0 : 4
+                        return
+                    }
                     Task {
                         if screenTime.isAuthorized || (await screenTime.requestAuthorization()) {
                             showPicker = true
@@ -115,7 +120,9 @@ struct AppsScreen: View {
                 }
                 .buttonStyle(PressScaleStyle())
 
-                Text("Popular picks: Instagram, TikTok, X, YouTube, Reddit, Safari.")
+                Text(ScreenTimeManager.isSimulator
+                     ? "Simulator: tapping above pretends 4 apps were chosen. Real blocking needs a device."
+                     : "Popular picks: Instagram, TikTok, X, YouTube, Reddit, Safari.")
                     .font(Theme.Font.caption)
                     .foregroundStyle(Theme.textTertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -316,7 +323,9 @@ struct TasteSessionScreen: View {
                         Text("Your apps are locked. For real.")
                             .font(Theme.Font.title)
                             .foregroundStyle(Theme.textPrimary)
-                        Text("Lock your phone and look at the lock screen.\nThen try opening one of the apps you picked.")
+                        Text(ScreenTimeManager.isSimulator
+                             ? "Simulator: lock the device (⌘L) to see the Live Activity.\nApp blocking only works on a real iPhone."
+                             : "Lock your phone and look at the lock screen.\nThen try opening one of the apps you picked.")
                             .font(Theme.Font.body)
                             .foregroundStyle(Theme.textSecondary)
                             .multilineTextAlignment(.center)

@@ -14,6 +14,10 @@ struct SettingsView: View {
             List {
                 Section("Shelved apps") {
                     Button {
+                        if ScreenTimeManager.isSimulator {
+                            screenTime.simulatedSelectionCount = screenTime.hasSelection ? 0 : 4
+                            return
+                        }
                         Task {
                             if screenTime.isAuthorized || (await screenTime.requestAuthorization()) {
                                 showPicker = true

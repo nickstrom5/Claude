@@ -37,7 +37,10 @@ open Shelf.xcodeproj
 
 1. Set your team on all three targets (Signing & Capabilities).
 2. Change the bundle ID prefix in `project.yml` if you don't own `com.shelfapp`.
-3. Run on a **physical iPhone**. Screen Time and Live Activities don't run in the simulator.
+3. **Simulator** runs everything except real app blocking: onboarding, paywall (StoreKit test
+   config), sessions, Live Activity (lock with ⌘L) and the share card all work. Screen Time is
+   stubbed there (see `ScreenTimeManager.isSimulator`), so "choose apps" pretends four were
+   picked. A **physical iPhone** is needed to see the shield and the block screen.
 4. The `Shelf` scheme uses `Shelf/Resources/Products.storekit`, so the paywall works locally
    without App Store Connect.
 

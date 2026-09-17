@@ -17,8 +17,22 @@ final class ScreenTimeManager: ObservableObject {
     private let store = ManagedSettingsStore(named: ManagedSettingsStore.Name("shelf"))
     private let defaults = AppGroup.defaults
 
+    /// Screen Time APIs don't work in the simulator: authorization fails, the picker is empty and
+    /// shields do nothing. In the simulator we pretend, so the full onboarding, paywall and session
+    /// loop can be clicked through. Everything under `isSimulator` is compiled out on device.
+    #if targetEnvironment(simulator)
+    static let isSimulator = true
+    #else
+    static let isSimulator = false
+    #endif
+
+    /// Stand-in for the number of picked apps when running in the simulator.
+    @Published var simulatedSelectionCount: Int = AppGroup.defaults.integer(forKey: "simulatedSelectionCount") {
+        didSet { defaults.set(simulatedSelectionCount, forKey: "simulatedSelectionCount") }
+    }
+
     init() {
-        isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+        isAuthorized = Self.isSimulator || AuthorizationCenter.shared.authorizationStatus == .approved
         if let data = AppGroup.defaults.data(forKey: AppGroup.Key.activitySelection),
            let saved = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
             selection = saved
@@ -29,7 +43,8 @@ final class ScreenTimeManager: ObservableObject {
 
     /// Number of things the user chose to shelve, for copy like "6 apps locked".
     var selectedCount: Int {
-        selection.applicationTokens.count + selection.categoryTokens.count + selection.webDomainTokens.count
+        if Self.isSimulator { return simulatedSelectionCount }
+        return selection.applicationTokens.count + selection.categoryTokens.count + selection.webDomainTokens.count
     }
 
     var hasSelection: Bool { selectedCount > 0 }
@@ -37,6 +52,10 @@ final class ScreenTimeManager: ObservableObject {
     // MARK: - Authorization
 
     func requestAuthorization() async -> Bool {
+        if Self.isSimulator {
+            isAuthorized = true
+            return true
+        }
         do {
             try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
             isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
@@ -49,13 +68,14 @@ final class ScreenTimeManager: ObservableObject {
     }
 
     func refreshAuthorization() {
-        isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+        isAuthorized = Self.isSimulator || AuthorizationCenter.shared.authorizationStatus == .approved
     }
 
     // MARK: - Shield
 
     /// Puts the chosen apps behind the Shelf block screen.
     func applyShield() {
+        guard !Self.isSimulator else { return }
         store.shield.applications = selection.applicationTokens.isEmpty ? nil : selection.applicationTokens
         store.shield.applicationCategories = selection.categoryTokens.isEmpty
             ? nil
@@ -68,6 +88,7 @@ final class ScreenTimeManager: ObservableObject {
 
     /// Removes every restriction Shelf set.
     func clearShield() {
+        guard !Self.isSimulator else { return }
         store.clearAllSettings()
     }
 
