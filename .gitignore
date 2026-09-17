@@ -1,0 +1,22 @@
+# Xcode (the project is generated from project.yml with xcodegen)
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Secrets
+*.p8
+*.p12
+*.mobileprovision

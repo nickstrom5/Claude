@@ -1,0 +1,99 @@
+name: Shelf
+options:
+  bundleIdPrefix: com.shelfapp
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""            # set your team in Xcode or here
+    CODE_SIGN_STYLE: Automatic
+    TARGETED_DEVICE_FAMILY: "1"    # iPhone only for v1
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+targets:
+  Shelf:
+    type: application
+    platform: iOS
+    sources:
+      - path: Shelf
+      - path: Shared
+    dependencies:
+      - target: ShelfShield
+      - target: ShelfWidgets
+    entitlements:
+      path: Shelf/Shelf.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.shelfapp.ios
+    info:
+      path: Shelf/Info.plist
+      properties:
+        CFBundleDisplayName: Shelf
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSSupportsLiveActivities: true
+        NSSupportsLiveActivitiesFrequentUpdates: false
+        NSMotionUsageDescription: Shelf uses motion to notice when your phone is resting face-down during a session.
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shelfapp.ios
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    scheme:
+      testTargets: []
+      storeKitConfiguration: Shelf/Resources/Products.storekit
+
+  ShelfShield:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShelfShield
+      - path: Shared
+    entitlements:
+      path: ShelfShield/ShelfShield.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.shelfapp.ios
+    info:
+      path: ShelfShield/Info.plist
+      properties:
+        CFBundleDisplayName: Shelf Shield
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettingsUI.shield-configuration-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShieldConfigurationExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shelfapp.ios.shield
+
+  ShelfWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShelfWidgets
+      - path: Shared
+    entitlements:
+      path: ShelfWidgets/ShelfWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.shelfapp.ios
+    info:
+      path: ShelfWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: Shelf Widgets
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shelfapp.ios.widgets
