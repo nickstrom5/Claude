@@ -56,8 +56,8 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Link("Privacy policy", destination: URL(string: "https://shelfapp.example/privacy")!)
-                    Link("Terms", destination: URL(string: "https://shelfapp.example/terms")!)
+                    Link("Privacy policy", destination: URL(string: "https://nickstrom5.github.io/Claude/privacy.html")!)
+                    Link("Terms", destination: URL(string: "https://nickstrom5.github.io/Claude/terms.html")!)
                     Link("Send feedback", destination: URL(string: "mailto:hello@shelfapp.example")!)
                 } footer: {
                     Text("Shelf \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Everything stays on your phone.")

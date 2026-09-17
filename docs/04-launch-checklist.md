@@ -9,12 +9,16 @@
 - [ ] **Request the Family Controls (Distribution) entitlement** for the main app **and** the
       shield extension bundle ID (`com.shelfapp.ios.shield`). Requests are per bundle ID.
       Form: https://developer.apple.com/contact/request/family-controls-distribution
+      Draft answers are in `docs/07-entitlement-request.md`.
       In 2026 this is taking days to weeks, so this is the critical path. Development builds
       work without it.
 - [ ] App Store Connect: create the app, three in-app purchases matching `Shelf/Resources/Products.storekit`
       (`shelf.yearly`, `shelf.monthly`, `shelf.lifetime`), one subscription group, 7-day free trial
       intro offer on yearly.
-- [ ] Privacy policy + terms URLs (a one-page site is fine). Paywall links to them.
+- [ ] Turn on GitHub Pages: repo Settings → Pages → Deploy from a branch → this branch, folder `/docs`.
+      That publishes `docs/index.html`, `privacy.html` and `terms.html` at
+      https://nickstrom5.github.io/Claude/ which the paywall and settings already link to.
+      Replace `hello@shelfapp.example` in those files with a real address.
 
 ## Build
 

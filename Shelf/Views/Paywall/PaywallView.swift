@@ -137,8 +137,8 @@ struct PaywallView: View {
     private var footer: some View {
         HStack(spacing: 18) {
             Button("Restore") { Task { await store.restore() } }
-            Link("Terms", destination: URL(string: "https://shelfapp.example/terms")!)
-            Link("Privacy", destination: URL(string: "https://shelfapp.example/privacy")!)
+            Link("Terms", destination: URL(string: "https://nickstrom5.github.io/Claude/terms.html")!)
+            Link("Privacy", destination: URL(string: "https://nickstrom5.github.io/Claude/privacy.html")!)
         }
         .font(Theme.Font.caption)
         .foregroundStyle(Theme.textTertiary)

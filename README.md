@@ -11,6 +11,12 @@ iPhone with a lock screen.
 - `docs/02-onboarding-and-paywall.md` — every onboarding screen and the belief it moves
 - `docs/03-distribution.md` — formats, 20 hooks, creator brief, tier ladder, Duo launch week
 - `docs/04-launch-checklist.md` — entitlement request, App Store Connect, build steps
+- `docs/05-naming.md` — "Shelf" is taken; candidates and a recommendation
+- `docs/06-app-store-listing.md` — title, subtitle, keywords, description, screenshots, review notes
+- `docs/07-entitlement-request.md` — copy-paste answers for the Family Controls request
+- `docs/08-launch-videos.md` — shot lists for the first 10 videos
+- `docs/09-creator-outreach.md` — DM, brief, pay and tracking for small creators
+- `docs/index.html`, `privacy.html`, `terms.html` — landing page and legal pages for GitHub Pages
 
 ## What's in the box
 
