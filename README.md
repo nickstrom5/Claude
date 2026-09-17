@@ -44,7 +44,7 @@ open Clam.xcodeproj
 ```
 
 1. Set your team on all four app/extension targets (Signing & Capabilities).
-2. Change the bundle ID prefix in `project.yml` if you don't own `com.clamapp`.
+2. Bundle IDs are `app.getclam.clam` and friends, matching the getclam.app domain.
 3. **Simulator** runs everything except real app blocking: onboarding, paywall (StoreKit test
    config), sessions, Live Activity (lock with ⌘L) and the share card all work. Screen Time is
    stubbed there (see `ScreenTimeManager.isSimulator`), so "choose apps" pretends four were
