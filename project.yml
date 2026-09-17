@@ -27,6 +27,7 @@ targets:
     dependencies:
       - target: ShelfShield
       - target: ShelfWidgets
+      - target: ShelfMonitor
     entitlements:
       path: Shelf/Shelf.entitlements
       properties:
@@ -88,6 +89,29 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.shelfapp.ios.shield
+
+  ShelfMonitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShelfMonitor
+      - path: Shared
+    entitlements:
+      path: ShelfMonitor/ShelfMonitor.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.shelfapp.ios
+    info:
+      path: ShelfMonitor/Info.plist
+      properties:
+        CFBundleDisplayName: Shelf Monitor
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShelfMonitorExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shelfapp.ios.monitor
 
   ShelfWidgets:
     type: app-extension

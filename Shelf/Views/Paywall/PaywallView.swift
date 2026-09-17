@@ -64,6 +64,7 @@ struct PaywallView: View {
             }
         }
         .task {
+            if store.isPro { onFinished(); return }
             Analytics.track(.paywallShown, ["context": String(describing: context)])
             if store.products.isEmpty { await store.load() }
             try? await Task.sleep(nanoseconds: 2_000_000_000)

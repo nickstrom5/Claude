@@ -2,7 +2,7 @@
 
 Form: https://developer.apple.com/contact/request/family-controls-distribution
 
-Submit **two** requests: one for the app bundle ID, one for the shield extension bundle ID.
+Submit **three** requests: the app bundle ID, the shield extension and the monitor extension.
 The widget extension does not need it. Do this before anything else; in 2026 approvals are
 taking from four business days to several weeks, and TestFlight is blocked until it lands.
 
@@ -14,7 +14,7 @@ all three plainly.
 
 **App name:** Shelf (or the chosen name)
 
-**Bundle ID:** `com.shelfapp.ios` (second request: `com.shelfapp.ios.shield`)
+**Bundle ID:** `com.shelfapp.ios` (then `com.shelfapp.ios.shield`, then `com.shelfapp.ios.monitor`)
 
 **Website:** https://nickstrom5.github.io/Claude/ (or the marketing site once it exists)
 
@@ -35,6 +35,9 @@ The app uses:
 - ManagedSettingsUI (extension bundle com.shelfapp.ios.shield): a ShieldConfigurationDataSource
   that customises the appearance and text of the shield so the user understands why the app is
   blocked and how long remains.
+- DeviceActivity (extension bundle com.shelfapp.ios.monitor): a DeviceActivityMonitor whose only
+  job is to remove the shield when the session's scheduled end time is reached, so restrictions
+  never outlive the timer even if the app is not running. It does not observe or report usage.
 
 The app does not use DeviceActivity reports, does not read or record which apps the user opens,
 and does not collect, transmit or sell any usage data. All state is stored locally in an App

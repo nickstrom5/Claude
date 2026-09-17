@@ -1,4 +1,5 @@
 import Combine
+import DeviceActivity
 import FamilyControls
 import Foundation
 import ManagedSettings
@@ -90,6 +91,35 @@ final class ScreenTimeManager: ObservableObject {
     func clearShield() {
         guard !Self.isSimulator else { return }
         store.clearAllSettings()
+    }
+
+    // MARK: - Safety net
+
+    private static let monitorName = DeviceActivityName("shelf.session")
+    /// DeviceActivity refuses schedules shorter than this. Shorter sessions rely on the in-app timer only.
+    static let minimumMonitoredMinutes = 15
+
+    /// Asks iOS to call the monitor extension when the session ends, so the shield is cleared even
+    /// if the app is suspended or killed before the timer fires.
+    func scheduleShieldRemoval(start: Date, end: Date) {
+        guard !Self.isSimulator, end.timeIntervalSince(start) >= Double(Self.minimumMonitoredMinutes * 60) else { return }
+        let units: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
+        let cal = Calendar.current
+        let schedule = DeviceActivitySchedule(
+            intervalStart: cal.dateComponents(units, from: start),
+            intervalEnd: cal.dateComponents(units, from: end),
+            repeats: false
+        )
+        do {
+            try DeviceActivityCenter().startMonitoring(Self.monitorName, during: schedule)
+        } catch {
+            Analytics.track(.monitorScheduleFailed, ["error": String(describing: error)])
+        }
+    }
+
+    func cancelShieldRemoval() {
+        guard !Self.isSimulator else { return }
+        DeviceActivityCenter().stopMonitoring([Self.monitorName])
     }
 
     // MARK: - Private

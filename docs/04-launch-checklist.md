@@ -5,9 +5,10 @@
 - [ ] Create the App ID in the Apple Developer portal with a final bundle ID. It is set to
       `com.shelfapp.ios` in `project.yml`; change it once, everywhere, before requesting the
       entitlement (entitlements are per bundle ID).
-- [ ] Enable **App Groups** (`group.com.shelfapp.ios`) on the app and both extensions.
-- [ ] **Request the Family Controls (Distribution) entitlement** for the main app **and** the
-      shield extension bundle ID (`com.shelfapp.ios.shield`). Requests are per bundle ID.
+- [ ] Enable **App Groups** (`group.com.shelfapp.ios`) on the app and all three extensions.
+- [ ] **Request the Family Controls (Distribution) entitlement** for the main app, the shield
+      extension (`com.shelfapp.ios.shield`) and the monitor extension (`com.shelfapp.ios.monitor`).
+      Requests are per bundle ID.
       Form: https://developer.apple.com/contact/request/family-controls-distribution
       Draft answers are in `docs/07-entitlement-request.md`.
       In 2026 this is taking days to weeks, so this is the critical path. Development builds
@@ -29,7 +30,7 @@ xcodegen generate
 open Shelf.xcodeproj
 ```
 
-- Select your team in Signing & Capabilities for all three targets.
+- Select your team in Signing & Capabilities for the app and its three extensions.
 - Run on a **physical device**. Screen Time APIs and Live Activities do not work in the simulator.
 - Use the `Shelf` scheme; StoreKit testing is wired to `Products.storekit` so purchases work
   locally without App Store Connect.

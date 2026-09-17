@@ -27,6 +27,7 @@ enum AnalyticsEvent: String {
     case sessionAbandoned = "session_abandoned"
     case shareTapped = "share_tapped"
     case liveActivityFailed = "live_activity_failed"
+    case monitorScheduleFailed = "monitor_schedule_failed"
 }
 
 protocol AnalyticsSink {

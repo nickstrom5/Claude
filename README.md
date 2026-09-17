@@ -22,9 +22,11 @@ iPhone with a lock screen.
 
 | Target | What it is |
 |---|---|
-| `Shelf` | SwiftUI app: 9-step onboarding, taste session, StoreKit 2 paywall, home, active session, result + share card, settings |
+| `Shelf` | SwiftUI app: 9-step onboarding, taste session, StoreKit 2 paywall, home, active session, result + share card, settings, Siri/Action Button intent |
 | `ShelfShield` | Shield Configuration extension: the branded block screen users see when they open a locked app |
-| `ShelfWidgets` | Live Activity: countdown on the Lock Screen / Dynamic Island / iPhone Duo outer display |
+| `ShelfWidgets` | Live Activity countdown (Lock Screen / Dynamic Island / iPhone Duo outer display) and a Home Screen "Shelf it" widget |
+| `ShelfMonitor` | Device Activity monitor: clears the shield when the session ends even if the app was killed |
+| `ShelfTests` | Unit tests for streak, reveal math and durations |
 | `Shared` | App Group constants and the Live Activity attributes shared by all three |
 
 No backend. Screen Time API (FamilyControls + ManagedSettings), ActivityKit, StoreKit 2,
@@ -41,7 +43,7 @@ xcodegen generate
 open Shelf.xcodeproj
 ```
 
-1. Set your team on all three targets (Signing & Capabilities).
+1. Set your team on all four app/extension targets (Signing & Capabilities).
 2. Change the bundle ID prefix in `project.yml` if you don't own `com.shelfapp`.
 3. **Simulator** runs everything except real app blocking: onboarding, paywall (StoreKit test
    config), sessions, Live Activity (lock with ⌘L) and the share card all work. Screen Time is

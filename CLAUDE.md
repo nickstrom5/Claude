@@ -10,7 +10,7 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
 - CI (`.github/workflows/build.yml`) does exactly this on `macos-26`. Keep it green.
 
 ## Runtime caveats
-- Screen Time (FamilyControls / ManagedSettings) and the shield extension only work on a physical device. In the simulator `ScreenTimeManager.isSimulator` stubs them so the whole flow is clickable.
+- Screen Time (FamilyControls / ManagedSettings), the shield extension and the monitor extension only work on a physical device. In the simulator `ScreenTimeManager.isSimulator` stubs them so the whole flow is clickable.
 - Live Activities work in the simulator (⌘L to lock).
 - StoreKit uses `Shelf/Resources/Products.storekit`; product IDs `shelf.yearly`, `shelf.monthly`, `shelf.lifetime`.
 

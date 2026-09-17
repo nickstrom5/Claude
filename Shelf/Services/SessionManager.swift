@@ -37,6 +37,7 @@ final class SessionManager: ObservableObject {
         lastFinished = nil
 
         screenTime.applyShield()
+        screenTime.scheduleShieldRemoval(start: session.start, end: session.plannedEnd)
         defaults.set(ISO8601DateFormatter().string(from: session.plannedEnd), forKey: AppGroup.Key.activeSessionEnd)
         defaults.set(minutes, forKey: AppGroup.Key.activeSessionMinutes)
 
@@ -64,6 +65,16 @@ final class SessionManager: ObservableObject {
         session.completed = false
         finish(session)
         Analytics.track(.sessionAbandoned, ["elapsedMinutes": session.actualMinutes, "planned": session.plannedMinutes])
+    }
+
+    /// Call whenever the app comes to the foreground. The in-app timer can't fire while the app
+    /// is suspended, so this closes out any session whose time has passed.
+    func refresh() {
+        if let session = active, session.plannedEnd <= Date() {
+            complete()
+        } else if active == nil {
+            restoreIfNeeded()
+        }
     }
 
     /// If the app was killed mid-session, pick up where we left off (or close it out).
@@ -94,6 +105,7 @@ final class SessionManager: ObservableObject {
         completionTask?.cancel()
         completionTask = nil
         screenTime.clearShield()
+        screenTime.cancelShieldRemoval()
         defaults.removeObject(forKey: AppGroup.Key.activeSessionEnd)
         defaults.removeObject(forKey: AppGroup.Key.activeSessionMinutes)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["shelf.sessionEnd"])
