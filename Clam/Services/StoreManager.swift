@@ -101,6 +101,13 @@ final class StoreManager: ObservableObject {
     }
 
     func refreshEntitlements() async {
+        #if DEBUG
+        // QA hook: `SIMCTL_CHILD_CLAM_FORCE_PRO=1 xcrun simctl launch …` unlocks Pro without a purchase.
+        if ProcessInfo.processInfo.environment["CLAM_FORCE_PRO"] == "1" {
+            isPro = true
+            return
+        }
+        #endif
         var pro = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }

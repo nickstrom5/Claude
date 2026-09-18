@@ -16,6 +16,8 @@ struct HookScreen: View {
             Text("17 years")
                 .font(Theme.Font.display(88))
                 .foregroundStyle(Theme.accent)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)   // fits on a 375pt-wide SE without wrapping
                 .padding(.vertical, -6)
             Text("of their life looking at a phone.")
                 .font(Theme.Font.title)
@@ -387,6 +389,10 @@ struct TasteResultScreen: View {
     @State private var showShare = false
 
     var body: some View {
+        GeometryReader { geo in
+        // The card is a fixed 300pt square; shrink its layout footprint (not just its pixels)
+        // so the copy above it never gets squeezed to one line on a 4.7" phone.
+        let cardScale = min(0.9, max(0.55, (geo.size.height - 400) / 300))
         VStack(spacing: 0) {
             Spacer()
             Image(systemName: "checkmark.seal.fill")
@@ -397,16 +403,19 @@ struct TasteResultScreen: View {
                 .font(Theme.Font.title)
                 .foregroundStyle(Theme.textPrimary)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
             Text("That was 1 minute. Do it daily and you get **\(appState.answers.daysBackPerYear) days a year** back. That's the whole trick.")
                 .font(Theme.Font.body)
                 .foregroundStyle(Theme.textSecondary)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 10)
                 .padding(.horizontal, 8)
 
             ShareCardView(title: "I clammed up my phone", detail: "for the first time", streak: nil)
+                .scaleEffect(cardScale)
+                .frame(width: 300 * cardScale, height: 300 * cardScale)
                 .padding(.top, 28)
-                .scaleEffect(0.9)
 
             Spacer()
             PrimaryButton(title: "Keep going", action: onNext)
@@ -420,6 +429,8 @@ struct TasteResultScreen: View {
                     .frame(height: 44)
             }
             .padding(.bottom, 8)
+        }
+        .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, Theme.horizontalPadding)
         .sheet(isPresented: $showShare) {

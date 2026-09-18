@@ -32,6 +32,8 @@ struct HomeView: View {
                             .font(Theme.Font.headline)
                             .foregroundStyle(Theme.textPrimary)
                     }
+                    .padding(.horizontal, 6)
+                    .fixedSize()   // iOS 26 glass capsule otherwise clips the number
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showSettings = true } label: {
