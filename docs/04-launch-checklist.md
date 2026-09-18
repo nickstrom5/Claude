@@ -21,6 +21,8 @@
       `A @ 185.199.108.153`, `A @ 185.199.109.153`, `A @ 185.199.110.153`, `A @ 185.199.111.153`,
       `CNAME www nickstrom5.github.io`. Then https://getclam.app/privacy.html and /terms.html
       resolve, which is what the app and the App Store listing link to.
+- [ ] GitHub account-level domain verification (github.com/settings/pages_verified_domains):
+      TXT `_github-pages-challenge-nickstrom5` = `f608cf247e8b8dbac47ce879e36ee9`, then click Verify.
 - [ ] Cloudflare Email Routing (Email → Email Routing): add destination Nickstrom5@gmail.com and
       confirm the verification mail, then custom addresses `support@getclam.app` and
       `hello@getclam.app`, plus a catch-all, all forwarding to that inbox. Cloudflare adds the MX
