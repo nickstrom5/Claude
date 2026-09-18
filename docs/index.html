@@ -37,20 +37,11 @@
   .btn.secondary { background: var(--raised); color: var(--fg); }
   .btn svg { width: 22px; height: 22px; }
   .pill { font-size: 14px; color: var(--faint); }
-  .duo { margin: 40px 0 8px; display: flex; justify-content: center; }
-  .device.photo { max-width: 560px; }
-  .device.photo img { width: 100%; height: auto; display: block; border-radius: 24px; }
-  .device { margin: 0; text-align: center; }
-  .device .screen { position: relative; background: #000; border: 6px solid #2a2a33; border-radius: 34px; box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 0 0 2px #0a0a0d; overflow: hidden; margin: 0 auto; }
-  .device figcaption { color: var(--faint); font-size: 14px; margin-top: 14px; }
-  .device.closed .screen { width: 200px; aspect-ratio: 9 / 19.5; padding: 18px 12px; display: flex; flex-direction: column; align-items: center; }
-  .device.closed .time { font-size: 44px; font-weight: 700; letter-spacing: -.02em; margin-top: 24px; }
-  .device.closed .la { margin-top: auto; margin-bottom: 26px; width: 100%; background: rgba(255,255,255,.08); border-radius: 18px; padding: 12px; text-align: left; }
-  .la-head { display: flex; align-items: center; gap: 6px; }
-  .la-icon svg { width: 16px; height: 16px; display: block; }
-  .la-title { font-size: 12px; font-weight: 600; }
-  .la-timer { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.02em; line-height: 1.1; margin: 4px 0 2px; }
-  .la-sub { font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .hero-shot { margin: 40px 0 8px; display: flex; justify-content: center; }
+  .iphone { margin: 0; text-align: center; width: min(320px, 78vw); }
+  .iphone .frame { position: relative; border-radius: 52px; padding: 10px; background: #1a1a20; box-shadow: 0 0 0 2px #34343e, 0 40px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.06); }
+  .iphone .frame img { width: 100%; height: auto; display: block; border-radius: 44px; }
+  .iphone figcaption { color: var(--faint); font-size: 14px; margin-top: 18px; }
   section { padding: 48px 0; border-top: 1px solid var(--raised); }
   h2 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 8px; font-weight: 800; }
   .sub { color: var(--muted); margin: 0 0 28px; }
@@ -106,10 +97,10 @@
       <span class="pill" id="store-note">Launching on the App Store this October.</span>
     </div>
 
-    <div class="duo" aria-label="Clam running on iPhone Duo">
-      <figure class="device photo">
-        <img src="brand/duo-hero.png" alt="iPhone Duo folded, showing the Clam countdown on its outer screen" width="770" height="870">
-        <figcaption>Folded. The countdown lives on the outer screen. Open it to scroll and you get a clam, not a feed.</figcaption>
+    <div class="hero-shot" aria-label="Clam on iPhone">
+      <figure class="iphone">
+        <div class="frame"><img src="brand/hero-share.png" alt="Clam session complete: Clammed up for 2h 14m, 12-day streak, with a share card" width="660" height="1434"></div>
+        <figcaption>Every session ends with a card worth sharing.</figcaption>
       </figure>
     </div>
         </div>
