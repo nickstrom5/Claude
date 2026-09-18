@@ -17,6 +17,9 @@
 - [ ] Turn on GitHub Pages: repo Settings → Pages → Deploy from a branch → this branch, folder `/docs`.
       Under "Custom domain" enter `getclam.app` (the `docs/CNAME` file already says so) and tick
       "Enforce HTTPS" once the certificate appears.
+- [ ] Run `CF_TOKEN=<token> bash scripts/cloudflare-setup.sh` on a Mac (needs `brew install jq`). It does
+      the DNS records, the GitHub verification TXT and all the email routing below in one go.
+      Manual equivalent:
 - [ ] Cloudflare DNS for getclam.app (DNS → Records), all **DNS only** (grey cloud):
       `A @ 185.199.108.153`, `A @ 185.199.109.153`, `A @ 185.199.110.153`, `A @ 185.199.111.153`,
       `CNAME www nickstrom5.github.io`. Then https://getclam.app/privacy.html and /terms.html
