@@ -34,7 +34,7 @@ protocol AnalyticsSink {
     func track(_ event: AnalyticsEvent, _ properties: [String: Any])
 }
 
-/// Swap `sink` for PostHog / Mixpanel / Amplitude when the app goes live. Same event names.
+/// `ClamApp.init` installs the console sink plus PostHog when `Config.postHogKey` is set.
 enum Analytics {
     static var sink: AnalyticsSink = ConsoleAnalytics()
 

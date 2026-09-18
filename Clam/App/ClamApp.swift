@@ -9,6 +9,10 @@ struct ClamApp: App {
     @StateObject private var sessions: SessionManager
 
     init() {
+        var sinks: [AnalyticsSink] = [ConsoleAnalytics()]
+        if let postHog = PostHogAnalytics.start() { sinks.append(postHog) }
+        Analytics.sink = CompositeAnalytics(sinks: sinks)
+
         let state = AppState()
         let screenTime = ScreenTimeManager()
         _appState = StateObject(wrappedValue: state)

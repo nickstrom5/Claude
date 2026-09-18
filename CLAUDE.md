@@ -16,6 +16,7 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
 
 ## Conventions
 - One core loop, no feature creep: onboarding → paywall → session → result. New features need a line in `docs/01-strategy.md` explaining which funnel metric they move.
-- Every funnel step logs an `AnalyticsEvent`. Add events there, never ad-hoc strings.
+- Every funnel step logs an `AnalyticsEvent`. Add events there, never ad-hoc strings. PostHog is the sink
+  when `Config.postHogKey` is set; keep it anonymous (no `identify`, no replay).
 - Copy lives in the views. Keep it short and direct; no "Welcome!", no feature lists.
 - Dark theme only, tokens in `Clam/Design/Theme.swift`.

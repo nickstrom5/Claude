@@ -61,8 +61,9 @@ open Clam.xcodeproj
       4) one button home, 5) reveal number. Same order as the onboarding beliefs.
 - [ ] App Review notes: explain Family Controls use (individual, not parental), how to test
       (pick any app in onboarding, start 1-minute session).
-- [ ] Turn on analytics backend (`Analytics.swift` currently logs to console; swap in
-      PostHog/Mixpanel with the same event names).
+- [ ] Analytics: create a free PostHog project, paste the `phc_…` key into `Clam/App/Config.swift`.
+      Build a funnel in PostHog from `onboarding_started` → `taste_session_completed` → `paywall_shown`
+      → `trial_started` → `paid`. That funnel is the business.
 
 ## Day of launch
 

@@ -52,7 +52,7 @@ every session is one tap and one fold. The ritual is the product.
 ## 4. Product (v1 = onboarding + paywall + core loop, nothing else)
 
 **Core loop**
-1. Tap **Clam up** → pick 25 / 50 / 90 min (or custom).
+1. Tap **Clam up** → pick 25 / 50 / 90 min, or any length from 5 min to 4 h.
 2. Shield goes up on your chosen apps immediately (ManagedSettings). Live Activity starts.
 3. Lock / fold the phone. Timer stays visible on the outer screen.
 4. Session ends → shield drops → result card ("2h 14m clammed up · 6-day streak") → share.

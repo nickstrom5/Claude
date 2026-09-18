@@ -10,6 +10,7 @@ struct HomeView: View {
     @State private var showSettings = false
     @State private var showPaywall = false
     @State private var showResult = false
+    @State private var showDurationPicker = false
 
     private let presets = [25, 50, 90]
 
@@ -41,6 +42,10 @@ struct HomeView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
+        .sheet(isPresented: $showDurationPicker) {
+            DurationPickerSheet(minutes: $appState.preferredMinutes)
+                .presentationDetents([.height(360)])
+        }
         .sheet(isPresented: $showPaywall) { PaywallView(context: .home, onFinished: { showPaywall = false }) }
         .sheet(isPresented: $showResult) {
             if let finished = sessions.lastFinished {
@@ -77,20 +82,16 @@ struct HomeView: View {
 
             Spacer()
 
-            // Duration
-            HStack(spacing: 10) {
+            // Duration: three presets plus a custom chip that shows whatever was picked.
+            let isCustom = !presets.contains(appState.preferredMinutes)
+            HStack(spacing: 8) {
                 ForEach(presets, id: \.self) { minutes in
-                    let selected = appState.preferredMinutes == minutes
-                    Button { appState.preferredMinutes = minutes } label: {
-                        Text("\(minutes) min")
-                            .font(Theme.Font.headline)
-                            .foregroundStyle(selected ? .black : Theme.textPrimary)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 48)
-                            .background(selected ? Theme.accent : Theme.surface)
-                            .clipShape(Capsule())
+                    DurationChip(label: "\(minutes)m", selected: appState.preferredMinutes == minutes) {
+                        appState.preferredMinutes = minutes
                     }
-                    .buttonStyle(PressScaleStyle())
+                }
+                DurationChip(label: isCustom ? DurationPickerSheet.label(for: appState.preferredMinutes) : "More…", selected: isCustom) {
+                    showDurationPicker = true
                 }
             }
             .padding(.horizontal, Theme.horizontalPadding)
@@ -183,5 +184,69 @@ struct WeekChart: View {
         .padding(16)
         .background(Theme.surface)
         .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
+    }
+}
+
+private struct DurationChip: View {
+    let label: String
+    let selected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(label)
+                .font(Theme.Font.headline)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .foregroundStyle(selected ? .black : Theme.textPrimary)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(selected ? Theme.accent : Theme.surface)
+                .clipShape(Capsule())
+        }
+        .buttonStyle(PressScaleStyle())
+    }
+}
+
+/// Wheel picker for any length from 5 minutes to 4 hours, in 5-minute steps.
+struct DurationPickerSheet: View {
+    @Binding var minutes: Int
+    @Environment(\.dismiss) private var dismiss
+    @State private var draft: Int = 25
+
+    static let options: [Int] = Array(stride(from: 5, through: 240, by: 5))
+
+    static func label(for minutes: Int) -> String {
+        if minutes >= 60 {
+            let h = minutes / 60, m = minutes % 60
+            return m == 0 ? "\(h)h" : "\(h)h \(m)m"
+        }
+        return "\(minutes)m"
+    }
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("How long?")
+                .font(Theme.Font.title)
+                .foregroundStyle(Theme.textPrimary)
+                .padding(.top, 24)
+            Picker("Minutes", selection: $draft) {
+                ForEach(Self.options, id: \.self) { value in
+                    Text(Self.label(for: value)).tag(value)
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(height: 160)
+            PrimaryButton(title: "Clam up for \(Self.label(for: draft))") {
+                minutes = draft
+                dismiss()
+            }
+            .padding(.horizontal, Theme.horizontalPadding)
+            .padding(.bottom, 16)
+        }
+        .background(Theme.background)
+        .onAppear {
+            draft = Self.options.contains(minutes) ? minutes : 25
+        }
     }
 }

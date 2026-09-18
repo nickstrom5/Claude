@@ -17,6 +17,11 @@ settings:
     TARGETED_DEVICE_FAMILY: "1"    # iPhone only for v1
     SWIFT_STRICT_CONCURRENCY: minimal
 
+packages:
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: "3.0.0"
+
 targets:
   Clam:
     type: application
@@ -28,6 +33,7 @@ targets:
       - target: ClamShield
       - target: ClamWidgets
       - target: ClamMonitor
+      - package: PostHog
     entitlements:
       path: Clam/Clam.entitlements
       properties:

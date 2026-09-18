@@ -30,8 +30,8 @@ iPhone with a lock screen.
 | `Shared` | App Group constants and the Live Activity attributes shared by all three |
 
 No backend. Screen Time API (FamilyControls + ManagedSettings), ActivityKit, StoreKit 2,
-UserDefaults in an App Group. Analytics events are defined and logged locally; swap in a
-provider in `Clam/Services/Analytics.swift`.
+UserDefaults in an App Group. Analytics events go to the console and, once a key is set in
+`Clam/App/Config.swift`, to PostHog (anonymous, no session replay).
 
 ## Build
 
