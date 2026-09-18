@@ -141,12 +141,11 @@ subreddit per week maximum.
 
 ## 9. Device images
 
-`docs/brand/duo-hero.png` is Apple's iPhone Duo press image with our outer-screen UI composited
-onto the cover display (script logic in this session; the source photo is the Apple newsroom
-render). Apple's Marketing Guidelines let developers show their app on Apple product images as
-long as the device isn't altered and the screen shows the real app. Before launch, swap the
-press render for the official device frame from Apple Design Resources (developer.apple.com/design/resources)
-once the Duo frames are published, and re-composite a real screenshot from the Xcode 27.1 simulator.
+The landing page draws both iPhone Duo devices in CSS (front-on, closed and open) around real
+simulator captures in `docs/brand/screen-share.png` and `docs/brand/screen-home.png`. That keeps
+them crisp at any size and avoids compositing onto photos. Once Apple publishes Duo device
+frames in Apple Design Resources, and the Xcode 27.1 simulator gives real outer/inner-display
+captures, swap the CSS frames for the official ones.
 
 ## 10. Tracking
 
