@@ -60,7 +60,7 @@ every session is one tap and one fold. The ritual is the product.
 
 Entry points besides the app: Siri ("Clam up my phone"), the Shortcuts app, the Action Button,
 and a small Home Screen widget with a "Clam up" button. All run the same intent. Each one is a
-video (see `docs/08-launch-videos.md`).
+video (see `playbook/08-launch-videos.md`).
 
 **What is deliberately not in v1:** schedules, website blocking UI, family plans, Mac app, stats
 beyond streak + minutes, AI anything. Every one of these is a v1.x candidate only if reviews ask.
@@ -96,7 +96,7 @@ At 10,000 installs/mo (achievable from organic short-form alone in this category
 
 ## 6. Distribution plan (starts before the app is approved)
 
-See `docs/03-distribution.md` for hooks, formats and the creator brief. Short version:
+See `playbook/03-distribution.md` for hooks, formats and the creator brief. Short version:
 
 1. **Week 0–1:** study 20 winning videos from Opal, Brick, one sec, Jomo, "digital detox"
    creators. Save hook, first frame, time-to-product, CTA.
@@ -120,7 +120,7 @@ do the 60-second session, they convert. If they drop before it, fix the screens 
 
 | Risk | Mitigation |
 |---|---|
-| **Family Controls entitlement** approval takes days to weeks in 2026 | Request it on day 1 (see `docs/04-launch-checklist.md`). Build and TestFlight-test with the development entitlement in the meantime. |
+| **Family Controls entitlement** approval takes days to weeks in 2026 | Request it on day 1 (see `playbook/04-launch-checklist.md`). Build and TestFlight-test with the development entitlement in the meantime. |
 | Apple rejects for "too similar" | Not a real rejection category for blockers; dozens exist. Keep the shield copy clean and non-manipulative. |
 | Users bypass by deleting the app | Same for every competitor. The 10-second hold + streak loss is the friction; we don't promise "unbreakable". |
 | Duo fold-state has no public API | We never depend on it. Live Activity on the outer screen is the feature. |

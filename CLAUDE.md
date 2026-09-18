@@ -1,6 +1,6 @@
 # Clam — notes for Claude Code sessions
 
-iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
+iOS app (SwiftUI, iOS 17+). Read `README.md` and `playbook/01-strategy.md` first.
 
 ## Build
 - The Xcode project is **generated**: `xcodegen generate` (brew install xcodegen). Never commit `Clam.xcodeproj`.
@@ -14,7 +14,7 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
 
 - Site images: `swift scripts/make-brand.swift` regenerates `docs/og.png`, the favicons, manifest icons and the sized
   screenshots in `docs/screenshots/web-*.png` from the app icon and the simulator captures. The site is plain static HTML
-  in `docs/` (no build step); SEO rules are in `docs/11-site-and-email-runbook.md` section 9.
+  in `docs/` (no build step); SEO rules are in `playbook/11-site-and-email-runbook.md` section 9.
 
 ## Runtime caveats
 - Screen Time (FamilyControls / ManagedSettings), the shield extension and the monitor extension only work on a physical device. In the simulator `ScreenTimeManager.isSimulator` stubs them so the whole flow is clickable.
@@ -22,8 +22,12 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
 - StoreKit uses `Clam/Resources/Products.storekit`; product IDs `clam.yearly`, `clam.monthly`, `clam.lifetime`.
 
 ## Conventions
-- One core loop, no feature creep: onboarding → paywall → session → result. New features need a line in `docs/01-strategy.md` explaining which funnel metric they move.
+- One core loop, no feature creep: onboarding → paywall → session → result. New features need a line in `playbook/01-strategy.md` explaining which funnel metric they move.
 - Every funnel step logs an `AnalyticsEvent`. Add events there, never ad-hoc strings. PostHog is the sink
   when `Config.postHogKey` is set; keep it anonymous (no `identify`, no replay).
 - Copy lives in the views. Keep it short and direct; no "Welcome!", no feature lists.
 - Dark theme only, tokens in `Clam/Design/Theme.swift`.
+
+## Public vs private
+- `docs/` is the published website (GitHub Pages serves every file in it). Only site files go there.
+- Strategy and launch notes live in `playbook/`, never in `docs/`: anything in `docs/` is readable by anyone who guesses the URL.

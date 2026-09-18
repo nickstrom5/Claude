@@ -7,18 +7,18 @@ sentence pitch, onboarding that sells, hard paywall, one core loop, shareable re
 around the iPhone Duo (timer on the outer display while folded) but works identically on every
 iPhone with a lock screen.
 
-- `docs/01-strategy.md` — why this idea, positioning vs. Opal/Jomo/Brick, pricing, targets, risks, 30-day plan
-- `docs/02-onboarding-and-paywall.md` — every onboarding screen and the belief it moves
-- `docs/03-distribution.md` — formats, 20 hooks, creator brief, tier ladder, Duo launch week
-- `docs/04-launch-checklist.md` — entitlement request, App Store Connect, build steps
-- `docs/05-naming.md` — why the app is called Clam and what was rejected
-- `docs/06-app-store-listing.md` — title, subtitle, keywords, description, screenshots, review notes
-- `docs/07-entitlement-request.md` — copy-paste answers for the Family Controls request
-- `docs/08-launch-videos.md` — shot lists for the first 10 videos
-- `docs/09-creator-outreach.md` — DM, brief, pay and tracking for small creators
-- `docs/10-app-store-connect.md` — identifiers, agreements, in-app purchases, privacy labels, TestFlight, submission
-- `docs/11-site-and-email-runbook.md` — reusable: domain, GitHub Pages, Cloudflare DNS and free support email
-- `docs/12-social-kit.md` — handles, bios, pinned post, two-week schedule, captions, reply templates, Reddit posts
+- `playbook/01-strategy.md` — why this idea, positioning vs. Opal/Jomo/Brick, pricing, targets, risks, 30-day plan
+- `playbook/02-onboarding-and-paywall.md` — every onboarding screen and the belief it moves
+- `playbook/03-distribution.md` — formats, 20 hooks, creator brief, tier ladder, Duo launch week
+- `playbook/04-launch-checklist.md` — entitlement request, App Store Connect, build steps
+- `playbook/05-naming.md` — why the app is called Clam and what was rejected
+- `playbook/06-app-store-listing.md` — title, subtitle, keywords, description, screenshots, review notes
+- `playbook/07-entitlement-request.md` — copy-paste answers for the Family Controls request
+- `playbook/08-launch-videos.md` — shot lists for the first 10 videos
+- `playbook/09-creator-outreach.md` — DM, brief, pay and tracking for small creators
+- `playbook/10-app-store-connect.md` — identifiers, agreements, in-app purchases, privacy labels, TestFlight, submission
+- `playbook/11-site-and-email-runbook.md` — reusable: domain, GitHub Pages, Cloudflare DNS and free support email
+- `playbook/12-social-kit.md` — handles, bios, pinned post, two-week schedule, captions, reply templates, Reddit posts
 - `docs/brand/` — profile picture, banner, first post image
 - `docs/index.html`, `privacy.html`, `terms.html` — landing page (getclam.app) and legal pages, served by GitHub Pages
 - `docs/how-to-block-apps-on-iphone.html`, `block-tiktok-instagram-on-iphone.html`, `focus-mode-vs-app-blocker.html` — guide pages; plus `robots.txt`, `sitemap.xml`, `404.html`, `site.webmanifest`

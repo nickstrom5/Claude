@@ -80,7 +80,7 @@ of the Duo; Apple's design resources ship one after launch.
 
 ## App preview video (15–30s)
 
-Screen recording of the demo in `docs/08-launch-videos.md` video #1, no voiceover, captions on.
+Screen recording of the demo in `playbook/08-launch-videos.md` video #1, no voiceover, captions on.
 
 ## App Review notes
 

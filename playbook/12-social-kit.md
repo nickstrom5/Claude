@@ -1,7 +1,7 @@
 # Social kit
 
 Everything needed to open the accounts and post for the first two weeks. Images are in
-`docs/brand/`. Videos are shot-listed in `docs/08-launch-videos.md`; this file is the accounts,
+`docs/brand/`. Videos are shot-listed in `playbook/08-launch-videos.md`; this file is the accounts,
 the copy and the schedule around them.
 
 ## 1. Handles to claim (in this order, today)

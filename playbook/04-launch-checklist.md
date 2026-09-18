@@ -12,10 +12,10 @@ Still open below: App ID, entitlement requests, App Store Connect record, Gmail 
       extension (`app.getclam.clam.shield`) and the monitor extension (`app.getclam.clam.monitor`).
       Requests are per bundle ID.
       Form: https://developer.apple.com/contact/request/family-controls-distribution
-      Draft answers are in `docs/07-entitlement-request.md`.
+      Draft answers are in `playbook/07-entitlement-request.md`.
       In 2026 this is taking days to weeks, so this is the critical path. Development builds
       work without it.
-- [ ] App Store Connect (full walkthrough in `docs/10-app-store-connect.md`): create the app, three in-app purchases matching `Clam/Resources/Products.storekit`
+- [ ] App Store Connect (full walkthrough in `playbook/10-app-store-connect.md`): create the app, three in-app purchases matching `Clam/Resources/Products.storekit`
       (`clam.yearly`, `clam.monthly`, `clam.lifetime`), one subscription group, 7-day free trial
       intro offer on yearly.
 - [x] Turn on GitHub Pages: repo Settings → Pages → Deploy from a branch → this branch, folder `/docs`.

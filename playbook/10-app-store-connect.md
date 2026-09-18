@@ -28,7 +28,7 @@ immediately. Distribution still needs step 3.
 
 ## 3. Family Controls distribution requests
 
-Three requests, text in `docs/07-entitlement-request.md`, one per bundle ID (app, shield,
+Three requests, text in `playbook/07-entitlement-request.md`, one per bundle ID (app, shield,
 monitor). Form: https://developer.apple.com/contact/request/family-controls-distribution
 Note the case numbers. Everything else can proceed while waiting.
 
@@ -88,7 +88,7 @@ Answer honestly for the analytics setup in `Config.swift`:
 
 ## 9. Version 1.0 page
 
-Paste from `docs/06-app-store-listing.md`: subtitle, promotional text, description, keywords.
+Paste from `playbook/06-app-store-listing.md`: subtitle, promotional text, description, keywords.
 Upload the six screenshots (6.9-inch required; Apple scales down for smaller phones).
 App Review Information: contact details, and the review notes from the listing doc. No
 sign-in required.
