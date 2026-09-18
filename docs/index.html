@@ -37,11 +37,10 @@
   .btn.secondary { background: var(--raised); color: var(--fg); }
   .btn svg { width: 22px; height: 22px; }
   .pill { font-size: 14px; color: var(--faint); }
-  .hero-shot { margin: 40px 0 8px; display: flex; justify-content: center; }
-  .iphone { margin: 0; text-align: center; width: min(320px, 78vw); }
-  .iphone .frame { position: relative; border-radius: 52px; padding: 10px; background: #1a1a20; box-shadow: 0 0 0 2px #34343e, 0 40px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.06); }
-  .iphone .frame img { width: 100%; height: auto; display: block; border-radius: 44px; }
-  .iphone figcaption { color: var(--faint); font-size: 14px; margin-top: 18px; }
+  .duo-pair { margin: 40px 0 8px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: center; }
+  .shot { margin: 0; text-align: center; }
+  .shot img { width: 100%; height: auto; display: block; border-radius: 24px; }
+  .shot figcaption { color: var(--faint); font-size: 14px; margin-top: 12px; }
   section { padding: 48px 0; border-top: 1px solid var(--raised); }
   h2 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 8px; font-weight: 800; }
   .sub { color: var(--muted); margin: 0 0 28px; }
@@ -66,7 +65,7 @@
   footer { padding: 40px 0 60px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--raised); }
   footer a { color: var(--faint); margin-right: 18px; }
   @media (max-width: 560px) {
-    .grid2 { grid-template-columns: 1fr; }
+    .grid2, .duo-pair { grid-template-columns: 1fr; }
     nav a { margin-left: 12px; font-size: 13px; }
   }
 </style>
@@ -97,14 +96,14 @@
       <span class="pill" id="store-note">Launching on the App Store this October.</span>
     </div>
 
-    <div class="hero-shot" aria-label="Clam on iPhone">
-      <figure class="iphone">
-        <div class="frame"><img src="brand/hero-share.png" alt="Clam session complete: Clammed up for 2h 14m, 12-day streak, with a share card" width="660" height="1434"></div>
-        <figcaption>Every session ends with a card worth sharing.</figcaption>
+    <div class="duo-pair" aria-label="Clam on iPhone Duo">
+      <figure class="shot closed">
+        <img src="brand/duo-closed-result.png" alt="iPhone Duo folded, showing a finished Clam session on the outer screen" width="770" height="870">
+        <figcaption>Folded. Your session, done.</figcaption>
       </figure>
-    </div>
-        </div>
-        <figcaption>Unfolded to scroll. You get a clam, not a feed.</figcaption>
+      <figure class="shot open">
+        <img src="brand/duo-open-home.png" alt="iPhone Duo open, showing Clam's one-button home screen" width="1340" height="1160">
+        <figcaption>Open. One button. That's the app.</figcaption>
       </figure>
     </div>
   </section>
