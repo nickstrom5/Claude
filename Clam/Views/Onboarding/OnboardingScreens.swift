@@ -242,6 +242,11 @@ struct RevealScreen: View {
         .padding(.horizontal, Theme.horizontalPadding)
         .task {
             let target = appState.answers.daysPerYear
+            if ScreenshotMode.isActive {
+                shownDays = target
+                showBack = true
+                return
+            }
             for i in stride(from: 0, through: target, by: max(1, target / 30)) {
                 withAnimation(.easeOut(duration: 0.05)) { shownDays = i }
                 try? await Task.sleep(nanoseconds: 35_000_000)

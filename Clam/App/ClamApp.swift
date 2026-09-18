@@ -15,6 +15,7 @@ struct ClamApp: App {
 
         let state = AppState()
         let screenTime = ScreenTimeManager()
+        if ScreenshotMode.isActive { ScreenshotMode.seed(state, screenTime: screenTime) }
         _appState = StateObject(wrappedValue: state)
         _screenTime = StateObject(wrappedValue: screenTime)
         _store = StateObject(wrappedValue: StoreManager())
@@ -48,7 +49,9 @@ struct RootView: View {
     var body: some View {
         ZStack {
             Theme.background.ignoresSafeArea()
-            if appState.hasCompletedOnboarding {
+            if let screen = ScreenshotMode.screen {
+                ScreenshotRouter(screen: screen)
+            } else if appState.hasCompletedOnboarding {
                 HomeView()
                     .transition(.opacity)
             } else {
@@ -61,6 +64,40 @@ struct RootView: View {
             if phase == .active {
                 sessions.refresh()
                 appState.consumePendingIntent()
+            }
+        }
+    }
+}
+
+/// Renders exactly one screen for `-screenshot <name>` launches.
+private struct ScreenshotRouter: View {
+    @EnvironmentObject private var sessions: SessionManager
+    @EnvironmentObject private var appState: AppState
+    let screen: ScreenshotMode.Screen
+
+    var body: some View {
+        Group {
+            switch screen {
+            case .hook:       OnboardingFlow(initialStep: .hook)
+            case .hours:      OnboardingFlow(initialStep: .hours)
+            case .apps:       OnboardingFlow(initialStep: .apps)
+            case .triggers:   OnboardingFlow(initialStep: .triggers)
+            case .reveal:     OnboardingFlow(initialStep: .reveal)
+            case .permission: OnboardingFlow(initialStep: .permission)
+            case .taste:      OnboardingFlow(initialStep: .taste)
+            case .result:     OnboardingFlow(initialStep: .result)
+            case .paywall:    PaywallView(context: .onboarding, onFinished: {})
+            case .home:       HomeView()
+            case .session:    HomeView()
+            case .settings:   SettingsView()
+            case .share:      SessionResultView(session: ScreenshotMode.sampleFinishedSession)
+            }
+        }
+        .onAppear {
+            switch screen {
+            case .taste: sessions.start(minutes: 1, isTaste: true)
+            case .session: sessions.start(minutes: 25)
+            default: break
             }
         }
     }

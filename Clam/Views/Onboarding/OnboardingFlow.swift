@@ -8,7 +8,11 @@ struct OnboardingFlow: View {
     }
 
     @EnvironmentObject private var appState: AppState
-    @State private var step: Step = .hook
+    @State private var step: Step
+
+    init(initialStep: Step = .hook) {
+        _step = State(initialValue: initialStep)
+    }
 
     private var stepsWithProgress: [Step] { Step.allCases.filter { $0 != .hook && $0 != .paywall } }
 

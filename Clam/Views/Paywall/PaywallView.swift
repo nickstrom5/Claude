@@ -26,7 +26,7 @@ struct PaywallView: View {
                     header
                     timeline
                     plans
-                    if selectedProduct.map(store.hasTrial) == true { reminderToggle }
+                    if selectedProduct.map(store.hasTrial) == true || (ScreenshotMode.isActive && selectedID == .yearly) { reminderToggle }
                     if let error = store.purchaseError {
                         Text(error).font(Theme.Font.caption).foregroundStyle(Theme.danger)
                     }
@@ -37,7 +37,7 @@ struct PaywallView: View {
             }
 
             VStack(spacing: 10) {
-                PrimaryButton(title: ctaTitle, subtitle: ctaSubtitle, isEnabled: selectedProduct != nil, isLoading: purchasing, action: purchase)
+                PrimaryButton(title: ctaTitle, subtitle: ctaSubtitle, isEnabled: selectedProduct != nil || ScreenshotMode.isActive, isLoading: purchasing, action: purchase)
                 footer
             }
             .padding(.horizontal, Theme.horizontalPadding)
@@ -99,30 +99,57 @@ struct PaywallView: View {
 
     private var plans: some View {
         VStack(spacing: 10) {
-            if store.products.isEmpty {
-                if store.hasLoaded && !store.isLoading {
-                    Button("Try again") { Task { await store.load() } }
-                        .font(Theme.Font.body)
-                        .foregroundStyle(Theme.accent)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                } else {
-                    ProgressView().frame(maxWidth: .infinity).padding()
+            if ScreenshotMode.isActive {
+                ForEach(StoreManager.ProductID.allCases, id: \.self) { id in
+                    PlanRow(title: sampleTitle(id), badge: badge(for: id), detail: sampleDetail(id),
+                            isSelected: selectedID == id) { selectedID = id }
                 }
-            }
-            ForEach(store.products, id: \.id) { product in
-                if let id = StoreManager.ProductID(rawValue: product.id) {
-                    PlanRow(
-                        product: product,
-                        badge: id == .yearly ? "BEST VALUE" : (id == .lifetime ? "ONE-TIME" : nil),
-                        detail: planDetail(product, id: id),
-                        isSelected: selectedID == id
-                    ) {
-                        selectedID = id
-                        Analytics.track(.planSelected, ["product": product.id])
+            } else {
+                if store.products.isEmpty {
+                    if store.hasLoaded && !store.isLoading {
+                        Button("Try again") { Task { await store.load() } }
+                            .font(Theme.Font.body)
+                            .foregroundStyle(Theme.accent)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    } else {
+                        ProgressView().frame(maxWidth: .infinity).padding()
+                    }
+                }
+                ForEach(store.products, id: \.id) { product in
+                    if let id = StoreManager.ProductID(rawValue: product.id) {
+                        PlanRow(
+                            title: product.displayName.replacingOccurrences(of: "Clam ", with: ""),
+                            badge: badge(for: id),
+                            detail: planDetail(product, id: id),
+                            isSelected: selectedID == id
+                        ) {
+                            selectedID = id
+                            Analytics.track(.planSelected, ["product": product.id])
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private func badge(for id: StoreManager.ProductID) -> String? {
+        switch id {
+        case .yearly: return "BEST VALUE"
+        case .lifetime: return "ONE-TIME"
+        case .monthly: return nil
+        }
+    }
+
+    private func sampleTitle(_ id: StoreManager.ProductID) -> String {
+        switch id { case .yearly: return "Yearly"; case .monthly: return "Monthly"; case .lifetime: return "Lifetime" }
+    }
+
+    private func sampleDetail(_ id: StoreManager.ProductID) -> String {
+        switch id {
+        case .yearly: return "$3.33/mo · billed $39.99/yr after 7-day free trial"
+        case .monthly: return "$7.99/mo · cancel anytime"
+        case .lifetime: return "$69.99 once · no subscription"
         }
     }
 
@@ -158,6 +185,7 @@ struct PaywallView: View {
     private var selectedProduct: Product? { store.product(selectedID) }
 
     private var ctaTitle: String {
+        if ScreenshotMode.isActive { return selectedID == .yearly ? "Start my free trial" : "Continue" }
         guard let product = selectedProduct else {
             return store.hasLoaded && !store.isLoading ? "Plans unavailable" : "Loading plans…"
         }
@@ -165,6 +193,13 @@ struct PaywallView: View {
     }
 
     private var ctaSubtitle: String? {
+        if ScreenshotMode.isActive {
+            switch selectedID {
+            case .yearly: return "7 days free, then $39.99/year. Cancel anytime."
+            case .monthly: return "$7.99/month. Cancel anytime."
+            case .lifetime: return "$69.99 once. Yours forever."
+            }
+        }
         guard let product = selectedProduct else { return nil }
         if store.hasTrial(product) {
             return "7 days free, then \(product.displayPrice)/year. Cancel anytime."
@@ -244,7 +279,7 @@ private struct TimelineRow: View {
 }
 
 private struct PlanRow: View {
-    let product: Product
+    let title: String
     let badge: String?
     let detail: String
     let isSelected: Bool
@@ -258,7 +293,7 @@ private struct PlanRow: View {
                     .foregroundStyle(isSelected ? Theme.accent : Theme.textTertiary)
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(spacing: 8) {
-                        Text(product.displayName.replacingOccurrences(of: "Clam ", with: ""))
+                        Text(title)
                             .font(Theme.Font.headline)
                             .foregroundStyle(Theme.textPrimary)
                         if let badge {

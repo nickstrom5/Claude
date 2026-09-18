@@ -8,6 +8,9 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
 - Build: `xcodebuild build -project Clam.xcodeproj -scheme Clam -destination 'platform=iOS Simulator,name=<an iPhone>' CODE_SIGNING_ALLOWED=NO`
 - Tests: same with `test -only-testing:ClamTests`.
 - CI (`.github/workflows/build.yml`) does exactly this on `macos-26`. Keep it green.
+- Screens: launch with `-screenshot <hook|hours|apps|triggers|reveal|permission|taste|result|paywall|home|session|settings|share>`
+  to open one screen with seeded data (`Clam/App/ScreenshotMode.swift`). The `Screenshots` workflow captures all of
+  them in the simulator and commits PNGs to `docs/screenshots/`. Look there before and after UI changes.
 
 ## Runtime caveats
 - Screen Time (FamilyControls / ManagedSettings), the shield extension and the monitor extension only work on a physical device. In the simulator `ScreenTimeManager.isSimulator` stubs them so the whole flow is clickable.
