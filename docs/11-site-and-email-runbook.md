@@ -16,6 +16,13 @@ Cost: the domain only (~$15/yr for .app at Cloudflare). Everything else is free.
 - Landing page has one App Store button driven by a JS constant `APP_STORE_URL = ""`:
   empty shows "Get early access" (mailto), set shows "Download on the App Store".
 - All mailto links use `support@DOMAIN` or `hello@DOMAIN`.
+- SEO files at the site root: `robots.txt`, `sitemap.xml`, `404.html`, `site.webmanifest`, `.nojekyll`,
+  `og.png`, `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`.
+  The PNGs and the sized screenshots (`docs/screenshots/web-*.png`) come from `swift scripts/make-brand.swift`.
+- Every page carries its own title, description, canonical, Open Graph/Twitter tags and JSON-LD. The
+  FAQ text on the index is mirrored word for word in the `FAQPage` JSON-LD: change both or neither.
+  Prices appear in the pricing cards, the last FAQ answer and the JSON-LD `offers`; all three must
+  match `Products.storekit`.
 
 ## 3. GitHub Pages
 - Repo → Settings → Pages: Source "Deploy from a branch", branch = main (or yours), folder
@@ -63,6 +70,28 @@ Cost: the domain only (~$15/yr for .app at Cloudflare). Everything else is free.
 - App Store Connect: support URL `https://DOMAIN/`, privacy policy `https://DOMAIN/privacy.html`.
 - In-app: paywall footer and settings link to privacy.html and terms.html; feedback → support@DOMAIN.
 - Bundle ID convention: reverse of DOMAIN, e.g. `app.getclam.APP` (extensions `.shield`, `.widgets`).
+
+## 9. SEO after launch
+- Google Search Console (search.google.com/search-console): add a **Domain** property for DOMAIN and
+  verify with the TXT record it gives you (Cloudflare DNS, DNS only). Bing Webmaster Tools
+  (bing.com/webmasters): add the site, or import it from Search Console in one click.
+- In both, submit the sitemap: `https://DOMAIN/sitemap.xml`. When pages change, update their
+  `<lastmod>` in `docs/sitemap.xml`.
+- Once the App Store Connect record exists, fill in the App Store ID in two places in
+  `docs/index.html`: uncomment `<meta name="apple-itunes-app" content="app-id=APP_ID">` in the
+  `<head>` with the numeric Apple ID (the Safari smart banner), and set `APP_STORE_URL` in the script
+  at the bottom (switches every button to "Download on the App Store").
+- Request indexing: Search Console → URL Inspection → paste `https://DOMAIN/` → Request indexing.
+  Repeat for each guide page. In Bing use URL Submission.
+- Check the link preview: paste the URL into iMessage or a social post composer and confirm
+  `og.png` shows. Validate the structured data at search.google.com/test/rich-results and
+  validator.schema.org.
+- Do not add `aggregateRating` or review markup until real App Store ratings exist, and then only
+  with the real numbers.
+- The site screenshots come from `docs/screenshots/`. Several current captures have the iOS
+  notification permission alert on top of them; recapture (dismiss the alert first) before using the
+  home, session, result or paywall screens on the site, then add them to `shots` in
+  `scripts/make-brand.swift`.
 
 ## Gotchas
 - Orange (proxied) cloud on the A records means GitHub can never issue HTTPS. Must be grey.

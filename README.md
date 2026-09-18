@@ -21,6 +21,8 @@ iPhone with a lock screen.
 - `docs/12-social-kit.md` — handles, bios, pinned post, two-week schedule, captions, reply templates, Reddit posts
 - `docs/brand/` — profile picture, banner, first post image
 - `docs/index.html`, `privacy.html`, `terms.html` — landing page (getclam.app) and legal pages, served by GitHub Pages
+- `docs/how-to-block-apps-on-iphone.html`, `block-tiktok-instagram-on-iphone.html`, `focus-mode-vs-app-blocker.html` — guide pages; plus `robots.txt`, `sitemap.xml`, `404.html`, `site.webmanifest`
+- `scripts/make-brand.swift` — regenerates `docs/og.png`, favicons, manifest icons and the site's sized screenshots
 
 ## What's in the box
 

@@ -12,6 +12,10 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `docs/01-strategy.md` first.
   to open one screen with seeded data (`Clam/App/ScreenshotMode.swift`). The `Screenshots` workflow captures all of
   them in the simulator and commits PNGs to `docs/screenshots/`. Look there before and after UI changes.
 
+- Site images: `swift scripts/make-brand.swift` regenerates `docs/og.png`, the favicons, manifest icons and the sized
+  screenshots in `docs/screenshots/web-*.png` from the app icon and the simulator captures. The site is plain static HTML
+  in `docs/` (no build step); SEO rules are in `docs/11-site-and-email-runbook.md` section 9.
+
 ## Runtime caveats
 - Screen Time (FamilyControls / ManagedSettings), the shield extension and the monitor extension only work on a physical device. In the simulator `ScreenTimeManager.isSimulator` stubs them so the whole flow is clickable.
 - Live Activities work in the simulator (⌘L to lock).

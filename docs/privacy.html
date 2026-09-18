@@ -3,48 +3,220 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clam – Privacy Policy</title>
+<title>Clam Privacy Policy: An iPhone App Blocker, No Account</title>
+<meta name="description" content="Clam's privacy policy in plain English. The iPhone app blocker has no accounts and no server, can't see which apps you lock, and keeps history on your phone.">
+<link rel="canonical" href="https://getclam.app/privacy.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#121217">
+<meta property="og:title" content="Clam Privacy Policy: An iPhone App Blocker, No Account">
+<meta property="og:description" content="Clam's privacy policy in plain English. The iPhone app blocker has no accounts and no server, can't see which apps you lock, and keeps history on your phone.">
+<meta property="og:url" content="https://getclam.app/privacy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Clam">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://getclam.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Clam, an app blocker for iPhone. Your apps stay shut. One tap, real blocking, timer on your Lock Screen.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clam Privacy Policy: An iPhone App Blocker, No Account">
+<meta name="twitter:description" content="Clam's privacy policy in plain English. The iPhone app blocker has no accounts and no server, can't see which apps you lock, and keeps history on your phone.">
+<meta name="twitter:image" content="https://getclam.app/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
 <style>
-  :root { color-scheme: light dark; }
-  body { font: 17px/1.6 -apple-system, system-ui, sans-serif; max-width: 680px; margin: 48px auto; padding: 0 20px; }
-  h1 { font-size: 28px; } h2 { font-size: 20px; margin-top: 32px; }
-  small { opacity: .6; }
+  :root {
+    --bg: #121217; --surface: #1f1f26; --raised: #2b2b35;
+    --fg: #fff; --muted: rgba(255,255,255,.68); --faint: rgba(255,255,255,.58);
+    --accent: #fad159; --danger: #fa6b61; --ok: #73dc94;
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  a:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .skip { position: absolute; left: -9999px; top: 0; background: var(--accent); color: #000; padding: 10px 14px; border-radius: 0 0 10px 0; font-weight: 700; }
+  .skip:focus { left: 0; z-index: 10; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; padding: 22px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; text-decoration: none; }
+  .logo svg { width: 28px; height: 28px; }
+  .top nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .top nav a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 4px 0; }
+  .top nav a:hover { color: var(--fg); }
+  h1 { font-size: clamp(36px, 8vw, 58px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 18px; font-weight: 800; }
+  h1 span { color: var(--accent); }
+  h2 { font-size: 30px; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 8px; font-weight: 800; }
+  h3 { font-size: 18px; margin: 0 0 4px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #000; font-weight: 700; padding: 15px 22px; border-radius: 16px; text-decoration: none; font-size: 17px; border: 0; cursor: pointer; }
+  .btn svg { width: 22px; height: 22px; }
+  .pill { font-size: 14px; color: var(--faint); }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .card { background: var(--surface); border-radius: var(--radius); padding: 22px; }
+  .card p { margin: 6px 0 0; color: var(--muted); }
+  footer { padding: 40px 0 60px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--raised); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  footer a { color: var(--faint); }
+  footer a:hover { color: var(--fg); }
+  footer .guides { margin-top: 10px; }
+  footer .copy { margin-top: 14px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  main { padding: 28px 0 56px; }
+  .crumbs { font-size: 14px; color: var(--faint); margin: 0 0 22px; }
+  .crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .crumbs li { color: var(--faint); margin: 0; }
+  .crumbs li + li::before { content: "/"; margin-right: 6px; }
+  main .crumbs a { color: var(--muted); }
+  main h1 { font-size: clamp(32px, 6.5vw, 46px); }
+  main h2 { font-size: 24px; margin: 38px 0 10px; }
+  main h3 { margin: 24px 0 6px; }
+  main p, main li { color: rgba(255,255,255,.82); }
+  main li { margin-bottom: 8px; }
+  main a { color: var(--accent); text-underline-offset: 3px; }
+  main .lede { font-size: 20px; color: var(--muted); margin: 0 0 8px; }
+  main .meta { font-size: 14px; color: var(--faint); margin: 0 0 8px; }
+  .callout { background: var(--surface); border-radius: var(--radius); padding: 22px; margin: 36px 0 0; }
+  .callout h2 { margin-top: 0; }
+  main a.btn { color: #000; text-decoration: none; margin-top: 8px; }
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://getclam.app/#org",
+   "name": "Clam",
+   "url": "https://getclam.app/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://getclam.app/icon-512.png",
+    "width": 512,
+    "height": 512
+   },
+   "email": "support@getclam.app",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "email": "support@getclam.app"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://getclam.app/#website",
+   "name": "Clam",
+   "url": "https://getclam.app/",
+   "publisher": {
+    "@id": "https://getclam.app/#org"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://getclam.app/privacy.html",
+   "url": "https://getclam.app/privacy.html",
+   "name": "Clam Privacy Policy: An iPhone App Blocker, No Account",
+   "description": "Clam's privacy policy in plain English. The iPhone app blocker has no accounts and no server, can't see which apps you lock, and keeps history on your phone.",
+   "isPartOf": {
+    "@id": "https://getclam.app/#website"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Clam",
+     "item": "https://getclam.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Privacy policy",
+     "item": "https://getclam.app/privacy.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
-<h1>Clam Privacy Policy</h1>
-<p><small>Effective 17 September 2026</small></p>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/" aria-label="Clam home">
+      <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1f1f26"/><path d="M14 38c0-10 8-18 18-18s18 8 18 18H14z" fill="#fad159"/><rect x="14" y="40" width="36" height="6" rx="3" fill="#fad159"/></svg>
+      Clam
+    </a>
+    <nav aria-label="Main">
+      <a href="/#how">How it works</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </header>
+  <main id="main">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Clam</a></li><li aria-current="page">Privacy policy</li></ol></nav>
+    <h1>Clam Privacy Policy</h1>
+    <p class="meta">Effective 17 September 2026</p>
 
-<p>Clam is a screen-time app that locks apps you choose for a period you choose. It is built so that it does not need your data.</p>
+    <p>Clam is a screen-time app for iPhone that locks apps you choose for a period you choose. It is built so that it does not need your data.</p>
 
-<h2>What Clam collects</h2>
-<p>Nothing that identifies you. Clam has no accounts, no sign-in and no server of its own.</p>
+    <h2>What Clam collects</h2>
+    <p>Nothing that identifies you. Clam has no accounts, no sign-in and no server of its own.</p>
 
-<h2>What stays on your device</h2>
-<ul>
-  <li>The apps you choose to lock. Apple's Screen Time framework gives Clam opaque tokens for these; Clam cannot see which apps they are and never sends them anywhere.</li>
-  <li>Your session history, streak and onboarding answers. These are stored locally in the app's container and are deleted when you delete the app.</li>
-</ul>
+    <h2>What stays on your device</h2>
+    <ul>
+      <li>The apps you choose to lock. Apple's Screen Time framework gives Clam opaque tokens for these; Clam cannot see which apps they are and never sends them anywhere.</li>
+      <li>Your session history, streak and onboarding answers. These are stored locally in the app's container and are deleted when you delete the app.</li>
+    </ul>
 
-<h2>What Clam can't see</h2>
-<p>Clam does not read, record or report which apps you open, what you do in them, your messages, your browsing or your location.</p>
+    <h2>What Clam can't see</h2>
+    <p>Clam does not read, record or report which apps you open, what you do in them, your messages, your browsing or your location.</p>
 
-<h2>Purchases</h2>
-<p>Subscriptions and purchases are handled by Apple through the App Store. Apple's privacy policy applies to payment information. Clam only receives confirmation that a purchase is active.</p>
+    <h2>Purchases</h2>
+    <p>Subscriptions and purchases are handled by Apple through the App Store. Apple's privacy policy applies to payment information. Clam only receives confirmation that a purchase is active.</p>
 
-<h2>Analytics</h2>
-<p>Clam may record anonymous, aggregated events about how the app itself is used (for example, "onboarding completed" or "session started") to improve the product. These events contain no personal information and are not linked to your identity. Clam does not use advertising identifiers and does not sell data.</p>
+    <h2>Analytics</h2>
+    <p>Clam may record anonymous, aggregated events about how the app itself is used (for example, "onboarding completed" or "session started") to improve the product. These events contain no personal information and are not linked to your identity. Clam does not use advertising identifiers and does not sell data.</p>
 
-<h2>Notifications</h2>
-<p>If you allow notifications, Clam uses them only to tell you a session has ended or that a free trial is about to end. They are scheduled on your device.</p>
+    <h2>Notifications</h2>
+    <p>If you allow notifications, Clam uses them only to tell you a session has ended or that a free trial is about to end. They are scheduled on your device.</p>
 
-<h2>Children</h2>
-<p>Clam is for personal use by the device owner and is not a parental-control product. It is not directed at children under 13.</p>
+    <h2>Children</h2>
+    <p>Clam is for personal use by the device owner and is not a parental-control product. It is not directed at children under 13.</p>
 
-<h2>Changes</h2>
-<p>If this policy changes, the new version will be posted here with a new effective date.</p>
+    <h2>Changes</h2>
+    <p>If this policy changes, the new version will be posted here with a new effective date.</p>
 
-<h2>Contact</h2>
-<p>Questions: <a href="mailto:support@getclam.app">support@getclam.app</a></p>
+    <h2>Contact</h2>
+    <p>Questions: <a href="mailto:support@getclam.app">support@getclam.app</a>. See also the <a href="/terms.html">terms of use</a>, or go back to <a href="/">the Clam app blocker home page</a>.</p>
+  </main>
+
+  <footer>
+    <nav aria-label="Footer">
+      <a href="/">Clam home</a>
+      <a href="/privacy.html">Privacy policy</a>
+      <a href="/terms.html">Terms of use</a>
+      <a href="mailto:support@getclam.app">Email support</a>
+      <a href="mailto:hello@getclam.app">Press &amp; creators</a>
+    </nav>
+    <nav class="guides" aria-label="Guides">
+      <a href="/how-to-block-apps-on-iphone.html">How to block apps on iPhone</a>
+      <a href="/block-tiktok-instagram-on-iphone.html">How to block TikTok and Instagram on iPhone</a>
+      <a href="/focus-mode-vs-app-blocker.html">Focus mode vs an app blocker</a>
+    </nav>
+    <div class="copy">© 2026 Clam. Lock it. Clam up.</div>
+  </footer>
+</div>
 </body>
 </html>

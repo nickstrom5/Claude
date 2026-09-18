@@ -3,17 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clam – Fold your phone shut. Your apps stay shut.</title>
-<meta name="description" content="Clam locks the apps that steal your time for exactly as long as you choose. One tap. Real blocking. Built for iPhone Duo, works on every iPhone.">
-<meta property="og:title" content="Clam – Fold it. Clam up.">
-<meta property="og:description" content="Fold your phone shut and your distracting apps stay shut. One tap, real blocking, timer on your lock screen.">
+<title>Clam: App Blocker for iPhone. Block Distracting Apps</title>
+<meta name="description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
+<link rel="canonical" href="https://getclam.app/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#121217">
+<!-- Smart App Banner: after the App Store Connect record exists, replace APP_ID with the numeric
+     Apple ID (App Store Connect, App Information) and uncomment the next line.
+<meta name="apple-itunes-app" content="app-id=APP_ID">
+-->
+<meta property="og:title" content="Clam: App Blocker for iPhone. Block Distracting Apps">
+<meta property="og:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
 <meta property="og:url" content="https://getclam.app/">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121217'/%3E%3Cpath d='M14 38c0-10 8-18 18-18s18 8 18 18H14z' fill='%23fad159'/%3E%3Crect x='14' y='40' width='36' height='6' rx='3' fill='%23fad159'/%3E%3C/svg%3E">
+<meta property="og:site_name" content="Clam">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://getclam.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Clam, an app blocker for iPhone. Your apps stay shut. One tap, real blocking, timer on your Lock Screen.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clam: App Blocker for iPhone. Block Distracting Apps">
+<meta name="twitter:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
+<meta name="twitter:image" content="https://getclam.app/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
 <style>
   :root {
     --bg: #121217; --surface: #1f1f26; --raised: #2b2b35;
-    --fg: #fff; --muted: rgba(255,255,255,.62); --faint: rgba(255,255,255,.38);
+    --fg: #fff; --muted: rgba(255,255,255,.68); --faint: rgba(255,255,255,.58);
     --accent: #fad159; --danger: #fa6b61; --ok: #73dc94;
     --radius: 20px;
   }
@@ -21,20 +41,39 @@
   html { color-scheme: dark; scroll-behavior: smooth; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
+  a:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .skip { position: absolute; left: -9999px; top: 0; background: var(--accent); color: #000; padding: 10px 14px; border-radius: 0 0 10px 0; font-weight: 700; }
+  .skip:focus { left: 0; z-index: 10; }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-  header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; padding: 22px 0; }
   .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; text-decoration: none; }
   .logo svg { width: 28px; height: 28px; }
-  nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 15px; }
-  .hero { padding: 56px 0 40px; }
-  h1 { font-size: clamp(38px, 8vw, 60px); line-height: 1.05; letter-spacing: -.025em; margin: 0 0 18px; font-weight: 800; }
+  .top nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .top nav a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 4px 0; }
+  .top nav a:hover { color: var(--fg); }
+  h1 { font-size: clamp(36px, 8vw, 58px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 18px; font-weight: 800; }
   h1 span { color: var(--accent); }
-  .lede { font-size: 20px; color: var(--muted); margin: 0 0 32px; max-width: 560px; }
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  h2 { font-size: 30px; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 8px; font-weight: 800; }
+  h3 { font-size: 18px; margin: 0 0 4px; }
   .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #000; font-weight: 700; padding: 15px 22px; border-radius: 16px; text-decoration: none; font-size: 17px; border: 0; cursor: pointer; }
-  .btn.secondary { background: var(--raised); color: var(--fg); }
   .btn svg { width: 22px; height: 22px; }
   .pill { font-size: 14px; color: var(--faint); }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .card { background: var(--surface); border-radius: var(--radius); padding: 22px; }
+  .card p { margin: 6px 0 0; color: var(--muted); }
+  footer { padding: 40px 0 60px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--raised); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  footer a { color: var(--faint); }
+  footer a:hover { color: var(--fg); }
+  footer .guides { margin-top: 10px; }
+  footer .copy { margin-top: 14px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .hero { padding: 48px 0 40px; }
+  .lede { font-size: 20px; color: var(--muted); margin: 0 0 32px; max-width: 580px; }
   .demo { margin: 48px 0 8px; background: var(--surface); border-radius: var(--radius); padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .demo .phone { background: var(--bg); border-radius: 18px; padding: 18px; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; }
   .demo .phone small { color: var(--faint); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
@@ -42,143 +81,367 @@
   .demo .phone .locked { font-size: 15px; color: var(--muted); }
   .demo .phone .shield { font-size: 17px; font-weight: 600; }
   .demo .phone .shield em { color: var(--accent); font-style: normal; }
-  section { padding: 48px 0; border-top: 1px solid var(--raised); }
-  h2 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 8px; font-weight: 800; }
+  main > section { padding: 48px 0; border-top: 1px solid var(--raised); }
+  main > section.hero { border-top: 0; }
   .sub { color: var(--muted); margin: 0 0 28px; }
-  .steps { display: grid; gap: 14px; }
+  .steps { display: grid; gap: 14px; list-style: none; margin: 0; padding: 0; }
   .step { display: flex; gap: 16px; background: var(--surface); border-radius: var(--radius); padding: 20px; }
   .step .n { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #000; font-weight: 800; display: grid; place-items: center; }
-  .step b { display: block; margin-bottom: 4px; font-size: 18px; }
   .step p { margin: 0; color: var(--muted); }
-  .big { font-size: clamp(56px, 14vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -.03em; color: var(--danger); }
+  .big { font-size: clamp(56px, 14vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -.03em; color: var(--danger); margin: 0; }
   .big.ok { color: var(--ok); }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .card { background: var(--surface); border-radius: var(--radius); padding: 22px; }
-  .card p { margin: 6px 0 0; color: var(--muted); }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0; padding: 0; list-style: none; }
+  .shots figure { margin: 0; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 22px; border: 1px solid var(--raised); }
+  .shots figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; }
   .price { display: flex; align-items: baseline; gap: 8px; }
   .price b { font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
   .price span { color: var(--muted); }
+  .fine { color: var(--faint); font-size: 14px; margin: 20px 0 0; }
+  .links { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .links a { display: block; background: var(--surface); border-radius: 16px; padding: 18px 20px; text-decoration: none; }
+  .links a b { display: block; }
+  .links a span { color: var(--muted); font-size: 15px; }
+  .links a:hover b { color: var(--accent); }
   details { background: var(--surface); border-radius: 16px; padding: 4px 20px; margin-bottom: 10px; }
-  summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
   summary::after { content: "+"; color: var(--accent); font-weight: 700; }
-  details[open] summary::after { content: "–"; }
+  details[open] summary::after { content: "\2013"; }
   details p { margin: 0 0 16px; color: var(--muted); }
-  footer { padding: 40px 0 60px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--raised); }
-  footer a { color: var(--faint); margin-right: 18px; }
+  .final { text-align: center; }
+  .final .cta-row { justify-content: center; margin-top: 24px; }
   @media (max-width: 560px) {
     .demo, .grid2 { grid-template-columns: 1fr; }
-    nav a { margin-left: 14px; }
+    .shots { grid-template-columns: 1fr 1fr; }
+    .shots li:last-child { display: none; }
   }
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://getclam.app/#org",
+   "name": "Clam",
+   "url": "https://getclam.app/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://getclam.app/icon-512.png",
+    "width": 512,
+    "height": 512
+   },
+   "email": "support@getclam.app",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "email": "support@getclam.app"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://getclam.app/#website",
+   "name": "Clam",
+   "url": "https://getclam.app/",
+   "publisher": {
+    "@id": "https://getclam.app/#org"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "MobileApplication",
+   "@id": "https://getclam.app/#app",
+   "name": "Clam",
+   "operatingSystem": "iOS",
+   "applicationCategory": "ProductivityApplication",
+   "description": "Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked for as long as you choose, from 5 minutes to 4 hours. Uses Apple's Screen Time API. No account, nothing leaves your phone.",
+   "url": "https://getclam.app/",
+   "image": "https://getclam.app/og.png",
+   "screenshot": [
+    "https://getclam.app/screenshots/web-apps.png",
+    "https://getclam.app/screenshots/web-permission.png",
+    "https://getclam.app/screenshots/web-hours.png"
+   ],
+   "softwareRequirements": "iOS 17.0 or later",
+   "publisher": {
+    "@id": "https://getclam.app/#org"
+   },
+   "offers": [
+    {
+     "@type": "Offer",
+     "name": "Yearly",
+     "price": "39.99",
+     "priceCurrency": "USD",
+     "description": "Auto-renewing yearly subscription with a 7-day free trial."
+    },
+    {
+     "@type": "Offer",
+     "name": "Monthly",
+     "price": "7.99",
+     "priceCurrency": "USD",
+     "description": "Auto-renewing monthly subscription."
+    },
+    {
+     "@type": "Offer",
+     "name": "Lifetime",
+     "price": "69.99",
+     "priceCurrency": "USD",
+     "description": "One-time purchase. No subscription."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://getclam.app/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How do I block apps on my iPhone with Clam?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Pick the apps once. Then tap Clam up, choose a length from 5 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can Clam block TikTok, Instagram and YouTube?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. You choose from Apple's own app picker, so any app on your iPhone can go on the list: TikTok, Instagram, YouTube, X, games, whatever it is for you. You can change the list any time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it real blocking, or a reminder I can tap past?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Real blocking. Clam uses Apple's Screen Time API, the same system behind the built-in app limits. The block screen has one button, and it says OK, I'll wait. There is no ignore-limit button."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I just delete the app to get around it?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Every blocker on iOS has that limit, and any that claims otherwise is lying. Clam adds friction, not walls: a 10-second hold to quit and a streak you'll lose."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What if I need a locked app during a session?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Hold the give up button for 10 seconds. The session ends, your apps unlock, and your streak resets. That's the deal."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does Clam see what I do in my apps?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are, can't read anything inside them, and never sends anything off your phone. There's no account and no server."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why does it need Screen Time permission?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "That's the only way to actually lock apps on iOS. Clam asks for it once, for you alone (not a family or child setting), and uses it only during a session you started."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does Clam cost, and which iPhones does it work on?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The yearly plan is $39.99 with a 7-day free trial. Monthly is $7.99. Lifetime is $69.99, paid once. Clam works on any iPhone running iOS 17 or later. The countdown shows on the Lock Screen, and in the Dynamic Island on iPhones that have one."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
-  <header>
-    <a class="logo" href="/">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1f1f26"/><path d="M14 38c0-10 8-18 18-18s18 8 18 18H14z" fill="#fad159"/><rect x="14" y="40" width="36" height="6" rx="3" fill="#fad159"/></svg>
+  <header class="top">
+    <a class="logo" href="/" aria-label="Clam home">
+      <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1f1f26"/><path d="M14 38c0-10 8-18 18-18s18 8 18 18H14z" fill="#fad159"/><rect x="14" y="40" width="36" height="6" rx="3" fill="#fad159"/></svg>
       Clam
     </a>
-    <nav>
+    <nav aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
+      <a href="#guides">Guides</a>
       <a href="#faq">FAQ</a>
     </nav>
   </header>
 
-  <section class="hero" style="border:0">
-    <h1>Fold your phone shut.<br><span>Your apps stay shut.</span></h1>
-    <p class="lede">Clam locks the apps that steal your time, for exactly as long as you choose. One tap. Real blocking. The timer stays on your lock screen, or on the outer display of iPhone&nbsp;Duo.</p>
+  <main id="main">
+  <section class="hero">
+    <h1>App blocker for iPhone.<br><span>Lock your phone. Your apps stay shut.</span></h1>
+    <p class="lede">Clam is a screen time blocker that locks the apps that steal your time, for exactly as long as you choose. One tap. Real blocking. The timer stays on your Lock Screen.</p>
     <div class="cta-row">
-      <!-- Swap: set APP_STORE_URL below once the listing is live. The button updates itself. -->
-      <a class="btn" id="store-btn" href="mailto:hello@getclam.app?subject=Clam%20early%20access&body=Send%20me%20the%20TestFlight%20link.">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.9-4zM14 5.2c.7-.8 1.2-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1.1 3.1 1.1.1 2.3-.6 3-1.4z"/></svg>
-        <span id="store-label">Get early access</span>
+      <!-- Swap: set APP_STORE_URL at the bottom of this file once the listing is live. The buttons update themselves. -->
+      <a class="btn store-btn" href="mailto:hello@getclam.app?subject=Clam%20early%20access&amp;body=Send%20me%20the%20TestFlight%20link.">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.9-4zM14 5.2c.7-.8 1.2-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1.1 3.1 1.1.1 2.3-.6 3-1.4z"/></svg>
+        <span class="store-label">Get early access</span>
       </a>
-      <span class="pill" id="store-note">Launching on the App Store this October.</span>
+      <span class="pill store-note">Coming to the App Store soon.</span>
     </div>
 
-    <div class="demo" aria-label="What a session looks like">
+    <div class="demo" role="group" aria-label="What a session looks like">
       <div class="phone">
-        <small>Folded · outer screen</small>
+        <small>Locked · Lock Screen</small>
         <strong>24:59</strong>
         <div class="locked">4 apps locked · 12-day streak</div>
       </div>
       <div class="phone">
-        <small>Unfolded · you tap Instagram</small>
+        <small>Unlocked · you tap Instagram</small>
         <div class="shield">Instagram is <em>clammed up</em></div>
-        <div class="locked">24 min left. Fold it back up.</div>
+        <div class="locked">24 min left. Put it back down.</div>
       </div>
+    </div>
+  </section>
+
+  <section id="what">
+    <h2>Block apps on your iPhone with one button</h2>
+    <p class="sub">Most blockers want schedules, profiles and a settings tour. Clam is for the moment you decide to stop scrolling and get something done.</p>
+    <div class="grid2">
+      <div class="card"><h3>Real blocking</h3><p>Built on Apple's Screen Time API. A locked app opens to a block screen, not a reminder you can tap past.</p></div>
+      <div class="card"><h3>One button</h3><p>Pick your apps once. After that, every session is one tap and a length.</p></div>
+      <div class="card"><h3>Giving up costs something</h3><p>Quitting early takes a 10-second hold and resets your streak. Enough to make you think twice.</p></div>
+      <div class="card"><h3>Nothing leaves your phone</h3><p>No account, no cloud. Clam can't see what you do inside your apps.</p></div>
     </div>
   </section>
 
   <section id="how">
     <h2>How it works</h2>
     <p class="sub">There's one button. That's the whole app.</p>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><div><b>Pick the apps that steal your time.</b><p>Once. Instagram, TikTok, X, YouTube, whatever it is for you. Uses Apple's Screen Time, so it's real blocking, not a Shortcut you can skip.</p></div></div>
-      <div class="step"><div class="n">2</div><div><b>Tap Clam up. Pick 25, 50 or 90 minutes.</b><p>Or any length from 5 minutes to 4 hours. Siri, the Action Button and a Home Screen widget can do it too.</p></div></div>
-      <div class="step"><div class="n">3</div><div><b>Fold or lock your phone.</b><p>The countdown sits on your lock screen. Open a locked app and you get a clam, not a feed. Quitting early takes a 10-second hold and resets your streak.</p></div></div>
-    </div>
+    <ol class="steps">
+      <li class="step"><div class="n" aria-hidden="true">1</div><div><h3>Pick the apps that steal your time.</h3><p>Once. Instagram, TikTok, X, YouTube, whatever it is for you. Uses Apple's Screen Time, so it's real blocking, not a Shortcut you can skip.</p></div></li>
+      <li class="step"><div class="n" aria-hidden="true">2</div><div><h3>Tap Clam up. Pick 25, 50 or 90 minutes.</h3><p>Or any length from 5 minutes to 4 hours. Siri, the Action Button and a Home Screen widget can do it too.</p></div></li>
+      <li class="step"><div class="n" aria-hidden="true">3</div><div><h3>Lock your phone.</h3><p>The countdown sits on your Lock Screen. Open a locked app and you get a clam, not a feed. Quitting early takes a 10-second hold and resets your streak.</p></div></li>
+    </ol>
   </section>
 
-  <section>
+  <section id="screens">
+    <h2>What it looks like</h2>
+    <p class="sub">Setup is a few questions and one permission. Then it's the button.</p>
+    <ul class="shots">
+      <li><figure><img src="/screenshots/web-apps.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam setup screen asking which apps steal the most from you, with four apps selected to lock"><figcaption>Choose the apps to lock. Change them any time.</figcaption></figure></li>
+      <li><figure><img src="/screenshots/web-permission.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam permission screen: locks only the apps you chose, can't read messages or browsing, runs entirely on this phone"><figcaption>One Screen Time permission. Nothing leaves the phone.</figcaption></figure></li>
+      <li><figure><img src="/screenshots/web-hours.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam setup screen with a slider asking how many hours a day you are on your phone, set to 4.5 hours"><figcaption>Tell it your daily hours to see what a year adds up to.</figcaption></figure></li>
+    </ul>
+  </section>
+
+  <section id="back">
     <h2>What you get back</h2>
-    <p class="sub">At the average 4.5 hours a day, that's</p>
-    <div class="big">68 days</div>
-    <p class="sub" style="margin-top:6px">a year. Full 24-hour days. People who lock their apps consistently cut that by about 40%.</p>
-    <div class="big ok">27 days</div>
-    <p class="sub" style="margin-top:6px">back. Every year.</p>
+    <p class="sub">If your Screen Time says 4.5 hours a day, that's</p>
+    <p class="big">68 days</p>
+    <p class="sub" style="margin-top:6px">a year. Full 24-hour days. Cut that by 40% and you get</p>
+    <p class="big ok">27 days</p>
+    <p class="sub" style="margin-top:6px;margin-bottom:0">back. Every year. It's arithmetic, not a promise: Clam runs it on your own number during setup.</p>
   </section>
 
-  <section>
-    <h2>Built for iPhone Duo. Works on every iPhone.</h2>
-    <p class="sub">The Duo's whole pitch is "open it up and get lost in it". Clam is the opposite motion: closing it is the commitment.</p>
+  <section id="iphone">
+    <h2>Works on every iPhone with iOS 17</h2>
+    <p class="sub">Locking the phone is the commitment. The countdown stays where you can see it without unlocking.</p>
     <div class="grid2">
-      <div class="card"><b>iPhone Duo</b><p>The countdown shows on the 5.4-inch outer screen while the phone is folded. Unfolding to scroll means seeing the block screen.</p></div>
-      <div class="card"><b>Every other iPhone</b><p>Same app, same ritual. The timer lives on the lock screen and in the Dynamic Island. "Fold" just becomes "lock".</p></div>
+      <div class="card"><h3>Lock Screen and Dynamic Island</h3><p>The session timer is a Live Activity. It shows on the Lock Screen, and in the Dynamic Island on iPhones that have one.</p></div>
+      <div class="card"><h3>Start it without opening the app</h3><p>Say "Clam up my phone" to Siri, put it on the Action Button, or use the Home Screen widget.</p></div>
     </div>
   </section>
 
   <section id="pricing">
     <h2>Pricing</h2>
-    <p class="sub">Try it free for 7 days. Cancel any time. No account, no cloud, nothing leaves your phone.</p>
+    <p class="sub">Try it free for 7 days on the yearly plan. Cancel any time.</p>
     <div class="grid2">
       <div class="card"><div class="price"><b>$39.99</b><span>/ year</span></div><p>About $3.33 a month. 7-day free trial. Best value.</p></div>
       <div class="card"><div class="price"><b>$7.99</b><span>/ month</span></div><p>For trying it out one month at a time.</p></div>
       <div class="card"><div class="price"><b>$69.99</b><span>once</span></div><p>Lifetime. For people who hate subscriptions.</p></div>
-      <div class="card"><b>Compare</b><p>Opal is about $100 a year. Brick is $59 for a piece of plastic you'll lose. Your phone is the brick.</p></div>
+      <div class="card"><h3>Every plan is the full app</h3><p>Unlimited sessions, any apps, streaks, the widget, Siri and the Action Button.</p></div>
     </div>
+    <p class="fine">Prices in US dollars; the App Store shows your local price. Subscriptions renew automatically unless cancelled at least 24 hours before the period ends. Details in the <a href="/terms.html">terms of use</a>.</p>
+  </section>
+
+  <section id="privacy">
+    <h2>Private by design</h2>
+    <p class="sub">An app that watches your apps is the last thing you should need in order to use your phone less.</p>
+    <div class="grid2">
+      <div class="card"><h3>No account, no server</h3><p>Your app list, sessions and streak live on your iPhone and are deleted with the app.</p></div>
+      <div class="card"><h3>Clam can't see your apps</h3><p>Apple hands Clam opaque tokens for the apps you pick. It can't read which apps they are or anything inside them.</p></div>
+    </div>
+    <p class="fine">The full version is short: read the <a href="/privacy.html">Clam privacy policy</a>.</p>
+  </section>
+
+  <section id="guides">
+    <h2>Guides</h2>
+    <p class="sub">How app blocking on iPhone actually works, including the free ways built into iOS.</p>
+    <ul class="links">
+      <li><a href="/how-to-block-apps-on-iphone.html"><b>How to block apps on iPhone</b><span>App Limits, Downtime, and when a blocker app is the better tool.</span></a></li>
+      <li><a href="/block-tiktok-instagram-on-iphone.html"><b>How to block TikTok and Instagram on iPhone</b><span>Four ways, from a 1-minute limit to a timed lock you can't tap past.</span></a></li>
+      <li><a href="/focus-mode-vs-app-blocker.html"><b>Focus mode vs an app blocker</b><span>Focus silences notifications. It doesn't stop you opening the app.</span></a></li>
+    </ul>
   </section>
 
   <section id="faq">
     <h2>Questions</h2>
-    <p class="sub"></p>
-    <details><summary>Can I just delete the app to get around it?</summary><p>Yes. Every blocker on iOS has that limit, and any that claims otherwise is lying. Clam adds friction, not walls: a 10-second hold to quit and a streak you'll lose. That's what changes behaviour.</p></details>
-    <details><summary>Does Clam see what I do in my apps?</summary><p>No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are, can't read anything inside them, and never sends anything off your phone. There's no account and no server. <a href="privacy.html">Privacy policy</a>.</p></details>
+    <p class="sub">Straight answers, including the unflattering ones.</p>
+    <details><summary>How do I block apps on my iPhone with Clam?</summary><p>Pick the apps once. Then tap Clam up, choose a length from 5 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed.</p></details>
+    <details><summary>Can Clam block TikTok, Instagram and YouTube?</summary><p>Yes. You choose from Apple's own app picker, so any app on your iPhone can go on the list: TikTok, Instagram, YouTube, X, games, whatever it is for you. You can change the list any time.</p></details>
+    <details><summary>Is it real blocking, or a reminder I can tap past?</summary><p>Real blocking. Clam uses Apple's Screen Time API, the same system behind the built-in app limits. The block screen has one button, and it says OK, I'll wait. There is no ignore-limit button.</p></details>
+    <details><summary>Can I just delete the app to get around it?</summary><p>Yes. Every blocker on iOS has that limit, and any that claims otherwise is lying. Clam adds friction, not walls: a 10-second hold to quit and a streak you'll lose.</p></details>
+    <details><summary>What if I need a locked app during a session?</summary><p>Hold the give up button for 10 seconds. The session ends, your apps unlock, and your streak resets. That's the deal.</p></details>
+    <details><summary>Does Clam see what I do in my apps?</summary><p>No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are, can't read anything inside them, and never sends anything off your phone. There's no account and no server.</p></details>
     <details><summary>Why does it need Screen Time permission?</summary><p>That's the only way to actually lock apps on iOS. Clam asks for it once, for you alone (not a family or child setting), and uses it only during a session you started.</p></details>
-    <details><summary>What if I need a locked app during a session?</summary><p>Hold the "give up" button for 10 seconds. The session ends, your apps unlock, and your streak resets. That's the deal.</p></details>
-    <details><summary>Does it work without an iPhone Duo?</summary><p>Yes. On every iPhone running iOS 17 or later the countdown is on the lock screen and in the Dynamic Island. The Duo just makes the ritual physical.</p></details>
-    <details><summary>Android?</summary><p>Not yet. If enough people ask at <a href="mailto:hello@getclam.app">hello@getclam.app</a>, it moves up the list.</p></details>
+    <details><summary>How much does Clam cost, and which iPhones does it work on?</summary><p>The yearly plan is $39.99 with a 7-day free trial. Monthly is $7.99. Lifetime is $69.99, paid once. Clam works on any iPhone running iOS 17 or later. The countdown shows on the Lock Screen, and in the Dynamic Island on iPhones that have one.</p></details>
+    <p class="fine">Something else? Email <a href="mailto:support@getclam.app">support@getclam.app</a>.</p>
   </section>
 
+  <section id="download" class="final">
+    <h2>Lock it. Clam up.</h2>
+    <p class="sub" style="margin-bottom:0">One tap now. Your apps back when the timer says so.</p>
+    <div class="cta-row">
+      <a class="btn store-btn" href="mailto:hello@getclam.app?subject=Clam%20early%20access&amp;body=Send%20me%20the%20TestFlight%20link.">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.9-4zM14 5.2c.7-.8 1.2-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1.1 3.1 1.1.1 2.3-.6 3-1.4z"/></svg>
+        <span class="store-label">Get early access</span>
+      </a>
+      <span class="pill store-note">Coming to the App Store soon.</span>
+    </div>
+  </section>
+  </main>
+
   <footer>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="mailto:support@getclam.app">Support</a>
-    <a href="mailto:hello@getclam.app">Press &amp; creators</a>
-    <div style="margin-top:14px">© 2026 Clam. Fold it. Clam up.</div>
+    <nav aria-label="Footer">
+      <a href="/">Clam home</a>
+      <a href="/privacy.html">Privacy policy</a>
+      <a href="/terms.html">Terms of use</a>
+      <a href="mailto:support@getclam.app">Email support</a>
+      <a href="mailto:hello@getclam.app">Press &amp; creators</a>
+    </nav>
+    <nav class="guides" aria-label="Guides">
+      <a href="/how-to-block-apps-on-iphone.html">How to block apps on iPhone</a>
+      <a href="/block-tiktok-instagram-on-iphone.html">How to block TikTok and Instagram on iPhone</a>
+      <a href="/focus-mode-vs-app-blocker.html">Focus mode vs an app blocker</a>
+    </nav>
+    <div class="copy">© 2026 Clam. Lock it. Clam up.</div>
   </footer>
 </div>
 
 <script>
   // Once the App Store listing exists, paste its URL here (looks like https://apps.apple.com/app/id123456789).
-  // The button switches from "Get early access" to "Download on the App Store" automatically.
+  // Every button switches from "Get early access" to "Download on the App Store" automatically.
   var APP_STORE_URL = "";
   if (APP_STORE_URL) {
-    var b = document.getElementById("store-btn");
-    b.href = APP_STORE_URL;
-    document.getElementById("store-label").textContent = "Download on the App Store";
-    document.getElementById("store-note").textContent = "Free for 7 days.";
+    document.querySelectorAll(".store-btn").forEach(function (b) { b.href = APP_STORE_URL; b.rel = "noopener"; });
+    document.querySelectorAll(".store-label").forEach(function (l) { l.textContent = "Download on the App Store"; });
+    document.querySelectorAll(".store-note").forEach(function (n) { n.textContent = "Free for 7 days."; });
   }
 </script>
 </body>
