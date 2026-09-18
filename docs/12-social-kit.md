@@ -139,7 +139,16 @@ subreddit per week maximum.
 - Gallery: the six App Store screenshots plus the demo video.
 - Launch on a Tuesday or Wednesday, 12:01am PT.
 
-## 9. Tracking
+## 9. Device images
+
+`docs/brand/duo-hero.png` is Apple's iPhone Duo press image with our outer-screen UI composited
+onto the cover display (script logic in this session; the source photo is the Apple newsroom
+render). Apple's Marketing Guidelines let developers show their app on Apple product images as
+long as the device isn't altered and the screen shows the real app. Before launch, swap the
+press render for the official device frame from Apple Design Resources (developer.apple.com/design/resources)
+once the Duo frames are published, and re-composite a real screenshot from the Xcode 27.1 simulator.
+
+## 10. Tracking
 
 One sheet, one row per post: platform, date, format #, hook text, views at 24h, profile taps,
 link clicks (from the platform's insights), App Store page views that day (App Store Connect →
