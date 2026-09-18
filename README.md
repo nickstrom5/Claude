@@ -18,6 +18,8 @@ iPhone with a lock screen.
 - `docs/09-creator-outreach.md` — DM, brief, pay and tracking for small creators
 - `docs/10-app-store-connect.md` — identifiers, agreements, in-app purchases, privacy labels, TestFlight, submission
 - `docs/11-site-and-email-runbook.md` — reusable: domain, GitHub Pages, Cloudflare DNS and free support email
+- `docs/12-social-kit.md` — handles, bios, pinned post, two-week schedule, captions, reply templates, Reddit posts
+- `docs/brand/` — profile picture, banner, first post image
 - `docs/index.html`, `privacy.html`, `terms.html` — landing page (getclam.app) and legal pages, served by GitHub Pages
 
 ## What's in the box
