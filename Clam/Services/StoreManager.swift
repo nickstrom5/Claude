@@ -14,6 +14,8 @@ final class StoreManager: ObservableObject {
     @Published private(set) var products: [Product] = []
     @Published private(set) var isPro: Bool = false
     @Published private(set) var isLoading = false
+    /// True once `load()` has finished at least once, whether or not it found any products.
+    @Published private(set) var hasLoaded = false
     @Published var purchaseError: String?
 
     private var updatesTask: Task<Void, Never>?
@@ -33,11 +35,21 @@ final class StoreManager: ObservableObject {
 
     func load() async {
         isLoading = true
-        defer { isLoading = false }
+        purchaseError = nil
+        defer {
+            isLoading = false
+            hasLoaded = true
+        }
         do {
             let fetched = try await Product.products(for: ProductID.allCases.map(\.rawValue))
             products = fetched.sorted { lhs, rhs in
                 order(of: lhs) < order(of: rhs)
+            }
+            // StoreKit returns an empty list, not an error, when the IDs are unknown to the store
+            // (no App Store Connect products yet, or no .storekit file attached in the simulator).
+            if products.isEmpty {
+                purchaseError = "Couldn't load plans. Check your connection."
+                Analytics.track(.storeLoadFailed, ["error": "no products returned"])
             }
         } catch {
             purchaseError = "Couldn't load plans. Check your connection."

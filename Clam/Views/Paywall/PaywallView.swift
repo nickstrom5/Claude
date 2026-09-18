@@ -100,7 +100,15 @@ struct PaywallView: View {
     private var plans: some View {
         VStack(spacing: 10) {
             if store.products.isEmpty {
-                ProgressView().frame(maxWidth: .infinity).padding()
+                if store.hasLoaded && !store.isLoading {
+                    Button("Try again") { Task { await store.load() } }
+                        .font(Theme.Font.body)
+                        .foregroundStyle(Theme.accent)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                } else {
+                    ProgressView().frame(maxWidth: .infinity).padding()
+                }
             }
             ForEach(store.products, id: \.id) { product in
                 if let id = StoreManager.ProductID(rawValue: product.id) {
@@ -150,7 +158,9 @@ struct PaywallView: View {
     private var selectedProduct: Product? { store.product(selectedID) }
 
     private var ctaTitle: String {
-        guard let product = selectedProduct else { return "Loading plans…" }
+        guard let product = selectedProduct else {
+            return store.hasLoaded && !store.isLoading ? "Plans unavailable" : "Loading plans…"
+        }
         return store.hasTrial(product) ? "Start my free trial" : "Continue"
     }
 
