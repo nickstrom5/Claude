@@ -58,9 +58,9 @@ jobs:
 
       - name: Capture every screen
         run: |
-          pip3 install --quiet pillow
+          python3 -m venv .venv && .venv/bin/pip install --quiet pillow
           mkdir -p docs/screenshots crashlogs
-          brightness() { python3 -c "from PIL import Image, ImageStat; import sys; print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert('L')).mean[0]))" "$1"; }
+          brightness() { .venv/bin/python -c "from PIL import Image, ImageStat; import sys; print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert('L')).mean[0]))" "$1"; }
           for s in hook hours apps triggers reveal permission taste result paywall home session settings share; do
             for attempt in 1 2 3; do
               xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true
