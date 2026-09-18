@@ -77,6 +77,8 @@ numbers before submission and cite them in the App Store description.
 
 ## Status
 
-Builds and runs in the iOS simulator (Xcode 26.5). Not yet run on a physical iPhone, so the
-Screen Time shield and block screen are untested. Next: run the onboarding on a device and watch
-where you stop wanting to continue. That screen is the first thing to fix.
+Builds and tests green on CI (macOS runner, Xcode 26.6). All thirteen screens captured on an
+iPhone 17 Pro Max simulator in `docs/screenshots/` via the Screenshots workflow. Landing page,
+privacy and terms live at getclam.app; support@getclam.app forwards to Gmail. Not yet run on a
+physical iPhone, so the Screen Time shield and block screen are untested on device. Next: Apple
+Developer Program, App IDs, the three Family Controls entitlement requests, then TestFlight.
