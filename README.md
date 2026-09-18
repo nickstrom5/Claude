@@ -17,7 +17,7 @@ iPhone with a lock screen.
 - `docs/08-launch-videos.md` — shot lists for the first 10 videos
 - `docs/09-creator-outreach.md` — DM, brief, pay and tracking for small creators
 - `docs/10-app-store-connect.md` — identifiers, agreements, in-app purchases, privacy labels, TestFlight, submission
-- `docs/index.html`, `privacy.html`, `terms.html` — landing page and legal pages for GitHub Pages
+- `docs/index.html`, `privacy.html`, `terms.html` — landing page (getclam.app) and legal pages, served by GitHub Pages
 
 ## What's in the box
 

@@ -67,6 +67,9 @@ open Clam.xcodeproj
 
 ## Day of launch
 
+- [ ] Landing page: paste the App Store URL into `APP_STORE_URL` at the bottom of `docs/index.html`.
+      The button switches to "Download on the App Store" by itself.
+
 - [ ] Promo codes for creators generated in App Store Connect (Offer Codes).
 - [ ] Post the first 10 videos already recorded.
 - [ ] Read every review daily. One fix per day for the first two weeks.
