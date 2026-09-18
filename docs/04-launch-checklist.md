@@ -56,6 +56,11 @@ open Clam.xcodeproj
 
 ## Before submission
 
+- [ ] Install the Xcode 27.1 beta when it ships (later in Sept) and run the app on the iPhone Duo
+      simulator in every pose. Check: Live Activity in the vertical status bar on the outer display,
+      the block screen on the inner display, the widget in StandBy/tent pose. Take the App Store
+      screenshot #1 from it.
+
 - [ ] Replace placeholder copy numbers in `OnboardingScreens.swift` with sourced ones (the 17-years stat
       and 4.5h average are widely cited estimates; cite them in the App Store description).
 - [ ] App Store screenshots: 1) fold + lock screen timer, 2) block screen, 3) result card,
