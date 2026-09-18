@@ -3,7 +3,7 @@
 ## Day 1 (do these before writing another line of code)
 
 Status 18 Sep 2026: domain getclam.app bought, DNS (A ×4, www CNAME, MX, SPF, DKIM), GitHub Pages with custom
-domain, account-level domain verification, Email Routing and Gmail send-as all done. Landing page live at getclam.app.
+domain, account-level domain verification, Enforce HTTPS, Email Routing and Gmail send-as all done. Landing page live at https://getclam.app.
 Still open below: App ID, entitlement requests, App Store Connect record, Gmail support filter.
 
 - [ ] Create the App ID `app.getclam.clam` in the Apple Developer portal (matches `project.yml`).
