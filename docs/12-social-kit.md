@@ -141,11 +141,10 @@ subreddit per week maximum.
 
 ## 9. Device images
 
-The landing page draws both iPhone Duo devices in CSS (front-on, closed and open) around real
-simulator captures in `docs/brand/screen-share.png` and `docs/brand/screen-home.png`. That keeps
-them crisp at any size and avoids compositing onto photos. Once Apple publishes Duo device
-frames in Apple Design Resources, and the Xcode 27.1 simulator gives real outer/inner-display
-captures, swap the CSS frames for the official ones.
+The landing page shows the real result screen (`docs/screenshots/share.png`, downscaled to
+`docs/brand/hero-share.png`) in a CSS iPhone frame. iPhone Duo device images wait until Apple
+publishes Duo frames in Apple Design Resources and the Xcode 27.1 simulator produces real
+outer/inner-display captures; earlier Duo attempts are in git history if needed.
 
 ## 10. Tracking
 
