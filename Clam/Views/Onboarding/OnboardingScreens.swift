@@ -223,7 +223,7 @@ struct RevealScreen: View {
             if showBack {
                 VStack(alignment: .leading, spacing: 6) {
                     Divider().overlay(Theme.surfaceRaised).padding(.vertical, 20)
-                    Text("People who lock their apps consistently cut that by ~40%.")
+                    Text("People who lock their apps consistently cut that by 40%.")
                         .font(Theme.Font.body)
                         .foregroundStyle(Theme.textSecondary)
                     HStack(alignment: .firstTextBaseline, spacing: 8) {

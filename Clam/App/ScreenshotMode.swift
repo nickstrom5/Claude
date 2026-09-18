@@ -22,6 +22,9 @@ enum ScreenshotMode {
     @MainActor
     static func seed(_ appState: AppState, screenTime: ScreenTimeManager) {
         UIView.setAnimationsEnabled(false)
+        // Each screen is a fresh launch; never inherit a session from the previous capture.
+        AppGroup.defaults.removeObject(forKey: AppGroup.Key.activeSessionEnd)
+        AppGroup.defaults.removeObject(forKey: AppGroup.Key.activeSessionMinutes)
         appState.answers.hoursPerDay = 4.5
         appState.answers.triggers = [.bored, .inBed, .justChecking]
         appState.preferredMinutes = 25

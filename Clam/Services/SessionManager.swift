@@ -79,7 +79,8 @@ final class SessionManager: ObservableObject {
 
     /// If the app was killed mid-session, pick up where we left off (or close it out).
     func restoreIfNeeded() {
-        guard active == nil,
+        guard !ScreenshotMode.isActive,
+              active == nil,
               let endString = defaults.string(forKey: AppGroup.Key.activeSessionEnd),
               let end = ISO8601DateFormatter().date(from: endString) else { return }
 
@@ -166,6 +167,7 @@ final class SessionManager: ObservableObject {
     // MARK: Notification
 
     private func scheduleCompletionNotification(at end: Date) {
+        guard !ScreenshotMode.isActive else { return }
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
             guard granted else { return }

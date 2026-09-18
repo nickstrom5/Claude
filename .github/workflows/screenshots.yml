@@ -63,8 +63,17 @@ jobs:
             xcrun simctl launch --terminate-running-process "$DEVICE" app.getclam.clam -screenshot "$s" >/dev/null
             sleep 6
             xcrun simctl io "$DEVICE" screenshot "docs/screenshots/$s.png"
-            echo "captured $s"
+            # A near-black frame compresses to a few KB; wait and retry once.
+            if [ "$(stat -f%z "docs/screenshots/$s.png")" -lt 40000 ]; then
+              echo "  $s looked empty, retrying"
+              sleep 6
+              xcrun simctl io "$DEVICE" screenshot "docs/screenshots/$s.png"
+            fi
+            echo "captured $s ($(stat -f%z "docs/screenshots/$s.png") bytes)"
           done
+          mkdir -p crashlogs
+          find ~/Library/Logs/DiagnosticReports -name "Clam*" -newer build.log -exec cp {} crashlogs/ \; 2>/dev/null || true
+          ls crashlogs || true
           # Also a downscaled contact sheet for quick review.
           cd docs/screenshots && for f in *.png; do sips -Z 600 "$f" --out "small-$f" >/dev/null; done
 
@@ -81,5 +90,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: docs/screenshots
+          path: |
+            docs/screenshots
+            crashlogs
           if-no-files-found: ignore
