@@ -3,7 +3,7 @@
 ## Day 1 (do these before writing another line of code)
 
 Status 18 Sep 2026: domain getclam.app bought, DNS (A ×4, www CNAME, MX, SPF, DKIM), GitHub Pages with custom
-domain, account-level domain verification, Email Routing and Gmail send-as all done. Landing page live at getclam.app.
+domain, account-level domain verification, Enforce HTTPS, Email Routing and Gmail send-as all done. Landing page live at https://getclam.app.
 Still open below: App ID, entitlement requests, App Store Connect record, Gmail support filter.
 
 - [ ] Create the App ID `app.getclam.clam` in the Apple Developer portal (matches `project.yml`).
@@ -55,6 +55,11 @@ open Clam.xcodeproj
   locally without App Store Connect.
 
 ## Before submission
+
+- [ ] Install the Xcode 27.1 beta when it ships (later in Sept) and run the app on the iPhone Duo
+      simulator in every pose. Check: Live Activity in the vertical status bar on the outer display,
+      the block screen on the inner display, the widget in StandBy/tent pose. Take the App Store
+      screenshot #1 from it.
 
 - [ ] Replace placeholder copy numbers in `OnboardingScreens.swift` with sourced ones (the 17-years stat
       and 4.5h average are widely cited estimates; cite them in the App Store description).

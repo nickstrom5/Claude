@@ -58,15 +58,26 @@ jobs:
 
       - name: Capture every screen
         run: |
-          mkdir -p docs/screenshots
+          python3 -m venv .venv && .venv/bin/pip install --quiet pillow
+          mkdir -p docs/screenshots crashlogs
+          brightness() { .venv/bin/python -c "from PIL import Image, ImageStat; import sys; print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert('L')).mean[0]))" "$1"; }
           for s in hook hours apps triggers reveal permission taste result paywall home session settings share; do
-            xcrun simctl launch --terminate-running-process "$DEVICE" app.getclam.clam -screenshot "$s" >/dev/null
-            sleep 6
-            xcrun simctl io "$DEVICE" screenshot "docs/screenshots/$s.png"
-            echo "captured $s"
+            for attempt in 1 2 3; do
+              xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true
+              sleep 1
+              xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" >/dev/null
+              sleep 8
+              xcrun simctl io "$DEVICE" screenshot "docs/screenshots/$s.png" >/dev/null
+              mean=$(brightness "docs/screenshots/$s.png")
+              if [ "$mean" -ge 6 ]; then echo "captured $s (attempt $attempt, brightness $mean)"; break; fi
+              echo "  $s: blank frame on attempt $attempt (brightness $mean); app log follows"
+              xcrun simctl spawn "$DEVICE" log show --last 20s --predicate 'process == "Clam"' --style compact 2>/dev/null | tail -30 | tee -a "crashlogs/$s-attempt$attempt.log" || true
+            done
           done
-          # Also a downscaled contact sheet for quick review.
-          cd docs/screenshots && for f in *.png; do sips -Z 600 "$f" --out "small-$f" >/dev/null; done
+          find ~/Library/Logs/DiagnosticReports -name "Clam*" -newer build.log -exec cp {} crashlogs/ \; 2>/dev/null || true
+          ls crashlogs || true
+          # Downscaled copies for quick review (skip existing thumbnails).
+          cd docs/screenshots && rm -f small-*.png && for f in *.png; do sips -Z 600 "$f" --out "small-$f" >/dev/null; done
 
       - name: Commit screenshots
         run: |
@@ -74,12 +85,21 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/screenshots
           git commit -m "Screenshots from simulator ($DEVICE) [skip ci]" || { echo "no changes"; exit 0; }
-          git push origin HEAD:${{ github.ref_name }}
+          # The branch may have moved while the simulator ran; rebase our one commit on top and retry.
+          for attempt in 1 2 3 4; do
+            git fetch origin ${{ github.ref_name }}
+            git rebase origin/${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }} && exit 0
+            git rebase --abort || true
+            sleep 10
+          done
+          echo "could not push after 4 attempts"; exit 1
 
       - name: Upload artifact too
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: docs/screenshots
+          path: |
+            docs/screenshots
+            crashlogs
           if-no-files-found: ignore

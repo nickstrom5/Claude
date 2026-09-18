@@ -32,6 +32,22 @@ the commitment.**
 - We do **not** depend on any fold-state API. Nothing in the app breaks if Apple never exposes one.
   It is a marketing frame and a Live Activity, both of which exist today.
 
+What Apple has actually published (Sept 2026, from the "Designing for iPhone Duo" HIG and
+tech talks; verify against the docs once Xcode 27.1 ships):
+- The Duo runs iOS 27.1. Its simulator arrives in the Xcode 27.1 beta "later this month",
+  with on-screen controls to fold and pose the device. Our deployment target (iOS 17) is fine.
+- Apple's guidance is two size classes, not poses: compact width on the outer display, regular
+  width (iPad-like) on the inner display. Our layouts are single-column and already adapt.
+- The status bar runs vertically along the side of both displays and expands to show Live
+  Activities. That is where our countdown appears when folded. Same Live Activity, no new code.
+- The "standing" (tent) pose shows widgets on the outer screen via StandBy. Our small Home
+  Screen widget (streak + "Clam up" button) is exactly the systemSmall family StandBy uses, so
+  a tented Duo on a desk can show Clam with no extra work. Worth a video.
+- A new ReservedRegion API in iOS 27.1 keeps content clear of system UI on the outer display.
+  Not needed for v1; revisit if the block screen or Live Activity looks cramped in the simulator.
+- No public fold-angle API is mentioned in Apple's material; third-party write-ups about hinge
+  angle refer to Flutter plugins. We continue not to depend on one.
+
 Launch timing: the Duo lands in reviewers' hands the week of October 23. Every tech creator will be
 making "first apps to install on the iPhone Duo" content. That is a free distribution window we
 should be live for.
@@ -61,6 +77,14 @@ every session is one tap and one fold. The ritual is the product.
 Entry points besides the app: Siri ("Clam up my phone"), the Shortcuts app, the Action Button,
 and a small Home Screen widget with a "Clam up" button. All run the same intent. Each one is a
 video (see `playbook/08-launch-videos.md`).
+
+**Records and badges (1.1, local only).** Personal bests (longest session, longest streak, best
+day) and ten milestone badges, surfaced as a "new record" chip on the result screen and a Records
+section in Settings. Funnel metric: D7/D30 retention (a next goal is always visible) and share
+rate (each record is a new share card). No backend, no account.
+
+**Friends, leaderboards, challenges (1.2, see `playbook/13-roadmap.md`).** Via Game Center, not our
+own backend, so the privacy stance holds. Funnel metric: K-factor (invites per user) and D30.
 
 **What is deliberately not in v1:** schedules, website blocking UI, family plans, Mac app, stats
 beyond streak + minutes, AI anything. Every one of these is a v1.x candidate only if reviews ask.

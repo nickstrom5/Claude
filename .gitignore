@@ -26,3 +26,6 @@ Clam/Info.plist
 ClamShield/Info.plist
 ClamMonitor/Info.plist
 ClamWidgets/Info.plist
+
+# Python venv used by the screenshots workflow
+.venv/

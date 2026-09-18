@@ -22,6 +22,9 @@ enum ScreenshotMode {
     @MainActor
     static func seed(_ appState: AppState, screenTime: ScreenTimeManager) {
         UIView.setAnimationsEnabled(false)
+        // Each screen is a fresh launch; never inherit a session from the previous capture.
+        AppGroup.defaults.removeObject(forKey: AppGroup.Key.activeSessionEnd)
+        AppGroup.defaults.removeObject(forKey: AppGroup.Key.activeSessionMinutes)
         appState.answers.hoursPerDay = 4.5
         appState.answers.triggers = [.bored, .inBed, .justChecking]
         appState.preferredMinutes = 25
@@ -38,8 +41,14 @@ enum ScreenshotMode {
                                         end: start.addingTimeInterval(Double(minutes) * 60), completed: true))
         }
         appState.history = history
-        appState.stats = Stats(streak: 12, longestStreak: 19, totalMinutes: 1_830, sessionsCompleted: 41,
-                               lastCompletedDay: today)
+        var stats = Stats()
+        stats.streak = 12; stats.longestStreak = 19; stats.totalMinutes = 1_830; stats.sessionsCompleted = 41
+        stats.lastCompletedDay = today; stats.longestSessionMinutes = 134; stats.bestDayMinutes = 190
+        stats.unlockedBadges = Set(Badge.allCases.filter { $0.isEarned(by: stats) }.map(\.rawValue))
+        appState.stats = stats
+        if screen == .share {
+            appState.lastAchievements = Stats.Achievements(records: [.longestSession], badges: [.session2h])
+        }
         appState.hasCompletedOnboarding = {
             switch screen {
             case .home, .session, .settings, .share: return true

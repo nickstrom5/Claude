@@ -37,7 +37,7 @@ Rules for all ten:
 **Shots:**
 1. Dark room, phone lights up your face. Unfold.
 2. Tap TikTok. Block screen appears.
-3. Look at camera, defeated. Fold it shut.
+3. Hand puts the phone down, defeated. Fold it shut.
 4. End card: "Clam. Go to sleep."
 
 ### 4. Slideshow: 5 signs
@@ -54,7 +54,7 @@ Rules for all ten:
 **Hook text:** "The iPhone Duo made my screen time worse. So I built this."
 **Shots:**
 1. Unboxed Duo, open, big screen scrolling. 2s.
-2. Talking head, one sentence: "Bigger screen, more doomscrolling. So I made closing it the point."
+2. Voiceover or on-screen text, one sentence: "Bigger screen, more doomscrolling. So I made closing it the point."
 3. Demo shots 1–4 from video #1.
 4. End card.
 **Timing:** Post the week of Oct 23, when the Duo lands.
@@ -96,7 +96,7 @@ Rules for all ten:
 ### 10. Founder, day 1
 **Hook text:** "Day 1 of trying to get 1,000 people to close their phones"
 **Shots:**
-1. Talking head, phone in hand. "I built an app that locks your apps when you fold your phone. Here's the whole thing." (demo plays picture-in-picture)
+1. Demo on screen with text: "I built an app that locks your apps when you fold your phone. Here's the whole thing." Voiceover optional.
 2. "I'll post every day until 1,000 people are using it. Day 1: 0."
 3. End card.
 **Why:** Build-in-public series give you a reason to post daily and a story people follow.

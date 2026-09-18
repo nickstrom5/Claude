@@ -27,7 +27,7 @@ struct PaywallView: View {
                     timeline
                     plans
                     if selectedProduct.map(store.hasTrial) == true || (ScreenshotMode.isActive && selectedID == .yearly) { reminderToggle }
-                    if let error = store.purchaseError {
+                    if let error = store.purchaseError, !ScreenshotMode.isActive {
                         Text(error).font(Theme.Font.caption).foregroundStyle(Theme.danger)
                     }
                 }
@@ -66,6 +66,7 @@ struct PaywallView: View {
         .task {
             if store.isPro { onFinished(); return }
             Analytics.track(.paywallShown, ["context": String(describing: context)])
+            if ScreenshotMode.isActive { showClose = true; return }
             if store.products.isEmpty { await store.load() }
             try? await Task.sleep(nanoseconds: 2_000_000_000)
             withAnimation { showClose = true }

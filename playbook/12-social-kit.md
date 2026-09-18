@@ -19,7 +19,26 @@ Try `getclam` first everywhere so the handle matches the domain. Fall back to `c
 | Reddit | u/getclam | Value-first posts in r/nosurf, r/digitalminimalism, r/productivity, r/iphone. | Reddit hates promotion. See section 7. |
 | Product Hunt | maker profile under your own name | Launch day listing. | Set up a personal maker account now; the product page comes at launch. |
 
-Also grab the email `press@getclam.app` → it's covered by the catch-all already.
+**Sign-up emails.** The catch-all forwards anything @getclam.app to Gmail, so give each platform
+its own address. Recovery emails then tell you which account they're for, and a leak on one
+platform doesn't expose the address used elsewhere.
+
+| Platform | Sign up with |
+|---|---|
+| TikTok | tiktok@getclam.app |
+| Instagram / Threads | instagram@getclam.app |
+| YouTube | Google account on youtube@getclam.app (or use the Nickstrom5 Gmail as a brand channel) |
+| X | x@getclam.app |
+| Reddit | reddit@getclam.app |
+| Product Hunt | hello@getclam.app |
+
+Keep `support@getclam.app` for users only, so the support label stays clean. Use a password
+manager; TikTok and Instagram will also ask for a phone number, which has to be yours.
+
+**No founder face.** The "personal / founder" column in the schedule below is a second brand
+account, `@clamup`, not a personal profile. Its posts are screen recordings, text-on-screen and
+voiceover; the "Day N" build-in-public series works as captions over the app. If you ever want
+to appear, it's additive, not required.
 
 ## 2. Profile
 
@@ -47,15 +66,15 @@ Video #1 from the launch list (the demo: tap, fold, try Instagram, blocked). Cap
 
 ## 4. Two-week posting schedule
 
-Two accounts on TikTok (main @getclam, plus your personal account posting the founder angle).
+Two accounts on TikTok (main @getclam, plus @clamup posting the build-in-public angle, face-free).
 One video a day on each, same video to Reels and Shorts the same day. Post 6–9pm local.
 
-| Day | @getclam | Personal / founder |
+| Day | @getclam | @clamup (build-in-public, no face) |
 |---|---|---|
-| 1 | #1 The demo (pin it) | #10 "Day 1 of trying to get 1,000 people to close their phones" |
+| 1 | #1 The demo (pin it) | #10 "Day 1 of trying to get 1,000 people to close their phones" (text over the demo, voiceover optional) |
 | 2 | #9 "You spend 68 days a year" | Story: screenshot of your own Screen Time. "This is why." |
 | 3 | #3 POV 1am | #10 Day 3 update: what you shipped |
-| 4 | #4 Slideshow: 5 signs | Repost #1 with your face reacting |
+| 4 | #4 Slideshow: 5 signs | Repost #1 with a different text hook |
 | 5 | #7 The hold-to-quit | Day 5: first App Store screenshot |
 | 6 | #6 Brick vs Clam | Story: DM screenshots from people asking for TestFlight |
 | 7 | #1 again, different hook text ("This is the block screen that actually stopped me") | Day 7: week recap, numbers |
@@ -120,7 +139,14 @@ subreddit per week maximum.
 - Gallery: the six App Store screenshots plus the demo video.
 - Launch on a Tuesday or Wednesday, 12:01am PT.
 
-## 9. Tracking
+## 9. Device images
+
+The landing page shows the real result screen (`docs/screenshots/share.png`, downscaled to
+`docs/brand/hero-share.png`) in a CSS iPhone frame. iPhone Duo device images wait until Apple
+publishes Duo frames in Apple Design Resources and the Xcode 27.1 simulator produces real
+outer/inner-display captures; earlier Duo attempts are in git history if needed.
+
+## 10. Tracking
 
 One sheet, one row per post: platform, date, format #, hook text, views at 24h, profile taps,
 link clicks (from the platform's insights), App Store page views that day (App Store Connect →

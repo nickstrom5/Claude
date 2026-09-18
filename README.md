@@ -19,6 +19,7 @@ iPhone with a lock screen.
 - `playbook/10-app-store-connect.md` — identifiers, agreements, in-app purchases, privacy labels, TestFlight, submission
 - `playbook/11-site-and-email-runbook.md` — reusable: domain, GitHub Pages, Cloudflare DNS and free support email
 - `playbook/12-social-kit.md` — handles, bios, pinned post, two-week schedule, captions, reply templates, Reddit posts
+- `playbook/13-roadmap.md` — records and badges (built), Game Center friends/leaderboards/challenges (next), what waits for evidence
 - `docs/brand/` — profile picture, banner, first post image
 - `docs/index.html`, `privacy.html`, `terms.html` — landing page (getclam.app) and legal pages, served by GitHub Pages
 - `docs/how-to-block-apps-on-iphone.html`, `block-tiktok-instagram-on-iphone.html`, `focus-mode-vs-app-blocker.html` — guide pages; plus `robots.txt`, `sitemap.xml`, `404.html`, `site.webmanifest`
@@ -79,6 +80,8 @@ numbers before submission and cite them in the App Store description.
 
 ## Status
 
-Builds and runs in the iOS simulator (Xcode 26.5). Not yet run on a physical iPhone, so the
-Screen Time shield and block screen are untested. Next: run the onboarding on a device and watch
-where you stop wanting to continue. That screen is the first thing to fix.
+Builds and tests green on CI (macOS runner, Xcode 26.6). All thirteen screens captured on an
+iPhone 17 Pro Max simulator in `docs/screenshots/` via the Screenshots workflow. Landing page,
+privacy and terms live at getclam.app; support@getclam.app forwards to Gmail. Not yet run on a
+physical iPhone, so the Screen Time shield and block screen are untested on device. Next: Apple
+Developer Program, App IDs, the three Family Controls entitlement requests, then TestFlight.

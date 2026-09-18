@@ -55,13 +55,23 @@ final class AppState: ObservableObject {
 
     // MARK: - Session bookkeeping
 
+    /// Records and badges earned by the most recent completed session.
+    @Published var lastAchievements = Stats.Achievements()
+
     func record(_ session: FocusSession) {
         history.append(session)
         if history.count > 500 { history.removeFirst(history.count - 500) }
 
         if session.completed {
-            stats.registerCompleted(session)
+            lastAchievements = stats.registerCompleted(session, todayMinutes: todayMinutes)
+            if !lastAchievements.isEmpty {
+                Analytics.track(.achievementEarned, [
+                    "records": lastAchievements.records.map(\.rawValue),
+                    "badges": lastAchievements.badges.map(\.rawValue)
+                ])
+            }
         } else {
+            lastAchievements = Stats.Achievements()
             stats.registerAbandoned(session)
         }
     }
