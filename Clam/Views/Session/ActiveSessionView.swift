@@ -106,6 +106,11 @@ struct SessionResultView: View {
                 .foregroundStyle(Theme.textSecondary)
                 .padding(.top, 6)
 
+            if session.completed, !appState.lastAchievements.isEmpty {
+                AchievementsRow(achievements: appState.lastAchievements)
+                    .padding(.top, 14)
+            }
+
             if session.completed {
                 ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak)
                     .padding(.top, 28)
@@ -128,5 +133,32 @@ struct SessionResultView: View {
         .sheet(isPresented: $showShare) {
             ShareSheet(items: [ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak).render()].compactMap { $0 })
         }
+    }
+}
+
+/// "New record" / "Badge unlocked" chips on the result screen. The moment people screenshot.
+struct AchievementsRow: View {
+    let achievements: Stats.Achievements
+
+    var body: some View {
+        VStack(spacing: 8) {
+            ForEach(achievements.records) { record in
+                chip(symbol: "trophy.fill", text: "New record: \(record.title.lowercased())")
+            }
+            ForEach(achievements.badges) { badge in
+                chip(symbol: badge.symbol, text: "Badge unlocked: \(badge.title)")
+            }
+        }
+    }
+
+    private func chip(symbol: String, text: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: symbol).foregroundStyle(Theme.accent)
+            Text(text).font(Theme.Font.headline).foregroundStyle(Theme.textPrimary)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Theme.accentSoft)
+        .clipShape(Capsule())
     }
 }

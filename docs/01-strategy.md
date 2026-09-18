@@ -78,6 +78,14 @@ Entry points besides the app: Siri ("Clam up my phone"), the Shortcuts app, the 
 and a small Home Screen widget with a "Clam up" button. All run the same intent. Each one is a
 video (see `docs/08-launch-videos.md`).
 
+**Records and badges (1.1, local only).** Personal bests (longest session, longest streak, best
+day) and ten milestone badges, surfaced as a "new record" chip on the result screen and a Records
+section in Settings. Funnel metric: D7/D30 retention (a next goal is always visible) and share
+rate (each record is a new share card). No backend, no account.
+
+**Friends, leaderboards, challenges (1.2, see `docs/13-roadmap.md`).** Via Game Center, not our
+own backend, so the privacy stance holds. Funnel metric: K-factor (invites per user) and D30.
+
 **What is deliberately not in v1:** schedules, website blocking UI, family plans, Mac app, stats
 beyond streak + minutes, AI anything. Every one of these is a v1.x candidate only if reviews ask.
 

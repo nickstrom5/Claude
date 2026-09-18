@@ -71,4 +71,40 @@ final class StatsTests: XCTestCase {
         stats.totalMinutes = 135
         XCTAssertEqual(stats.totalFormatted, "2h 15m")
     }
+
+    func testRecordsAreReportedOnceMeaningful() {
+        var stats = Stats()
+        let first = stats.registerCompleted(session(daysAgo: 1, minutes: 25), todayMinutes: 25)
+        XCTAssertTrue(first.records.isEmpty, "a first value isn't a record yet")
+        XCTAssertEqual(first.badges, [.firstSession])
+        XCTAssertEqual(stats.longestSessionMinutes, 25)
+
+        let second = stats.registerCompleted(session(daysAgo: 0, minutes: 90), todayMinutes: 90)
+        XCTAssertEqual(Set(second.records), [.longestSession, .longestStreak, .bestDay])
+        XCTAssertEqual(stats.longestSessionMinutes, 90)
+        XCTAssertEqual(stats.bestDayMinutes, 90)
+
+        let shorter = stats.registerCompleted(session(daysAgo: 0, minutes: 10), todayMinutes: 100)
+        XCTAssertEqual(shorter.records, [.bestDay])
+    }
+
+    func testBadgesUnlockOnce() {
+        var stats = Stats()
+        for day in stride(from: 6, through: 0, by: -1) {
+            _ = stats.registerCompleted(session(daysAgo: day, minutes: 25), todayMinutes: 25)
+        }
+        XCTAssertEqual(stats.longestStreak, 7)
+        XCTAssertTrue(stats.unlockedBadges.contains(Badge.streak7.rawValue))
+        XCTAssertTrue(stats.unlockedBadges.contains(Badge.streak3.rawValue))
+        let again = stats.registerCompleted(session(daysAgo: 0, minutes: 25), todayMinutes: 50)
+        XCTAssertTrue(again.badges.isEmpty, "badges are earned once")
+    }
+
+    func testDecodesStatsSavedBeforeRecordsExisted() throws {
+        let legacy = #"{"streak":4,"longestStreak":9,"totalMinutes":300,"sessionsCompleted":12}"#
+        let stats = try JSONDecoder().decode(Stats.self, from: Data(legacy.utf8))
+        XCTAssertEqual(stats.streak, 4)
+        XCTAssertEqual(stats.longestSessionMinutes, 0)
+        XCTAssertTrue(stats.unlockedBadges.isEmpty)
+    }
 }
