@@ -63,24 +63,27 @@ if [ -z "$RT" ]; then
   echo "No usable iOS simulator runtime installed. Installed runtimes:"; xcrun simctl list runtimes available | tail -n +2
   echo "Install one in Xcode > Settings > Components, then rerun."; exit 1
 fi
-DEVICE=$(xcrun simctl list devices available | grep -E "^ *${DEVICE_NAME} \(" | head -1 | sed -E 's/^ *(.+) \([0-9A-F-]+\) \(.*/\1/' || true)
-if [ -z "$DEVICE" ]; then
+# Resolve to a UDID. Names repeat across runtimes, and xcodebuild rejects an ambiguous
+# `name=` destination with "Unable to find a device matching the provided destination".
+DEVICE_ID=$(xcrun simctl list devices available | grep -E "^ *${DEVICE_NAME} \(" | head -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/' || true)
+if [ -z "$DEVICE_ID" ]; then
   TYPE="com.apple.CoreSimulator.SimDeviceType.$(echo "$DEVICE_NAME" | tr ' ' '-')"
-  if ! xcrun simctl create "$DEVICE_NAME" "$TYPE" "$RT" >/dev/null 2>&1; then
+  DEVICE_ID=$(xcrun simctl create "$DEVICE_NAME" "$TYPE" "$RT" 2>/dev/null || true)
+  if [ -z "$DEVICE_ID" ]; then
     echo "No simulator named '$DEVICE_NAME' and it could not be created."
     echo "Available devices:"; xcrun simctl list devices available | grep -E "iPhone" || true
     exit 1
   fi
-  DEVICE="$DEVICE_NAME"
 fi
+DEVICE="$DEVICE_NAME"
 SLUG=$(echo "$DEVICE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-'); [ "$SLUG" = "iphone-duo" ] && SLUG=duo
 [ -n "$OUT" ] || OUT="docs/screenshots/$SLUG"
-echo "Simulator: $DEVICE ($RT) -> $OUT"
+echo "Simulator: $DEVICE [$DEVICE_ID] -> $OUT"
 
 # 3. Generate, build, test.
 command -v xcodegen >/dev/null || { echo "brew install xcodegen first"; exit 1; }
 xcodegen generate >/dev/null
-DEST="platform=iOS Simulator,name=$DEVICE"
+DEST="platform=iOS Simulator,id=$DEVICE_ID"
 set -o pipefail
 xcodebuild build -project Clam.xcodeproj -scheme Clam -destination "$DEST" -derivedDataPath DerivedData \
   -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO 2>&1 | tee capture-build.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
@@ -93,12 +96,12 @@ if [ "$RUN_TESTS" = 1 ]; then
 fi
 
 # 4. Boot, install.
-xcrun simctl boot "$DEVICE" >/dev/null 2>&1 || true
-xcrun simctl bootstatus "$DEVICE" -b >/dev/null
+xcrun simctl boot "$DEVICE_ID" >/dev/null 2>&1 || true
+xcrun simctl bootstatus "$DEVICE_ID" -b >/dev/null
 [ "$CI_MODE" = 1 ] || open -a Simulator >/dev/null 2>&1 || true
-xcrun simctl ui "$DEVICE" appearance dark >/dev/null 2>&1 || true
+xcrun simctl ui "$DEVICE_ID" appearance dark >/dev/null 2>&1 || true
 APP=$(find DerivedData/Build/Products -name "Clam.app" -maxdepth 2 | head -1)
-xcrun simctl install "$DEVICE" "$APP"
+xcrun simctl install "$DEVICE_ID" "$APP"
 sleep 3
 
 # The Duo's unlit display captures as pure black, so the simulator has to be in the pose
@@ -147,7 +150,7 @@ px_width() { sips -g pixelWidth "$1" 2>/dev/null | awk '/pixelWidth/ {print $2}'
 DISPLAY_ARG=""; CHOSEN_W=0
 probe="${TMPDIR:-/tmp}/clam-probe-$$.png"
 for d in primary internal external; do
-  xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1 || continue
+  xcrun simctl io "$DEVICE_ID" screenshot --display "$d" "$probe" >/dev/null 2>&1 || continue
   looks_blank "$probe" && continue
   w=$(px_width "$probe"); [ -n "$w" ] || continue
   echo "  display $d is lit, ${w}px wide"
@@ -188,14 +191,14 @@ FAILED=""; PREV_SUM=""
 for s in $SCREENS; do
   f="$OUT/$PREFIX$s.png"; ok=0; sum=""
   for attempt in 1 2 3; do
-    xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true; sleep 1
-    PID=$(xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" 2>&1 | sed -E 's/.*: *//')
+    xcrun simctl terminate "$DEVICE_ID" app.getclam.clam >/dev/null 2>&1 || true; sleep 1
+    PID=$(xcrun simctl launch "$DEVICE_ID" app.getclam.clam -screenshot "$s" 2>&1 | sed -E 's/.*: *//')
     sleep 8
-    if ! xcrun simctl spawn "$DEVICE" launchctl list 2>/dev/null | grep -q "app.getclam.clam"; then
+    if ! xcrun simctl spawn "$DEVICE_ID" launchctl list 2>/dev/null | grep -q "app.getclam.clam"; then
       echo "  $s: app is not running after launch (pid was ${PID:-?})"
     fi
     # shellcheck disable=SC2086
-    xcrun simctl io "$DEVICE" screenshot $DISPLAY_ARG "$f" >/dev/null 2>&1 || true
+    xcrun simctl io "$DEVICE_ID" screenshot $DISPLAY_ARG "$f" >/dev/null 2>&1 || true
     sum=$(md5 -q "$f" 2>/dev/null || echo none)
     if looks_blank "$f"; then
       echo "  $s: blank frame, relaunching ($attempt/3)"
@@ -217,8 +220,8 @@ done
 if [ -n "$FAILED" ]; then
   echo; echo "Blank screens:$FAILED"
   echo "--- last 40 log lines from the app ---"
-  xcrun simctl spawn "$DEVICE" log show --last 3m --predicate 'process == "Clam"' 2>/dev/null | tail -40 || true
-  echo "--- displays simctl reports ---"; xcrun simctl io "$DEVICE" enumerate 2>/dev/null | grep -iE "display|port" | head -20 || true
+  xcrun simctl spawn "$DEVICE_ID" log show --last 3m --predicate 'process == "Clam"' 2>/dev/null | tail -40 || true
+  echo "--- displays simctl reports ---"; xcrun simctl io "$DEVICE_ID" enumerate 2>/dev/null | grep -iE "display|port" | head -20 || true
   rm -f capture-build.log capture-test.log
   exit 1
 fi
