@@ -57,8 +57,8 @@ open Clam.xcodeproj
 
 ## Before submission
 
-- [ ] Install the Xcode 27.1 beta when it ships (later in Sept) and run the app on the iPhone Duo
-      simulator in every pose. Check: Live Activity in the vertical status bar on the outer display,
+- [ ] Install the Xcode 27.1 beta (out 18 Sep; needs macOS 26.6) from developer.apple.com/download and run the
+      app on the iPhone Duo simulator in every pose. Check: Live Activity in the vertical status bar on the outer display,
       the block screen on the inner display, the widget in StandBy/tent pose. Take the App Store
       screenshot #1 from it.
 

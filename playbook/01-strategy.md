@@ -34,8 +34,11 @@ the commitment.**
 
 What Apple has actually published (Sept 2026, from the "Designing for iPhone Duo" HIG and
 tech talks; verify against the docs once Xcode 27.1 ships):
-- The Duo runs iOS 27.1. Its simulator arrives in the Xcode 27.1 beta "later this month",
-  with on-screen controls to fold and pose the device. Our deployment target (iOS 17) is fine.
+- The Duo runs iOS 27.1. Xcode 27.1 beta (released 18 Sep 2026, needs macOS 26.6 on Apple silicon)
+  ships the SDK and a Duo simulator with on-screen fold/pose controls. Simulator limits in beta 1:
+  no StandBy, and most app extensions can't run, so the Live Activity and widget need a real Duo.
+  Our deployment target (iOS 17) is fine. `RootView` caps content width at 560pt when the width
+  class is regular, so the inner display gets a centered phone-width column.
 - Apple's guidance is two size classes, not poses: compact width on the outer display, regular
   width (iPad-like) on the inner display. Our layouts are single-column and already adapt.
 - The status bar runs vertically along the side of both displays and expands to show Live
