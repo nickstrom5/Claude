@@ -85,24 +85,51 @@ PREFIX=""; [ "$POSE" = open ] || PREFIX="$POSE-"
 SCREENS="hook hours apps triggers reveal permission taste result paywall home session settings share"
 [ "$CI_MODE" = 1 ] && SCREENS="home session paywall reveal share"
 
-brightness() {  # mean pixel value 0-255, to catch a black launch frame; needs python3 + Pillow, else 255
-  python3 - "$1" 2>/dev/null <<'PY' || echo 255
+brightness() {  # mean pixel value 0-255, or "fallback" when Pillow is missing
+  python3 - "$1" 2>/dev/null <<'PYEOF' || echo "fallback"
 import sys
-try:
-    from PIL import Image, ImageStat
-    print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert("L")).mean[0]))
-except Exception:
-    print(255)
-PY
+from PIL import Image, ImageStat
+print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert("L")).mean[0]))
+PYEOF
 }
+
+# A black PNG compresses to almost nothing; a real screenshot does not.
+# Used when Pillow is not installed, so a blank frame is never mistaken for a good one.
+looks_blank() {
+  local f="$1" mean
+  [ -s "$f" ] || return 0
+  mean=$(brightness "$f")
+  if [ "$mean" = "fallback" ]; then
+    [ "$(stat -f%z "$f" 2>/dev/null || echo 0)" -lt 40000 ]
+  else
+    [ "$mean" -le 6 ]
+  fi
+}
+
+
+# The Duo has two displays and only one is lit in a given pose. simctl's default
+# is not reliably the lit one (it changes after `simctl erase`), so find it once.
+pick_display() {
+  local d probe
+  probe=$(mktemp -t duoprobe).png
+  for d in primary internal; do
+    if xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1; then
+      if ! looks_blank "$probe"; then rm -f "$probe"; echo "$d"; return; fi
+    fi
+  done
+  rm -f "$probe"
+  echo primary
+}
+DISPLAY_ARG=$(pick_display)
+echo "Capturing the lit display: $DISPLAY_ARG"
 
 for s in $SCREENS; do
   f="$OUT/$PREFIX$s.png"
   for attempt in 1 2 3; do
     xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true; sleep 1
     xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" >/dev/null; sleep 8
-    xcrun simctl io "$DEVICE" screenshot "$f" >/dev/null 2>&1
-    [ "$(brightness "$f")" -gt 6 ] && break
+    xcrun simctl io "$DEVICE" screenshot --display "$DISPLAY_ARG" "$f" >/dev/null 2>&1
+    looks_blank "$f" || break
     echo "  $s: blank frame, relaunching ($attempt)"
   done
   echo "captured $f ($(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/ {printf "%s ", $2}'))"
