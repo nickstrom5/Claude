@@ -6,22 +6,22 @@ final class OnboardingAnswersTests: XCTestCase {
         let answers = OnboardingAnswers()
         XCTAssertEqual(answers.hoursPerDay, 4.5)
         XCTAssertEqual(answers.daysPerYear, 68)
-        XCTAssertEqual(answers.daysBackPerYear, 27)
-        XCTAssertEqual(answers.hoursBackPerWeek, 13)
+        XCTAssertEqual(answers.daysBackPerYear, 23)
+        XCTAssertEqual(answers.hoursBackPerWeek, 11)
     }
 
     func testHeavyUser() {
         var answers = OnboardingAnswers()
         answers.hoursPerDay = 8
         XCTAssertEqual(answers.daysPerYear, 122)
-        XCTAssertEqual(answers.daysBackPerYear, 49)
+        XCTAssertEqual(answers.daysBackPerYear, 41)
     }
 
     func testLightUser() {
         var answers = OnboardingAnswers()
         answers.hoursPerDay = 1
         XCTAssertEqual(answers.daysPerYear, 15)
-        XCTAssertEqual(answers.daysBackPerYear, 6)
+        XCTAssertEqual(answers.daysBackPerYear, 5)
     }
 
     func testRoundTripsThroughJSON() throws {

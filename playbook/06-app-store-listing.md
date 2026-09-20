@@ -47,7 +47,7 @@ HOW IT WORKS
 
 WHAT YOU GET BACK
 At the average 4.5 hours a day, you spend 68 full days a year on your phone. People who lock
-their apps consistently cut that by around 40%. That's 27 days. Every year.
+their apps consistently cut that by about a third. That's 23 days. Every year.
 
 BUILT FOR IPHONE DUO. WORKS ON EVERY IPHONE.
 On iPhone Duo the countdown sits on the outer screen while the phone is closed. On every other
@@ -71,7 +71,7 @@ Terms of use: https://getclam.app/terms.html
 | 1 | iPhone Duo folded, Live Activity on outer screen | Fold it. It's locked. |
 | 2 | Block screen ("Instagram is clammed up · 23 min left") | Open Instagram? Nope. |
 | 3 | Home: the one button | One button. That's the app. |
-| 4 | Reveal: "68 days every year" → "27 days back" | Get 27 days back a year. |
+| 4 | Reveal: "68 days every year" → "23 days back" | Get 23 days back a year. |
 | 5 | Result card + streak | Streaks you'll want to keep. |
 | 6 | Active session ring | Fold. Focus. Unfold. Done. |
 

@@ -89,7 +89,7 @@ Rules for all ten:
 **Hook text:** "You spend 68 days a year on your phone"
 **Shots:**
 1. Screen recording of the onboarding reveal: number counts up to 68.
-2. "People who lock their apps cut that by 40%." → 27 days back.
+2. "People who lock their apps cut that by about a third." → 23 days back.
 3. Cut to demo shot 2 (fold, countdown).
 4. End card.
 

@@ -73,10 +73,13 @@ Home ──"Clam up"──▶ shield up + Live Activity ──timer ends──�
 
 ## Where the numbers come from
 
-The "17 years" hook and the 4.5 h/day average are widely cited estimates. The copy lives in
-`Clam/Views/Onboarding/OnboardingScreens.swift`. The 40% reduction assumption in
-`OnboardingAnswers.assumedReduction` is deliberately conservative. Replace all three with sourced
-numbers before submission and cite them in the App Store description.
+- "17 years of their adult life on a screen": DataReportal's Digital 2026 report puts internet users
+  at 6h40m/day online across devices; from 18 to 80 that is about 17 years (as reported by Fortune).
+- 4.5 h/day: DataReportal 2026 global average time on mobile is 4h37m (US: 5h16m).
+- "Cut that by about a third": Opal states its members reduce screen time by 1h23m/day, about
+  30% of the mobile average. `OnboardingAnswers.assumedReduction` is one third. Swap for Clam's own
+  numbers once PostHog has a month of data.
+Copy lives in `Clam/Views/Onboarding/OnboardingScreens.swift`.
 
 ## Status
 

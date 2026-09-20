@@ -50,7 +50,7 @@ to appear, it's additive, not required.
 **Bios (each fits its platform's limit):**
 
 - TikTok (80 chars): `Fold your phone shut. Your apps stay shut. 🐚 iPhone app, coming October.`
-- Instagram (150 chars): `Fold it. Clam up. 🐚\nThe one-button app blocker for iPhone. Lock Instagram, TikTok, whatever gets you.\nGet 27 days a year back ↓`
+- Instagram (150 chars): `Fold it. Clam up. 🐚\nThe one-button app blocker for iPhone. Lock Instagram, TikTok, whatever gets you.\nGet 23 days a year back ↓`
 - X (160 chars): `Fold your phone shut, your apps stay shut. One-button app blocker for iPhone, built for iPhone Duo. Building in public. Launching October.`
 - YouTube (1000 chars, use the short one): `Clam locks the apps that steal your time, for exactly as long as you choose. One tap. Real blocking with Apple's Screen Time. Timer on your lock screen, or the outer screen of iPhone Duo. Free 7-day trial, then $39.99/yr. getclam.app`
 - Threads: same as Instagram.
@@ -100,7 +100,7 @@ ten more of each. Don't invent new formats until then.
 7. Screen time apps are bloated. This one has one button.
 8. Quitting early costs you a 10-second hold and your streak. That's the deal.
 9. What my phone shows when it's closed. (Duo outer-screen clip)
-10. 27 days a year. That's what's on the other side of one button.
+10. 23 days a year. That's what's on the other side of one button.
 
 Hashtag set (pick 4–5 per post, don't paste all): `#screentime #digitaldetox #phoneaddiction
 #doomscrolling #productivity #focus #iphone #iphoneduo #appblocker #nosurf #studytok #adhd`

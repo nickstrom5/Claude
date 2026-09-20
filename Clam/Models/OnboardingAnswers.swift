@@ -40,9 +40,10 @@ struct OnboardingAnswers: Codable, Equatable {
         Int((hoursPerDay * 365 / 24).rounded())
     }
 
-    /// Assumed reduction once someone uses a blocker consistently. Conservative; sourced
-    /// estimates for app-blocker users range 30–50%.
-    static let assumedReduction = 0.4
+    /// Assumed reduction once someone locks apps consistently. Source: Opal reports its members
+    /// cut screen time by 1h23m/day, about 30% of the 4h37m global mobile average (DataReportal
+    /// 2026). We use a third. Replace with Clam's own data once we have it.
+    static let assumedReduction = 1.0 / 3.0
 
     /// Days per year the user gets back at the assumed reduction.
     var daysBackPerYear: Int {

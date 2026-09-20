@@ -19,7 +19,7 @@ struct HookScreen: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)   // fits on a 375pt-wide SE without wrapping
                 .padding(.vertical, -6)
-            Text("of their life looking at a phone.")
+            Text("of their adult life on a screen.")
                 .font(Theme.Font.title)
                 .foregroundStyle(Theme.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -223,7 +223,7 @@ struct RevealScreen: View {
             if showBack {
                 VStack(alignment: .leading, spacing: 6) {
                     Divider().overlay(Theme.surfaceRaised).padding(.vertical, 20)
-                    Text("People who lock their apps consistently cut that by 40%.")
+                    Text("People who lock their apps consistently cut that by about a third.")
                         .font(Theme.Font.body)
                         .foregroundStyle(Theme.textSecondary)
                     HStack(alignment: .firstTextBaseline, spacing: 8) {

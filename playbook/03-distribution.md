@@ -30,7 +30,7 @@ Don't invent formats. The screen-time category has years of proven short-form co
 1. The iPhone Duo made my screen time worse. So I built this.
 2. Fold it. It's locked. That's the app.
 3. Your phone is a slot machine. This is the off switch.
-4. I get 27 days a year back with one button.
+4. I get 23 days a year back with one button.
 5. POV: 1am, you unfold your phone, and Instagram is clammed up.
 6. Stop deleting Instagram every Sunday.
 7. 96 times. That's how often you unlocked yesterday.
