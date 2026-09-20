@@ -11,8 +11,15 @@ after `scripts/capture-screens.sh` has produced a real docs/screenshots/duo/home
 Both renders are transparent PNGs: the site and the portfolio page put their own
 background behind them.
 """
+import sys
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFilter, ImageStat
+
+try:
+    from PIL import Image, ImageDraw, ImageFilter, ImageStat
+except ModuleNotFoundError:
+    sys.exit("Pillow is not installed. Either run\n"
+             "    python3 -m pip install --user --break-system-packages pillow\n"
+             "or just commit and push docs/screenshots/duo and let CI build the render.")
 
 ROOT = Path(__file__).resolve().parent.parent
 SHOTS = ROOT / "docs" / "screenshots" / "duo"

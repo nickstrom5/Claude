@@ -93,9 +93,18 @@ APP=$(find DerivedData/Build/Products -name "Clam.app" -maxdepth 2 | head -1)
 xcrun simctl install "$DEVICE" "$APP"
 sleep 3
 
-if [ "$POSE" = closed ] && [ "$CI_MODE" = 0 ]; then
-  echo; echo "Fold the simulator now (Simulator app > Device menu, or the pose control on the window)."
-  read -r -p "Press Return when the outer display is showing... " _
+# The Duo's unlit display captures as pure black, so the simulator has to be in the pose
+# we are capturing before we start. The open pose needs it unfolded, which is easy to forget
+# straight after a closed run.
+if [ "$CI_MODE" = 0 ] && [ "$DEVICE" = "iPhone Duo" ]; then
+  echo
+  if [ "$POSE" = closed ]; then
+    echo "Fold the simulator now (Simulator app > Device menu, or the pose control on the window)."
+    read -r -p "Press Return when the outer display is showing... " _
+  else
+    echo "Unfold the simulator now (Simulator app > Device menu) so the inner display is lit."
+    read -r -p "Press Return when the big inner display is showing... " _
+  fi
 fi
 
 mkdir -p "$OUT"
@@ -126,9 +135,16 @@ pick_display() {
       if [ "$b" -gt 6 ]; then rm -f "$probe"; echo "--display $d"; return; fi
     fi
   done
-  rm -f "$probe"; echo ""
+  rm -f "$probe"; echo "dark"
 }
 DISPLAY_ARG=$(pick_display)
+if [ "$DISPLAY_ARG" = dark ]; then
+  echo
+  echo "Every display on $DEVICE is dark, so any capture would be a black frame."
+  echo "On a Duo that almost always means the simulator is in the other pose: this run wants the"
+  echo "$([ "$POSE" = closed ] && echo "outer" || echo "inner") display lit. Change the pose in the Simulator app (Device menu) and rerun."
+  exit 1
+fi
 echo "Capturing${DISPLAY_ARG:+ with $DISPLAY_ARG}"
 
 FAILED=""; PREV_SUM=""
