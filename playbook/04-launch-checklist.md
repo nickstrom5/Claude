@@ -65,6 +65,8 @@ open Clam.xcodeproj
       second website render. Commit `docs/screenshots/duo/`. Look for: text or the
       280pt session ring clipped on the outer display, the 560pt column centered on the inner display, the paywall
       plan rows and onboarding cards not stretched. Take App Store screenshot #1 from the open home screen.
+- [ ] With an Apple Watch paired: start a session, lock the phone, raise the wrist. Does the Live
+      Activity mirror into the Smart Stack with no extra code? Screenshot it (see 14-apple-watch).
 - [ ] Real Duo only (the beta simulator can't run extensions): Live Activity in the vertical status bar on the outer
       display, the block screen on the inner display, the widget in StandBy/tent pose.
 
