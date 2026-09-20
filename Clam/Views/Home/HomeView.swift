@@ -18,30 +18,16 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                 Theme.background.ignoresSafeArea()
-                if sessions.isActive {
-                    ActiveSessionView()
-                } else {
-                    idle
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "flame.fill").foregroundStyle(Theme.accent)
-                        Text("\(appState.stats.streak)")
-                            .font(Theme.Font.headline)
-                            .foregroundStyle(Theme.textPrimary)
-                    }
-                    .padding(.horizontal, 6)
-                    .fixedSize()   // iOS 26 glass capsule otherwise clips the number
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button { showSettings = true } label: {
-                        Image(systemName: "gearshape.fill").foregroundStyle(Theme.textSecondary)
+                VStack(spacing: 0) {
+                    header
+                    if sessions.isActive {
+                        ActiveSessionView()
+                    } else {
+                        idle
                     }
                 }
             }
-            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar(.hidden, for: .navigationBar)
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
         .sheet(isPresented: $showDurationPicker) {
@@ -66,6 +52,36 @@ struct HomeView: View {
             startTapped()
         }
         .onAppear { appState.consumePendingIntent() }
+    }
+
+    /// Streak and settings, laid out inside the content column rather than in the navigation
+    /// bar. On a wide screen (the iPhone Duo's inner display) toolbar items pin to the screen
+    /// edges while the content sits in a 560pt column, which reads as two unrelated layouts.
+    private var header: some View {
+        HStack {
+            HStack(spacing: 6) {
+                Image(systemName: "flame.fill").foregroundStyle(Theme.accent)
+                Text("\(appState.stats.streak)")
+                    .font(Theme.Font.headline)
+                    .foregroundStyle(Theme.textPrimary)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(Theme.surface, in: Capsule())
+
+            Spacer()
+
+            Button { showSettings = true } label: {
+                Image(systemName: "gearshape.fill")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.textSecondary)
+                    .frame(width: 36, height: 36)
+                    .background(Theme.surface, in: Circle())
+            }
+            .buttonStyle(PressScaleStyle())
+        }
+        .padding(.horizontal, Theme.horizontalPadding)
+        .padding(.top, 6)
     }
 
     private var idle: some View {
