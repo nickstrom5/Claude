@@ -117,10 +117,15 @@ jobs:
       - name: Pick the smallest available iPhone
         id: dev
         run: |
-          for n in "iPhone SE (3rd generation)" "iPhone SE" "iPhone 17e" "iPhone 16e" "iPhone 17"; do
-            if xcrun simctl list devicetypes | grep -qF "$n"; then echo "name=$n" >> "$GITHUB_OUTPUT"; echo "using $n"; exit 0; fi
+          # Smallest first. The runner image has no SE, so the realistic floor is a 6.1-inch
+          # 390x844 phone; a true 375x667 SE has to be run locally (see playbook 04).
+          AVAIL=$(xcrun simctl list devices available)
+          for n in "iPhone SE (3rd generation)" "iPhone SE" "iPhone 16e" "iPhone 17e" "iPhone 17"; do
+            if echo "$AVAIL" | grep -qE "^ *$(echo "$n" | sed 's/[()]/\\&/g') \("; then
+              echo "name=$n" >> "$GITHUB_OUTPUT"; echo "using $n"; exit 0
+            fi
           done
-          echo "no small iPhone device type on this image"; exit 1
+          echo "no suitable iPhone on this image"; echo "$AVAIL"; exit 1
 
       - name: Build and capture
         run: |
