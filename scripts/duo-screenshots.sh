@@ -40,11 +40,12 @@ fi
 echo "Using $(xcodebuild -version | head -1) at $DEVELOPER_DIR"
 
 # 2. iOS 27 runtime + iPhone Duo device (created on first run).
-RT=$(xcrun simctl list runtimes available | grep -E "iOS 27" | tail -1 | sed -E 's/.* - (com\.apple[^ ]+).*/\1/')
+RT=$(xcrun simctl list runtimes available | grep -E "iOS 27" | tail -1 | sed -E 's/.* - (com\.apple[^ ]+).*/\1/' || true)
 if [ -z "$RT" ]; then
-  echo "No iOS 27 simulator runtime. Xcode > Settings > Components > iOS 27.1 Simulator, then rerun."; exit 1
+  echo "No iOS 27 simulator runtime installed yet. Installed runtimes:"; xcrun simctl list runtimes available | tail -n +2
+  echo "Wait for 'iOS 27.1 Simulator' to finish in Xcode > Settings > Components, then rerun."; exit 1
 fi
-DEVICE=$(xcrun simctl list devices available | grep -E "^\s+iPhone Duo" | head -1 | sed -E 's/^ *(.+) \([0-9A-F-]+\) \(.*/\1/')
+DEVICE=$(xcrun simctl list devices available | grep -E "^\s+iPhone Duo" | head -1 | sed -E 's/^ *(.+) \([0-9A-F-]+\) \(.*/\1/' || true)
 if [ -z "$DEVICE" ]; then
   xcrun simctl create "iPhone Duo" com.apple.CoreSimulator.SimDeviceType.iPhone-Duo "$RT" >/dev/null
   DEVICE="iPhone Duo"
