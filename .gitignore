@@ -29,3 +29,6 @@ ClamWidgets/Info.plist
 
 # Python venv used by the screenshots workflow
 .venv/
+
+# Generated App Store frames; rebuilt by scripts/appstore-screenshots.py
+playbook/app-store/
