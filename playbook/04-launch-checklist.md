@@ -62,8 +62,8 @@ open Clam.xcodeproj
       the block screen on the inner display, the widget in StandBy/tent pose. Take the App Store
       screenshot #1 from it.
 
-- [ ] Replace placeholder copy numbers in `OnboardingScreens.swift` with sourced ones (the 17-years stat
-      and 4.5h average are widely cited estimates; cite them in the App Store description).
+- [x] Replace placeholder copy numbers in `OnboardingScreens.swift` with sourced ones (done 19 Sep in
+      ffba2ad: 17 years on a screen, one-third reduction, 23 days back). Still cite them in the App Store description.
 - [ ] App Store screenshots: 1) fold + lock screen timer, 2) block screen, 3) result card,
       4) one button home, 5) reveal number. Same order as the onboarding beliefs.
 - [ ] App Review notes: explain Family Controls use (individual, not parental), how to test
