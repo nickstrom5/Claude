@@ -130,6 +130,9 @@ struct AppsScreen: View {
                     .font(Theme.Font.caption)
                     .foregroundStyle(Theme.textTertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
+
+                BlockScreenPreview()
+                    .padding(.top, 10)
             }
         }
         .familyActivityPicker(isPresented: $showPicker, selection: $screenTime.selection)
@@ -142,6 +145,40 @@ struct AppsScreen: View {
             Button("Not now", role: .cancel) {}
         } message: {
             Text("Clam can only lock apps if iOS lets it. Allow Screen Time access for Clam in Settings.")
+        }
+    }
+}
+
+/// The block screen, shown here so the promise is concrete before we ask for Screen Time
+/// access. The copy matches `ClamShield/ShieldConfigurationExtension.swift`.
+private struct BlockScreenPreview: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("What you'll see when you open one")
+                .font(Theme.Font.caption)
+                .foregroundStyle(Theme.textTertiary)
+
+            VStack(spacing: 12) {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 28))
+                    .foregroundStyle(Theme.accent)
+                Text("Instagram is clammed up")
+                    .font(Theme.Font.headline)
+                    .foregroundStyle(Theme.textPrimary)
+                Text("24 minutes left. Fold it back up.")
+                    .font(Theme.Font.body)
+                    .foregroundStyle(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 30)
+            .padding(.horizontal, 20)
+            .background(Theme.surfaceRaised)
+            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .stroke(Theme.accent.opacity(0.22), lineWidth: 1)
+            )
         }
     }
 }
