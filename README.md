@@ -84,7 +84,8 @@ Copy lives in `Clam/Views/Onboarding/OnboardingScreens.swift`.
 ## Status
 
 Builds and tests green on CI (macOS runner, Xcode 26.6). All thirteen screens captured on an
-iPhone 17 Pro Max simulator in `docs/screenshots/` via the Screenshots workflow. Landing page,
+iPhone 17 Pro Max simulator in `docs/screenshots/` via the Screenshots workflow; `scripts/duo-screenshots.sh` does
+the same on the iPhone Duo simulator (Xcode 27.1) into `docs/screenshots/duo/`. Landing page,
 privacy and terms live at getclam.app; support@getclam.app forwards to Gmail. Not yet run on a
 physical iPhone, so the Screen Time shield and block screen are untested on device. Next: Apple
 Developer Program, App IDs, the three Family Controls entitlement requests, then TestFlight.
