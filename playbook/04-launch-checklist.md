@@ -58,6 +58,10 @@ open Clam.xcodeproj
 ## Before submission
 
 - [x] Install the Xcode 27.1 beta (needs macOS 26.6) from developer.apple.com/download.
+- [x] Small-screen pass: 13 screens on a 390x844 phone (`docs/screenshots/small/`, captured by CI).
+      No clipping anywhere. Widest fixed element in the app is 300pt, so a 375pt screen has room.
+- [ ] Run the true small phone locally once: `scripts/capture-screens.sh --device "QA iPhone SE" --no-tests --out docs/screenshots/se`
+- [ ] iPhone 18 Pro pass: `scripts/capture-screens.sh --device "iPhone 18 Pro"` (needs Xcode 27, so not on CI).
 - [x] Folded pose captured on the Duo simulator (13 screens, `docs/screenshots/duo/closed-*.png`), one
       layout bug found and fixed (result screen clipped its icon on the short outer display).
 - [~] Open pose: blocked. The Xcode 27.1 beta simulator cannot be unfolded (see 01-strategy).

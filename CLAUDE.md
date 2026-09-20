@@ -11,7 +11,9 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `playbook/01-strategy.md` first
 - Screens: launch with `-screenshot <hook|hours|apps|triggers|reveal|permission|taste|result|paywall|home|session|settings|share>`
   to open one screen with seeded data (`Clam/App/ScreenshotMode.swift`). The `Screenshots` workflow captures all of
   them in the simulator and commits PNGs to `docs/screenshots/`. Look there before and after UI changes.
-  Its `duo` job captures on the iPhone Duo simulator into `docs/screenshots/duo/` when the runner image has Xcode 27.
+  Its `duo` job captures on the iPhone Duo simulator into `docs/screenshots/duo/` when the runner image has Xcode 27,
+  and its `small` job captures on the smallest iPhone the runner has into `docs/screenshots/small/` as a layout guard.
+  The runner has no SE, so the smallest there is 390x844; a true 375x667 phone has to be run locally.
   Locally, with Xcode 27.1: `scripts/capture-screens.sh` builds, tests and captures all 13 screens on any simulator
   (`--device "iPhone 18"`, `--pose closed` after folding a Duo, `--list` to see what's installed). Blank frames are
   detected with `sips` alone, retried on the device's other display, then reported with the app log.
