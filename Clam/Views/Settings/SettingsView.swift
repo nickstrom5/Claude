@@ -62,10 +62,11 @@ struct SettingsView: View {
                     Button("Restore purchases") { Task { await store.restore() } }
                 }
 
+                HelpSection()
+
                 Section {
                     Link("Privacy policy", destination: URL(string: "https://getclam.app/privacy.html")!)
                     Link("Terms", destination: URL(string: "https://getclam.app/terms.html")!)
-                    Link("Send feedback", destination: URL(string: "mailto:support@getclam.app")!)
                     Link("Created by Nick Soderstrom", destination: URL(string: "https://work-with-nick.com")!)
                 } footer: {
                     Text("Clam \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Everything stays on your phone.")

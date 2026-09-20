@@ -26,6 +26,7 @@ enum AnalyticsEvent: String {
     case sessionCompleted = "session_completed"
     case sessionAbandoned = "session_abandoned"
     case shareTapped = "share_tapped"
+    case supportTapped = "support_tapped"
     case achievementEarned = "achievement_earned"
     case liveActivityFailed = "live_activity_failed"
     case monitorScheduleFailed = "monitor_schedule_failed"

@@ -83,7 +83,7 @@ Answer honestly for the analytics setup in `Config.swift`:
 
 - Category: Productivity (primary), Health & Fitness (secondary).
 - Age rating: complete the questionnaire, all "None" → 4+.
-- Support URL: https://getclam.app/ Marketing URL: same.
+- Support URL: https://getclam.app/support.html Marketing URL: same.
 - Copyright: 2026 <your name>.
 
 ## 9. Version 1.0 page
