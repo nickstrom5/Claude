@@ -51,6 +51,19 @@ tech talks; verify against the docs once Xcode 27.1 ships):
 - No public fold-angle API is mentioned in Apple's material; third-party write-ups about hinge
   angle refer to Flutter plugins. We continue not to depend on one.
 
+Measured on the Xcode 27.1 simulator (20 Sep 2026), not from the docs:
+- Outer display 1398x2034 px = 466x678 pt at 3x, compact width. Wider but much shorter than a
+  normal iPhone, which is what breaks layouts: a centred VStack with fixed content clips off the
+  top. `SessionResultView` now uses `ViewThatFits` to scroll instead of clip; check any new screen
+  the same way.
+- Inner display 2007x2853 px = 669x951 pt at 3x, regular width, so `Theme.regularWidthMax` (560)
+  applies and the column is centred.
+- iOS puts a vertical status bar down the trailing edge of the outer display and pushes a
+  `.topBarTrailing` toolbar item below it, so the settings gear floats mid-screen there. Cosmetic,
+  beta behaviour, left alone for now.
+- simctl exposes two displays and its default is not the lit one, which is why the first run
+  captured 13 black frames. `scripts/capture-screens.sh` probes `--display primary|internal|external`.
+
 Launch timing: the Duo lands in reviewers' hands the week of October 23. Every tech creator will be
 making "first apps to install on the iPhone Duo" content. That is a free distribution window we
 should be live for.

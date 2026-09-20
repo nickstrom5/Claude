@@ -58,8 +58,10 @@ open Clam.xcodeproj
 ## Before submission
 
 - [x] Install the Xcode 27.1 beta (needs macOS 26.6) from developer.apple.com/download.
-- [ ] Run `scripts/duo-screenshots.sh` (open pose: build, tests, 13 captures), fold the simulator, then
-      `scripts/duo-screenshots.sh --pose closed --no-tests`. Commit `docs/screenshots/duo/`. Look for: text or the
+- [x] Folded pose captured on the Duo simulator (13 screens, `docs/screenshots/duo/closed-*.png`), one
+      layout bug found and fixed (result screen clipped its icon on the short outer display).
+- [ ] Open pose: run `scripts/capture-screens.sh`, then `python3 scripts/make-duo-render.py` for the
+      second website render. Commit `docs/screenshots/duo/`. Look for: text or the
       280pt session ring clipped on the outer display, the 560pt column centered on the inner display, the paywall
       plan rows and onboarding cards not stretched. Take App Store screenshot #1 from the open home screen.
 - [ ] Real Duo only (the beta simulator can't run extensions): Live Activity in the vertical status bar on the outer
