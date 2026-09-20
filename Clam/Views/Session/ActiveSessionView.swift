@@ -91,7 +91,39 @@ struct SessionResultView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
+            // The outer display of a folded iPhone Duo is short: centre the hero when it fits,
+            // scroll it when it does not, so nothing is clipped off the top.
+            ViewThatFits(in: .vertical) {
+                VStack(spacing: 0) {
+                    Spacer()
+                    hero
+                    Spacer()
+                }
+                ScrollView {
+                    hero.padding(.vertical, 16)
+                }
+                .scrollBounceBehavior(.basedOnSize)
+            }
+
+            if session.completed {
+                PrimaryButton(title: "Share") {
+                    Analytics.track(.shareTapped, ["from": "result"])
+                    showShare = true
+                }
+                .padding(.bottom, 8)
+            }
+            SecondaryButton(title: "Done") { dismiss() }
+                .padding(.bottom, 16)
+        }
+        .padding(.horizontal, Theme.horizontalPadding)
+        .background(Theme.background)
+        .sheet(isPresented: $showShare) {
+            ShareSheet(items: [ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak).render()].compactMap { $0 })
+        }
+    }
+
+    @ViewBuilder private var hero: some View {
+        VStack(spacing: 0) {
             Image(systemName: session.completed ? "checkmark.seal.fill" : "arrow.uturn.backward.circle.fill")
                 .font(.system(size: 56))
                 .foregroundStyle(session.completed ? Theme.success : Theme.danger)
@@ -116,22 +148,6 @@ struct SessionResultView: View {
                     .padding(.top, 28)
                     .scaleEffect(0.9)
             }
-            Spacer()
-
-            if session.completed {
-                PrimaryButton(title: "Share") {
-                    Analytics.track(.shareTapped, ["from": "result"])
-                    showShare = true
-                }
-                .padding(.bottom, 8)
-            }
-            SecondaryButton(title: "Done") { dismiss() }
-                .padding(.bottom, 16)
-        }
-        .padding(.horizontal, Theme.horizontalPadding)
-        .background(Theme.background)
-        .sheet(isPresented: $showShare) {
-            ShareSheet(items: [ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak).render()].compactMap { $0 })
         }
     }
 }

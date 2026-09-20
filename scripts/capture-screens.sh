@@ -115,23 +115,25 @@ brightness() {
   echo "$bytes" | awk '{printf "%d\n", ($1+$2+$3)/3}'
 }
 
-# One screenshot attempt. The Duo has two displays, so try each one and keep the brightest.
-shoot() {
-  local dest="$1" best=-1 b d
-  for d in "" "--display internal" "--display external" "--display 1"; do
-    # shellcheck disable=SC2086
-    xcrun simctl io "$DEVICE" screenshot $d "$dest.try" >/dev/null 2>&1 || continue
-    b=$(brightness "$dest.try")
-    if [ "$b" -gt "$best" ]; then best="$b"; mv -f "$dest.try" "$dest"; [ -n "$d" ] && DISPLAY_USED="$d"; fi
-    rm -f "$dest.try"
-    [ "$best" -gt 6 ] && break
+# The Duo has two displays and only one is lit in a pose; simctl's default is not reliably
+# the lit one (it changes after `simctl erase`), so find it once and reuse it.
+pick_display() {
+  local d probe b
+  probe="${TMPDIR:-/tmp}/clam-probe-$$.png"
+  for d in primary internal external; do
+    if xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1; then
+      b=$(brightness "$probe")
+      if [ "$b" -gt 6 ]; then rm -f "$probe"; echo "--display $d"; return; fi
+    fi
   done
-  echo "$best"
+  rm -f "$probe"; echo ""
 }
+DISPLAY_ARG=$(pick_display)
+echo "Capturing${DISPLAY_ARG:+ with $DISPLAY_ARG}"
 
-DISPLAY_USED=""; FAILED=""
+FAILED=""; PREV_SUM=""
 for s in $SCREENS; do
-  f="$OUT/$PREFIX$s.png"; bright=-1
+  f="$OUT/$PREFIX$s.png"; bright=-1; sum=""
   for attempt in 1 2 3; do
     xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true; sleep 1
     PID=$(xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" 2>&1 | sed -E 's/.*: *//')
@@ -139,14 +141,25 @@ for s in $SCREENS; do
     if ! xcrun simctl spawn "$DEVICE" launchctl list 2>/dev/null | grep -q "app.getclam.clam"; then
       echo "  $s: app is not running after launch (pid was ${PID:-?})"
     fi
-    bright=$(shoot "$f")
-    [ "$bright" -gt 6 ] && break
-    echo "  $s: blank frame (brightness $bright), relaunching ($attempt/3)"
+    # shellcheck disable=SC2086
+    xcrun simctl io "$DEVICE" screenshot $DISPLAY_ARG "$f" >/dev/null 2>&1 || true
+    bright=$(brightness "$f"); sum=$(md5 -q "$f" 2>/dev/null || echo none)
+    if [ "$bright" -le 6 ]; then
+      echo "  $s: blank frame (brightness $bright), relaunching ($attempt/3)"
+    elif [ -n "$PREV_SUM" ] && [ "$sum" = "$PREV_SUM" ]; then
+      # Identical to the previous screen: the simulator handed back a stale frame.
+      echo "  $s: same frame as the previous screen, waiting and retrying ($attempt/3)"
+      sleep 5
+    else
+      break
+    fi
   done
-  if [ "$bright" -gt 6 ]; then
-    echo "captured $f ($(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/ {printf "%s ", $2}')brightness $bright${DISPLAY_USED:+, $DISPLAY_USED})"
+  if [ "$bright" -gt 6 ] && { [ -z "$PREV_SUM" ] || [ "$sum" != "$PREV_SUM" ]; }; then
+    PREV_SUM="$sum"
+    echo "captured $f ($(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/ {printf "%s ", $2}')brightness $bright)"
   else
-    FAILED="$FAILED $s"; echo "FAILED $f (still blank)"
+    FAILED="$FAILED $s"
+    echo "FAILED $f (brightness $bright$([ "$sum" = "$PREV_SUM" ] && echo ", stale frame"))"
   fi
 done
 
