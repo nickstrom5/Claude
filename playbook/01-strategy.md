@@ -62,7 +62,14 @@ Measured on the Xcode 27.1 simulator (20 Sep 2026), not from the docs:
   `.topBarTrailing` toolbar item below it, so the settings gear floats mid-screen there. Cosmetic,
   beta behaviour, left alone for now.
 - simctl exposes two displays and its default is not the lit one, which is why the first run
-  captured 13 black frames. `scripts/capture-screens.sh` probes `--display primary|internal|external`.
+  captured 13 black frames. `scripts/capture-screens.sh` probes `--display primary|internal|external`
+  and picks by width, so it refuses to capture the wrong screen.
+- **The inner display is not reachable in the Xcode 27.1 beta simulator.** It boots folded, a
+  freshly created device boots folded, and nothing unfolds it: no item in Device Hub's Controls or
+  Device menus, and `simctl` has no fold, pose or posture command. The bottom-bar buttons only
+  rotate the outer display. The inner display was briefly lit once (measured 2007x2853) and could
+  not be restored. Revisit on a later beta or on hardware (23 Oct). The outer display is the one
+  the pitch depends on and it is fully captured and QA'd.
 
 Launch timing: the Duo lands in reviewers' hands the week of October 23. Every tech creator will be
 making "first apps to install on the iPhone Duo" content. That is a free distribution window we
