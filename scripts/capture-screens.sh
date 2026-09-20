@@ -112,27 +112,33 @@ PREFIX=""; [ "$POSE" = open ] || PREFIX="$POSE-"
 SCREENS="hook hours apps triggers reveal permission taste result paywall home session settings share"
 [ "$CI_MODE" = 1 ] && SCREENS="home session paywall reveal share"
 
-# Mean brightness 0-255 using sips only: downsample to 1x1, write a BMP, read its last pixel.
-brightness() {
-  local tmp bytes size
-  tmp="${TMPDIR:-/tmp}/clam-bright-$$.bmp"
-  sips -Z 1 -s format bmp "$1" --out "$tmp" >/dev/null 2>&1 || { echo -1; return; }
-  size=$(stat -f%z "$tmp" 2>/dev/null || echo 0)
-  [ "$size" -gt 4 ] && bytes=$(od -An -tu1 -j $((size - 4)) -N 3 "$tmp" 2>/dev/null || true)
-  rm -f "$tmp"
-  [ -n "${bytes:-}" ] || { echo -1; return; }
-  echo "$bytes" | awk '{printf "%d\n", ($1+$2+$3)/3}'
+# Is this capture a blank frame? Pillow gives a real brightness reading; where it is missing
+# (a stock Mac) fall back on file size, because a black PNG compresses to a few KB while a real
+# screenshot of these displays is hundreds. Never guess "fine" when we cannot tell.
+looks_blank() {
+  local f="$1" mean
+  [ -s "$f" ] || return 0
+  mean=$(python3 - "$f" 2>/dev/null <<'PYEOF'
+import sys
+from PIL import Image, ImageStat
+print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert("L")).mean[0]))
+PYEOF
+)
+  if [ -n "$mean" ]; then
+    [ "$mean" -le 6 ]
+  else
+    [ "$(stat -f%z "$f" 2>/dev/null || echo 0)" -lt 40000 ]
+  fi
 }
 
 # The Duo has two displays and only one is lit in a pose; simctl's default is not reliably
 # the lit one (it changes after `simctl erase`), so find it once and reuse it.
 pick_display() {
-  local d probe b
+  local d probe
   probe="${TMPDIR:-/tmp}/clam-probe-$$.png"
   for d in primary internal external; do
     if xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1; then
-      b=$(brightness "$probe")
-      if [ "$b" -gt 6 ]; then rm -f "$probe"; echo "--display $d"; return; fi
+      if ! looks_blank "$probe"; then rm -f "$probe"; echo "--display $d"; return; fi
     fi
   done
   rm -f "$probe"; echo "dark"
@@ -141,15 +147,15 @@ DISPLAY_ARG=$(pick_display)
 if [ "$DISPLAY_ARG" = dark ]; then
   echo
   echo "Every display on $DEVICE is dark, so any capture would be a black frame."
-  echo "On a Duo that almost always means the simulator is in the other pose: this run wants the"
-  echo "$([ "$POSE" = closed ] && echo "outer" || echo "inner") display lit. Change the pose in the Simulator app (Device menu) and rerun."
+  echo "On a Duo that usually means the simulator is in the other pose: this run wants the"
+  echo "$([ "$POSE" = closed ] && echo "outer" || echo "inner") display lit. Change the pose and rerun."
   exit 1
 fi
-echo "Capturing${DISPLAY_ARG:+ with $DISPLAY_ARG}"
+echo "Capturing with $DISPLAY_ARG"
 
 FAILED=""; PREV_SUM=""
 for s in $SCREENS; do
-  f="$OUT/$PREFIX$s.png"; bright=-1; sum=""
+  f="$OUT/$PREFIX$s.png"; ok=0; sum=""
   for attempt in 1 2 3; do
     xcrun simctl terminate "$DEVICE" app.getclam.clam >/dev/null 2>&1 || true; sleep 1
     PID=$(xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" 2>&1 | sed -E 's/.*: *//')
@@ -159,23 +165,21 @@ for s in $SCREENS; do
     fi
     # shellcheck disable=SC2086
     xcrun simctl io "$DEVICE" screenshot $DISPLAY_ARG "$f" >/dev/null 2>&1 || true
-    bright=$(brightness "$f"); sum=$(md5 -q "$f" 2>/dev/null || echo none)
-    if [ "$bright" -le 6 ]; then
-      echo "  $s: blank frame (brightness $bright), relaunching ($attempt/3)"
+    sum=$(md5 -q "$f" 2>/dev/null || echo none)
+    if looks_blank "$f"; then
+      echo "  $s: blank frame, relaunching ($attempt/3)"
     elif [ -n "$PREV_SUM" ] && [ "$sum" = "$PREV_SUM" ]; then
-      # Identical to the previous screen: the simulator handed back a stale frame.
       echo "  $s: same frame as the previous screen, waiting and retrying ($attempt/3)"
       sleep 5
     else
-      break
+      ok=1; break
     fi
   done
-  if [ "$bright" -gt 6 ] && { [ -z "$PREV_SUM" ] || [ "$sum" != "$PREV_SUM" ]; }; then
+  if [ "$ok" = 1 ]; then
     PREV_SUM="$sum"
-    echo "captured $f ($(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/ {printf "%s ", $2}')brightness $bright)"
+    echo "captured $f ($(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/ {printf "%s ", $2}'))"
   else
-    FAILED="$FAILED $s"
-    echo "FAILED $f (brightness $bright$([ "$sum" = "$PREV_SUM" ] && echo ", stale frame"))"
+    FAILED="$FAILED $s"; echo "FAILED $f"
   fi
 done
 
