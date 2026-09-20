@@ -56,7 +56,7 @@ iPhone it's on the lock screen and in the Dynamic Island. Same app, same ritual.
 Say "Clam up my phone" to Siri, or put Clam on your Action Button.
 
 PRICING
-Clam is free to try for 7 days, then $39.99/year, $7.99/month, or $69.99 once for life.
+Clam is free to try for 7 days, then $19.99/year, $3.99/month, or $29.99 once for life.
 Subscriptions renew automatically unless cancelled at least 24 hours before the end of the
 current period. Manage or cancel in Settings > Apple ID > Subscriptions.
 

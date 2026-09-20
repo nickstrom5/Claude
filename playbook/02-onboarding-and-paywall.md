@@ -28,8 +28,8 @@ This is hypothesis #1, not the final flow. The step enum lives in
   graphic: Today (full access) → Day 5 (reminder) → Day 7 (charged). The reminder toggle is on by
   default and actually schedules a local notification. This pattern consistently lifts trial
   starts because it removes the "I'll forget to cancel" fear.
-- **Yearly preselected**, shown as "$3.33/mo, billed $39.99/yr". Monthly at $7.99 exists to make
-  yearly obvious. Lifetime at $69.99 catches subscription-haters.
+- **Yearly preselected**, shown as "$1.67/mo, billed $19.99/yr". Monthly at $3.99 exists to make
+  yearly obvious. Lifetime at $29.99 catches subscription-haters.
 - **Social proof line** sits above the plans: real numbers once we have them; until then the
   Reveal's personalized number ("23 days back") is restated.
 - **Close button** appears after 2 seconds, top-left, low contrast. Apple requires dismissal;
@@ -42,6 +42,6 @@ This is hypothesis #1, not the final flow. The step enum lives in
 2. Reveal number (days/year vs. hours/week vs. "years of your life").
 3. Taste session length (60s vs. 2 min).
 4. Paywall: trial toggle on vs. off by default.
-5. Price: $39.99 vs. $29.99 yearly.
+5. Price: $19.99 vs. $29.99 yearly.
 
 Everything else waits until these five have a read.

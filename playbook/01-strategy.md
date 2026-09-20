@@ -59,7 +59,7 @@ should be live for.
 
 | Competitor | What they do well | What users hate | Clam's answer |
 |---|---|---|---|
-| Opal | Brand, deep scheduling, stats | Price (~$100/yr), heavy, "too many features" | One button. One price a third of theirs. |
+| Opal | Brand, deep scheduling, stats | Price (~$100/yr), heavy, "too many features" | One button. One price a fifth of theirs. |
 | Jomo | Cheaper, Mac support | Setup complexity | Zero-config: pick apps once, then one tap. |
 | one sec | Friction (breathing pause) | Doesn't actually block; needs Shortcuts setup | Real blocking, no Shortcuts. |
 | Brick | Physical NFC brick is a great ritual | $59 hardware, forget the brick | The *phone itself* is the brick: fold it. |
@@ -99,11 +99,11 @@ Subscription, hard paywall at the end of onboarding (after the user has already 
 
 | Plan | Price | Notes |
 |---|---|---|
-| Yearly | **$39.99** with 7-day free trial | Default selection. ~$3.33/mo framing. |
-| Monthly | $7.99 | Anchor to make yearly look obvious. |
-| Lifetime | $69.99 | For the "I hate subscriptions" cohort; also boosts yearly. |
+| Yearly | **$19.99** with 7-day free trial | Default selection. ~$1.67/mo framing. Set by Nick on 20 Sep 2026, same across all apps (was $39.99 / $7.99 / $69.99). |
+| Monthly | $3.99 | Anchor to make yearly look obvious. |
+| Lifetime | $29.99 | For the "I hate subscriptions" cohort; also boosts yearly. |
 
-Why these numbers: Opal charges ~$100/yr, so $39.99 reads as "the honest one" while still being
+Why these numbers: Opal charges ~$100/yr, so $19.99 reads as "the honest one" while still being
 a real business. A 7-day trial with a "remind me before it ends" toggle is the single most
 consistently tested paywall pattern in the category.
 
@@ -115,11 +115,11 @@ consistently tested paywall pattern in the category.
 | Onboarding complete → trial start | 25% |
 | Trial → paid | 40% |
 | Blended install → paid | ~6% |
-| Yearly ARPU after Apple's cut (small-business 15%) | ~$34 |
-| Break-even CPI at 6% install→paid | ~$2.00 |
+| Yearly ARPU after Apple's cut (small-business 15%) | ~$17 |
+| Break-even CPI at 6% install→paid | ~$1.00 |
 
 At 10,000 installs/mo (achievable from organic short-form alone in this category), that is
-~600 paying users/mo, ~$20k/mo run-rate by month 3 before retention compounding.
+~600 paying users/mo, ~$10k/mo run-rate by month 3 before retention compounding.
 
 ## 6. Distribution plan (starts before the app is approved)
 

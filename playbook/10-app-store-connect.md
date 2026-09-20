@@ -53,9 +53,9 @@ Note the case numbers. Everything else can proceed while waiting.
 
 | Reference name | Product ID | Type | Price (US) | Intro offer |
 |---|---|---|---|---|
-| Yearly | `clam.yearly` | Auto-renewable, 1 year | $39.99 | Free trial, 7 days, all territories, new subscribers |
-| Monthly | `clam.monthly` | Auto-renewable, 1 month | $7.99 | none |
-| Lifetime | `clam.lifetime` | Non-consumable | $69.99 | n/a |
+| Yearly | `clam.yearly` | Auto-renewable, 1 year | $19.99 | Free trial, 7 days, all territories, new subscribers |
+| Monthly | `clam.monthly` | Auto-renewable, 1 month | $3.99 | none |
+| Lifetime | `clam.lifetime` | Non-consumable | $29.99 | n/a |
 
 Product IDs must match `Clam/Services/StoreManager.swift` exactly.
 

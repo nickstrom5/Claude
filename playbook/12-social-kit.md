@@ -52,7 +52,7 @@ to appear, it's additive, not required.
 - TikTok (80 chars): `Fold your phone shut. Your apps stay shut. 🐚 iPhone app, coming October.`
 - Instagram (150 chars): `Fold it. Clam up. 🐚\nThe one-button app blocker for iPhone. Lock Instagram, TikTok, whatever gets you.\nGet 23 days a year back ↓`
 - X (160 chars): `Fold your phone shut, your apps stay shut. One-button app blocker for iPhone, built for iPhone Duo. Building in public. Launching October.`
-- YouTube (1000 chars, use the short one): `Clam locks the apps that steal your time, for exactly as long as you choose. One tap. Real blocking with Apple's Screen Time. Timer on your lock screen, or the outer screen of iPhone Duo. Free 7-day trial, then $39.99/yr. getclam.app`
+- YouTube (1000 chars, use the short one): `Clam locks the apps that steal your time, for exactly as long as you choose. One tap. Real blocking with Apple's Screen Time. Timer on your lock screen, or the outer screen of iPhone Duo. Free 7-day trial, then $19.99/yr. getclam.app`
 - Threads: same as Instagram.
 - Reddit: `Building Clam, a one-button app blocker for iPhone. Ask me anything about Screen Time APIs.`
 
@@ -96,7 +96,7 @@ ten more of each. Don't invent new formats until then.
 3. I don't have willpower. I clam up.
 4. Stop deleting Instagram every Sunday.
 5. 96 unlocks a day. Not anymore.
-6. The $2,000 iPhone Duo vs the $40 app that makes you close it.
+6. The $2,000 iPhone Duo vs the $20 app that makes you close it.
 7. Screen time apps are bloated. This one has one button.
 8. Quitting early costs you a 10-second hold and your streak. That's the deal.
 9. What my phone shows when it's closed. (Duo outer-screen clip)
@@ -109,7 +109,7 @@ Hashtag set (pick 4–5 per post, don't paste all): `#screentime #digitaldetox #
 
 - "Can't you just delete the app?" → "Yep. Every blocker on iOS has that limit. Clam adds friction, not walls: a 10-second hold and your streak. That's what actually changes behaviour."
 - "Android?" → "Not yet. Email hello@getclam.app and you'll be first to hear."
-- "How is this different from Opal?" → "One button, a third of the price, and the fold is the ritual. Opal's great if you want schedules and stats. Clam is for people who want it to just work."
+- "How is this different from Opal?" → "One button, a fifth of the price, and the fold is the ritual. Opal's great if you want schedules and stats. Clam is for people who want it to just work."
 - "Does it see my messages?" → "No. Apple gives it opaque tokens for the apps you pick. Nothing leaves your phone, no account."
 - "Link?" → "getclam.app" (never "link in bio")
 - "When?" → "October. Early access at getclam.app."

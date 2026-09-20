@@ -25,7 +25,7 @@ FRAMES = [
     ("03-reveal",   "reveal.png",   ("Get 23 days", "back a year.")),
     ("04-share",    "share.png",    ("Streaks you'll", "want to keep.")),
     ("05-badges",   "settings.png", ("Records and badges.", "Earn every one.")),
-    ("06-paywall",  "paywall.png",  ("Free for 7 days.", "Then $3.33 a month.")),
+    ("06-paywall",  "paywall.png",  ("Free for 7 days.", "Then $1.67 a month.")),
 ]
 
 

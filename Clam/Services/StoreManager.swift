@@ -125,7 +125,7 @@ final class StoreManager: ObservableObject {
         product.subscription?.introductoryOffer?.paymentMode == .freeTrial
     }
 
-    /// Monthly-equivalent price string for a yearly plan, e.g. "$3.33/mo".
+    /// Monthly-equivalent price string for a yearly plan, e.g. "$1.67/mo".
     func perMonthEquivalent(_ product: Product) -> String? {
         guard let sub = product.subscription, sub.subscriptionPeriod.unit == .year else { return nil }
         let monthly = product.price / 12

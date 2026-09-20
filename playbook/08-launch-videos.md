@@ -65,7 +65,7 @@ Rules for all ten:
 1. A Brick (or any NFC tag) on a table. Hand picks it up, looks around, "where is it".
 2. Cut: the app. "Your phone is the brick." Fold it.
 3. Block screen.
-4. End card: "$40/year. Nothing to lose."
+4. End card: "$20/year. Nothing to lose."
 **Note:** Keep it playful. Brick is a good product; we're not trashing it.
 
 ### 7. The hold-to-quit

@@ -35,7 +35,7 @@ Don't invent formats. The screen-time category has years of proven short-form co
 6. Stop deleting Instagram every Sunday.
 7. 96 times. That's how often you unlocked yesterday.
 8. This is the block screen that actually stopped me.
-9. The $2,000 iPhone Duo vs. a $40 app that makes you close it.
+9. The $2,000 iPhone Duo vs. a $20 app that makes you close it.
 10. I don't have willpower. I clam up.
 11. What happens when you try to open TikTok during a Clam session.
 12. Brick costs $59 and you'll lose it. Your phone is the brick.
@@ -44,7 +44,7 @@ Don't invent formats. The screen-time category has years of proven short-form co
 15. Screen time apps are bloated. This one has one button.
 16. Fold. Focus. Unfold. Done.
 17. My streak is 41 days. Here's the app.
-18. Opal wants $100/year. Here's the $40 version.
+18. Opal wants $100/year. Here's the $20 version.
 19. This is the only app I opened today (that's the point).
 20. Watch what my phone shows when it's closed.
 
@@ -67,4 +67,4 @@ Don't invent formats. The screen-time category has years of proven short-form co
 
 - Take the 3–5 concepts that produced *trials*, not views.
 - $20/day per concept on TikTok Spark Ads first (boosting the organic post keeps social proof).
-- Kill anything above $3 CPI after $100 spend. Scale anything under $2.
+- Kill anything above $1.50 CPI after $100 spend. Scale anything under $1.
