@@ -32,3 +32,7 @@ ClamWidgets/Info.plist
 
 # Generated App Store frames; rebuilt by scripts/appstore-screenshots.py
 playbook/app-store/
+capture-build.log
+capture-test.log
+duo-build.log
+duo-test.log
