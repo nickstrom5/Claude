@@ -26,7 +26,9 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-# 1. Xcode 27+ (the Duo needs it; any recent Xcode works for other devices).
+# 1. Xcode. The Duo needs 27+; every other device works on whatever is selected, which is what
+#    lets CI run this for the small-phone pass on an older runner image.
+NEEDS_27=0; [ "$DEVICE_NAME" = "iPhone Duo" ] && NEEDS_27=1
 pick_xcode() {
   local cand v
   for cand in "${DEVELOPER_DIR:-}" "$(xcode-select -p 2>/dev/null | sed 's#/Contents/Developer##')" \
@@ -37,9 +39,11 @@ pick_xcode() {
     if [ "${v%%.*}" -ge 27 ]; then echo "$cand/Contents/Developer"; return; fi
   done
 }
-export DEVELOPER_DIR="$(pick_xcode)"
-if [ -z "$DEVELOPER_DIR" ]; then
-  echo "Xcode 27.1 or newer not found. Install it from developer.apple.com/download, then rerun."; exit 1
+XC27="$(pick_xcode)"
+if [ -n "$XC27" ]; then
+  export DEVELOPER_DIR="$XC27"
+elif [ "$NEEDS_27" = 1 ]; then
+  echo "The iPhone Duo needs Xcode 27.1 or newer. Install it from developer.apple.com/download, then rerun."; exit 1
 fi
 echo "Using $(xcodebuild -version | head -1)"
 
@@ -51,9 +55,13 @@ fi
 
 # 2. Runtime + device. Both are created on first run if missing.
 RT=$(xcrun simctl list runtimes available | grep -E "iOS 27" | tail -1 | sed -E 's/.* - (com\.apple[^ ]+).*/\1/' || true)
+if [ -z "$RT" ] && [ "$NEEDS_27" = 0 ]; then
+  # Any other device: newest installed iOS runtime is fine.
+  RT=$(xcrun simctl list runtimes available | grep -E "iOS " | tail -1 | sed -E 's/.* - (com\.apple[^ ]+).*/\1/' || true)
+fi
 if [ -z "$RT" ]; then
-  echo "No iOS 27 simulator runtime installed yet. Installed runtimes:"; xcrun simctl list runtimes available | tail -n +2
-  echo "Install it in Xcode > Settings > Components, then rerun."; exit 1
+  echo "No usable iOS simulator runtime installed. Installed runtimes:"; xcrun simctl list runtimes available | tail -n +2
+  echo "Install one in Xcode > Settings > Components, then rerun."; exit 1
 fi
 DEVICE=$(xcrun simctl list devices available | grep -E "^ *${DEVICE_NAME} \(" | head -1 | sed -E 's/^ *(.+) \([0-9A-F-]+\) \(.*/\1/' || true)
 if [ -z "$DEVICE" ]; then

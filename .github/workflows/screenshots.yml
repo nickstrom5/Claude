@@ -104,6 +104,41 @@ jobs:
             crashlogs
           if-no-files-found: ignore
 
+  small:
+    name: Smallest iPhone (layout guard for 375pt-wide screens)
+    runs-on: macos-26
+    timeout-minutes: 40
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Pick the smallest available iPhone
+        id: dev
+        run: |
+          for n in "iPhone SE (3rd generation)" "iPhone SE" "iPhone 17e" "iPhone 16e" "iPhone 17"; do
+            if xcrun simctl list devicetypes | grep -qF "$n"; then echo "name=$n" >> "$GITHUB_OUTPUT"; echo "using $n"; exit 0; fi
+          done
+          echo "no small iPhone device type on this image"; exit 1
+
+      - name: Build and capture
+        run: |
+          brew install xcodegen
+          scripts/capture-screens.sh --device "${{ steps.dev.outputs.name }}" --no-tests --out docs/screenshots/small
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/small
+          git commit -m "Smallest-iPhone screenshots [skip ci]" || { echo "no changes"; exit 0; }
+          for attempt in 1 2 3 4; do
+            git fetch origin ${{ github.ref_name }}
+            git rebase origin/${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }} && exit 0
+            git rebase --abort || true; sleep 10
+          done
+          exit 1
+
   duo:
     name: iPhone Duo simulator (needs Xcode 27.1 on the runner image)
     runs-on: macos-26
