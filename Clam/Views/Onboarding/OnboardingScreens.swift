@@ -259,7 +259,7 @@ struct RevealScreen: View {
                     .font(Theme.Font.title)
                     .foregroundStyle(Theme.textPrimary)
             }
-            Text("every year. Full 24-hour days.")
+            Text("every year. Full 24\u{2011}hour days.")   // non-breaking hyphen: the Duo's outer display split it as "24-" / "hour"
                 .font(Theme.Font.title)
                 .foregroundStyle(Theme.textPrimary)
 

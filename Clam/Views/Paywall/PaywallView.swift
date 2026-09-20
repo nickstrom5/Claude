@@ -87,15 +87,30 @@ struct PaywallView: View {
         }
     }
 
+    /// The trial explained. On a short screen (the folded iPhone Duo's outer display) the
+    /// three-step version pushes the plans below the fold, so collapse it to one line there.
     private var timeline: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            TimelineRow(symbol: "lock.open.fill", title: "Today", detail: "Full access. Lock any app, any time.", isFirst: true)
-            TimelineRow(symbol: "bell.fill", title: "Day 5", detail: "We remind you the trial is ending.")
-            TimelineRow(symbol: "star.fill", title: "Day 7", detail: "Trial ends. Cancel any time before.", isLast: true)
+        ViewThatFits(in: .vertical) {
+            VStack(alignment: .leading, spacing: 0) {
+                TimelineRow(symbol: "lock.open.fill", title: "Today", detail: "Full access. Lock any app, any time.", isFirst: true)
+                TimelineRow(symbol: "bell.fill", title: "Day 5", detail: "We remind you the trial is ending.")
+                TimelineRow(symbol: "star.fill", title: "Day 7", detail: "Trial ends. Cancel any time before.", isLast: true)
+            }
+            .padding(18)
+            .background(Theme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
+
+            HStack(spacing: 10) {
+                Image(systemName: "bell.fill").foregroundStyle(Theme.accent)
+                Text("Full access today. We remind you on day 5. Cancel any time before day 7.")
+                    .font(Theme.Font.caption)
+                    .foregroundStyle(Theme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(14)
+            .background(Theme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
         }
-        .padding(18)
-        .background(Theme.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
     }
 
     private var plans: some View {
