@@ -12,8 +12,9 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `playbook/01-strategy.md` first
   to open one screen with seeded data (`Clam/App/ScreenshotMode.swift`). The `Screenshots` workflow captures all of
   them in the simulator and commits PNGs to `docs/screenshots/`. Look there before and after UI changes.
   Its `duo` job captures on the iPhone Duo simulator into `docs/screenshots/duo/` when the runner image has Xcode 27.
-  Locally, with Xcode 27.1: `scripts/duo-screenshots.sh` builds, tests and captures all 13 screens on the Duo simulator
-  (`--pose closed` after folding it for the outer display).
+  Locally, with Xcode 27.1: `scripts/capture-screens.sh` builds, tests and captures all 13 screens on any simulator
+  (`--device "iPhone 18"`, `--pose closed` after folding a Duo, `--list` to see what's installed). Blank frames are
+  detected with `sips` alone, retried on the device's other display, then reported with the app log.
 
 - Site images: `swift scripts/make-brand.swift` regenerates `docs/og.png`, the favicons, manifest icons and the sized
   screenshots in `docs/screenshots/web-*.png` from the app icon and the simulator captures. The site is plain static HTML
