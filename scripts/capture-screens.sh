@@ -131,27 +131,50 @@ PYEOF
   fi
 }
 
-# The Duo has two displays and only one is lit in a pose; simctl's default is not reliably
-# the lit one (it changes after `simctl erase`), so find it once and reuse it.
-pick_display() {
-  local d probe
-  probe="${TMPDIR:-/tmp}/clam-probe-$$.png"
-  for d in primary internal external; do
-    if xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1; then
-      if ! looks_blank "$probe"; then rm -f "$probe"; echo "--display $d"; return; fi
-    fi
-  done
-  rm -f "$probe"; echo "dark"
-}
-DISPLAY_ARG=$(pick_display)
-if [ "$DISPLAY_ARG" = dark ]; then
+# The Duo has two displays. Pick by size rather than by name: the inner display is much wider
+# than the outer one, so the open pose wants the widest lit display and the closed pose the
+# narrowest. That is what makes a folded simulator impossible to mistake for an open one.
+px_width() { sips -g pixelWidth "$1" 2>/dev/null | awk '/pixelWidth/ {print $2}'; }
+
+DISPLAY_ARG=""; CHOSEN_W=0
+probe="${TMPDIR:-/tmp}/clam-probe-$$.png"
+for d in primary internal external; do
+  xcrun simctl io "$DEVICE" screenshot --display "$d" "$probe" >/dev/null 2>&1 || continue
+  looks_blank "$probe" && continue
+  w=$(px_width "$probe"); [ -n "$w" ] || continue
+  echo "  display $d is lit, ${w}px wide"
+  if [ -z "$DISPLAY_ARG" ] \
+     || { [ "$POSE" = open ] && [ "$w" -gt "$CHOSEN_W" ]; } \
+     || { [ "$POSE" = closed ] && [ "$w" -lt "$CHOSEN_W" ]; }; then
+    DISPLAY_ARG="--display $d"; CHOSEN_W="$w"
+  fi
+done
+rm -f "$probe"
+
+if [ -z "$DISPLAY_ARG" ]; then
   echo
   echo "Every display on $DEVICE is dark, so any capture would be a black frame."
-  echo "On a Duo that usually means the simulator is in the other pose: this run wants the"
-  echo "$([ "$POSE" = closed ] && echo "outer" || echo "inner") display lit. Change the pose and rerun."
+  echo "Wake or unlock the simulator and rerun."
   exit 1
 fi
-echo "Capturing with $DISPLAY_ARG"
+
+# A Duo's inner display is ~2007px wide and its outer ~1398px. If the pose we were asked for
+# does not match what is lit, stop rather than silently capture the wrong screen.
+if [ "$DEVICE" = "iPhone Duo" ]; then
+  if [ "$POSE" = open ] && [ "$CHOSEN_W" -lt 1700 ]; then
+    echo
+    echo "Only a ${CHOSEN_W}px display is lit, which is the outer screen: the simulator is folded."
+    echo "Unfold it (the fold button under the device in Device Hub, or the Controls menu) and rerun."
+    exit 1
+  fi
+  if [ "$POSE" = closed ] && [ "$CHOSEN_W" -gt 1700 ]; then
+    echo
+    echo "The lit display is ${CHOSEN_W}px wide, which is the inner screen: the simulator is open."
+    echo "Fold it and rerun, or drop --pose closed to capture the inner display."
+    exit 1
+  fi
+fi
+echo "Capturing with $DISPLAY_ARG (${CHOSEN_W}px wide)"
 
 FAILED=""; PREV_SUM=""
 for s in $SCREENS; do
