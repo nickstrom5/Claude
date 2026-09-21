@@ -4,10 +4,12 @@
 
 Status 18 Sep 2026: domain getclam.app bought, DNS (A ×4, www CNAME, MX, SPF, DKIM), GitHub Pages with custom
 domain, account-level domain verification, Enforce HTTPS, Email Routing and Gmail send-as all done. Landing page live at https://getclam.app.
-Apple Developer Program purchased 20 Sep 2026 ($98.99/yr, renews 20 Sep 2027).
+Apple Developer Program purchased 20 Sep 2026 ($98.99/yr, renews 20 Sep 2027); enrolment **approved 21 Sep 2026**, so the portal work below is unblocked.
 Still open below: App Group + App IDs, the three entitlement requests, App Store Connect record, Gmail support filter.
 
-- [ ] Create the App ID `app.getclam.clam` in the Apple Developer portal (matches `project.yml`).
+- [ ] Create four App IDs in the portal, all explicit, matching `project.yml`:
+      `app.getclam.clam`, `.shield`, `.monitor`, `.widgets`.
+      Capabilities: App Groups on all four; Family Controls on the first three only.
 - [ ] Enable **App Groups** (`group.app.getclam.clam`) on the app and all three extensions.
 - [ ] **Request the Family Controls (Distribution) entitlement** for the main app, the shield
       extension (`app.getclam.clam.shield`) and the monitor extension (`app.getclam.clam.monitor`).
