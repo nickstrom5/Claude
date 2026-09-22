@@ -16,10 +16,17 @@ struct PaywallView: View {
     @State private var remindBeforeTrialEnds = true
     @State private var showClose = false
     @State private var purchasing = false
+    @State private var availableHeight: CGFloat = 900
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             Theme.background.ignoresSafeArea()
+            // Measured: ViewThatFits can't choose inside a ScrollView (the proposed height is
+            // unbounded, so the tall version always "fits").
+            GeometryReader { geo in
+                Color.clear.onAppear { availableHeight = geo.size.height }
+                    .onChange(of: geo.size.height) { _, h in availableHeight = h }
+            }
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 20) {
@@ -89,17 +96,12 @@ struct PaywallView: View {
 
     /// The trial explained. On a short screen (the folded iPhone Duo's outer display) the
     /// three-step version pushes the plans below the fold, so collapse it to one line there.
-    private var timeline: some View {
-        ViewThatFits(in: .vertical) {
-            VStack(alignment: .leading, spacing: 0) {
-                TimelineRow(symbol: "lock.open.fill", title: "Today", detail: "Full access. Lock any app, any time.", isFirst: true)
-                TimelineRow(symbol: "bell.fill", title: "Day 5", detail: "We remind you the trial is ending.")
-                TimelineRow(symbol: "star.fill", title: "Day 7", detail: "Trial ends. Cancel any time before.", isLast: true)
-            }
-            .padding(18)
-            .background(Theme.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
+    /// An iPhone SE is short enough to need it too.
+    private var isShortScreen: Bool { availableHeight < 720 }
 
+    @ViewBuilder
+    private var timeline: some View {
+        if isShortScreen {
             HStack(spacing: 10) {
                 Image(systemName: "bell.fill").foregroundStyle(Theme.accent)
                 Text("Full access today. We remind you on day 5. Cancel any time before day 7.")
@@ -108,6 +110,16 @@ struct PaywallView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
+        } else {
+            VStack(alignment: .leading, spacing: 0) {
+                TimelineRow(symbol: "lock.open.fill", title: "Today", detail: "Full access. Lock any app, any time.", isFirst: true)
+                TimelineRow(symbol: "bell.fill", title: "Day 5", detail: "We remind you the trial is ending.")
+                TimelineRow(symbol: "star.fill", title: "Day 7", detail: "Trial ends. Cancel any time before.", isLast: true)
+            }
+            .padding(18)
             .background(Theme.surface)
             .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous))
         }

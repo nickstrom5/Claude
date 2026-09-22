@@ -88,6 +88,10 @@ struct SessionResultView: View {
     @Environment(\.dismiss) private var dismiss
     let session: FocusSession
     @State private var showShare = false
+    /// Measured so the 300pt card is laid out at the size it is drawn, and shrinks further on an
+    /// iPhone SE. scaleEffect alone only changes the drawing, so the layout still reserved 300pt.
+    @State private var availableHeight: CGFloat = 900
+    private var cardScale: CGFloat { availableHeight < 700 ? 0.7 : 0.9 }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -117,6 +121,11 @@ struct SessionResultView: View {
         }
         .padding(.horizontal, Theme.horizontalPadding)
         .background(Theme.background)
+        .background(GeometryReader { geo in
+            Color.clear
+                .onAppear { availableHeight = geo.size.height }
+                .onChange(of: geo.size.height) { _, h in availableHeight = h }
+        })
         .sheet(isPresented: $showShare) {
             ShareSheet(items: [ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak).render()].compactMap { $0 })
         }
@@ -145,8 +154,9 @@ struct SessionResultView: View {
 
             if session.completed {
                 ShareCardView(title: "I clammed up my phone", detail: "for \(session.formattedDuration)", streak: appState.stats.streak)
-                    .padding(.top, 28)
-                    .scaleEffect(0.9)
+                    .scaleEffect(cardScale)
+                    .frame(width: 300 * cardScale, height: 300 * cardScale)
+                    .padding(.top, cardScale < 0.9 ? 16 : 28)
             }
         }
     }
