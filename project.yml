@@ -50,7 +50,6 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         NSSupportsLiveActivities: true
         NSSupportsLiveActivitiesFrequentUpdates: false
-        NSMotionUsageDescription: Clam uses motion to notice when your phone is resting face-down during a session.
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:
