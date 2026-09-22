@@ -44,6 +44,21 @@ jobs:
             2>&1 | tee build.log | grep -E "error:|warning: .*Clam|BUILD (SUCCEEDED|FAILED)|\*\* " || true
           grep -q "BUILD SUCCEEDED" build.log
 
+      # Apple rejects uploads that use a required-reason API without declaring it
+      # (ITMS-91053). We use UserDefaults everywhere, so every bundle needs its manifest
+      # to actually reach the product, not just sit in the repo.
+      - name: Privacy manifests are bundled
+        run: |
+          APP=$(find ~/Library/Developer/Xcode/DerivedData -name "Clam.app" -path "*Debug-iphonesimulator*" | head -1)
+          [ -n "$APP" ] || { echo "no built Clam.app found"; exit 1; }
+          fail=0
+          check() { if [ -f "$1" ]; then echo "ok   $1"; else echo "MISSING $1"; fail=1; fi; }
+          check "$APP/PrivacyInfo.xcprivacy"
+          for ext in ClamShield ClamMonitor ClamWidgets; do
+            check "$APP/PlugIns/$ext.appex/PrivacyInfo.xcprivacy"
+          done
+          exit $fail
+
       - name: Unit tests
         run: |
           set -o pipefail
