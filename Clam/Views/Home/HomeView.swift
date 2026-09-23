@@ -232,7 +232,9 @@ struct DurationPickerSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var draft: Int = 25
 
-    static let options: [Int] = Array(stride(from: 5, through: 240, by: 5))
+    // 15 is DeviceActivity's minimum monitored window, so it is the shortest session the
+    // monitor extension can guarantee to unlock. See ScreenTimeManager.scheduleShieldRemoval.
+    static let options: [Int] = Array(stride(from: 15, through: 240, by: 5))
 
     static func label(for minutes: Int) -> String {
         if minutes >= 60 {

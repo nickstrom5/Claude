@@ -79,10 +79,15 @@ final class SessionManager: ObservableObject {
 
     /// If the app was killed mid-session, pick up where we left off (or close it out).
     func restoreIfNeeded() {
-        guard !ScreenshotMode.isActive,
-              active == nil,
-              let endString = defaults.string(forKey: AppGroup.Key.activeSessionEnd),
-              let end = ISO8601DateFormatter().date(from: endString) else { return }
+        guard !ScreenshotMode.isActive, active == nil else { return }
+        guard let endString = defaults.string(forKey: AppGroup.Key.activeSessionEnd),
+              let end = ISO8601DateFormatter().date(from: endString) else {
+            // No session is stored, so nothing should be shielded. If something still is, a
+            // previous run died before it could clean up: clear it rather than leave apps locked.
+            screenTime.clearShield()
+            screenTime.cancelShieldRemoval()
+            return
+        }
 
         let minutes = defaults.integer(forKey: AppGroup.Key.activeSessionMinutes)
         let start = end.addingTimeInterval(-TimeInterval(minutes * 60))

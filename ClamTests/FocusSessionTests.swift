@@ -2,6 +2,19 @@ import XCTest
 @testable import Clam
 
 final class FocusSessionTests: XCTestCase {
+    /// Every duration a user can pick has to be one the monitor extension can guarantee to
+    /// unlock. DeviceActivity refuses windows under 15 minutes, so anything shorter would rely
+    /// on the app being alive at the end, and a killed app would leave the shield up.
+    func testEverySelectableDurationIsMonitorable() {
+        for minutes in DurationPickerSheet.options {
+            XCTAssertGreaterThanOrEqual(minutes, ScreenTimeManager.minimumMonitoredMinutes,
+                                        "\(minutes)m is shorter than the monitor's minimum window")
+        }
+        for preset in [25, 50, 90] {
+            XCTAssertGreaterThanOrEqual(preset, ScreenTimeManager.minimumMonitoredMinutes)
+        }
+    }
+
     func testPlannedEnd() {
         let start = Date(timeIntervalSince1970: 1_000_000)
         let session = FocusSession(start: start, plannedMinutes: 25)

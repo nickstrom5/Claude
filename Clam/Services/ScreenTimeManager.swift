@@ -101,13 +101,19 @@ final class ScreenTimeManager: ObservableObject {
 
     /// Asks iOS to call the monitor extension when the session ends, so the shield is cleared even
     /// if the app is suspended or killed before the timer fires.
+    /// The monitor extension is what clears the shield when the app is dead. DeviceActivity
+    /// refuses windows shorter than 15 minutes, so a short session gets a 15-minute window
+    /// instead of none: the app clears the shield on time in the normal case, and this caps
+    /// how long a shield can survive when it doesn't.
     func scheduleShieldRemoval(start: Date, end: Date) {
-        guard !Self.isSimulator, end.timeIntervalSince(start) >= Double(Self.minimumMonitoredMinutes * 60) else { return }
+        guard !Self.isSimulator else { return }
+        let floor = start.addingTimeInterval(Double(Self.minimumMonitoredMinutes * 60))
+        let monitoredEnd = max(end, floor)
         let units: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
         let cal = Calendar.current
         let schedule = DeviceActivitySchedule(
             intervalStart: cal.dateComponents(units, from: start),
-            intervalEnd: cal.dateComponents(units, from: end),
+            intervalEnd: cal.dateComponents(units, from: monitoredEnd),
             repeats: false
         )
         do {
