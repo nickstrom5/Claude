@@ -20,7 +20,7 @@ highest-volume category terms.
 
 ## Keywords (100 chars, comma-separated, no spaces, don't repeat title words)
 
-`screen time,app blocker,block apps,distraction,digital detox,doomscroll,instagram,tiktok,productivity`
+`screen time,app blocker,block apps,distraction,digital detox,doomscroll,instagram,tiktok`
 
 ## Description
 
