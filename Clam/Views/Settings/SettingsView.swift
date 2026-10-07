@@ -8,6 +8,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showPicker = false
     @State private var showPaywall = false
+    @State private var confirmUnlock = false
 
     var body: some View {
         NavigationStack {
@@ -60,6 +61,15 @@ struct SettingsView: View {
                         Button("Upgrade to Clam Pro") { showPaywall = true }
                     }
                     Button("Restore purchases") { Task { await store.restore() } }
+                }
+
+                // The escape hatch. Clam's whole job is making apps hard to reach, so there has
+                // to be one obvious, always-available way out that does not depend on the
+                // timer, the monitor extension or any of this working correctly.
+                Section {
+                    Button("Unlock everything now", role: .destructive) { confirmUnlock = true }
+                } footer: {
+                    Text("Clears the block immediately and ends any running session. Use this if your apps are still locked when they shouldn't be.")
                 }
 
                 HelpSection()
