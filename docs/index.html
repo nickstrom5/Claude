@@ -166,7 +166,7 @@
    "name": "Clam",
    "operatingSystem": "iOS",
    "applicationCategory": "ProductivityApplication",
-   "description": "Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked for as long as you choose, from 5 minutes to 4 hours. Uses Apple's Screen Time API. No account, nothing leaves your phone.",
+   "description": "Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked for as long as you choose, from 15 minutes to 4 hours. Uses Apple's Screen Time API. No account, and your app list never leaves your phone.",
    "url": "https://getclam.app/",
    "image": "https://getclam.app/og.png",
    "screenshot": [
@@ -211,7 +211,7 @@
      "name": "How do I block apps on my iPhone with Clam?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Pick the apps once. Then tap Clam up, choose a length from 5 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed."
+      "text": "Pick the apps once. Then tap Clam up, choose a length from 15 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed."
      }
     },
     {
@@ -251,7 +251,7 @@
      "name": "Does Clam see what I do in my apps?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are, can't read anything inside them, and never sends anything off your phone. There's no account and no server."
+      "text": "No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are and can't read anything inside them. Your app list, sessions and streak never leave your phone. There's no account and no server of ours. The only thing sent off the device is anonymous usage counts, described in the privacy policy."
      }
     },
     {
@@ -320,7 +320,7 @@
       <div class="card"><h3>Real blocking</h3><p>Built on Apple's Screen Time API. A locked app opens to a block screen, not a reminder you can tap past.</p></div>
       <div class="card"><h3>One button</h3><p>Pick your apps once. After that, every session is one tap and a length.</p></div>
       <div class="card"><h3>Giving up costs something</h3><p>Quitting early takes a 10-second hold and resets your streak. Enough to make you think twice.</p></div>
-      <div class="card"><h3>Nothing leaves your phone</h3><p>No account, no cloud. Clam can't see what you do inside your apps.</p></div>
+      <div class="card"><h3>Your data stays on your phone</h3><p>No account, no sign-in. Your app list, sessions and streak live on the device. Clam can't see what you do inside your apps.</p></div>
     </div>
   </section>
 
@@ -329,7 +329,7 @@
     <p class="sub">There's one button. That's the whole app.</p>
     <ol class="steps">
       <li class="step"><div class="n" aria-hidden="true">1</div><div><h3>Pick the apps that steal your time.</h3><p>Once. Instagram, TikTok, X, YouTube, whatever it is for you. Uses Apple's Screen Time, so it's real blocking, not a Shortcut you can skip.</p></div></li>
-      <li class="step"><div class="n" aria-hidden="true">2</div><div><h3>Tap Clam up. Pick 25, 50 or 90 minutes.</h3><p>Or any length from 5 minutes to 4 hours. Siri, the Action Button and a Home Screen widget can do it too.</p></div></li>
+      <li class="step"><div class="n" aria-hidden="true">2</div><div><h3>Tap Clam up. Pick 25, 50 or 90 minutes.</h3><p>Or any length from 15 minutes to 4 hours. Siri, the Action Button and a Home Screen widget can do it too.</p></div></li>
       <li class="step"><div class="n" aria-hidden="true">3</div><div><h3>Lock your phone.</h3><p>The countdown sits on your Lock Screen. Open a locked app and you get a clam, not a feed. Quitting early takes a 10-second hold and resets your streak.</p></div></li>
     </ol>
   </section>
@@ -403,12 +403,12 @@
   <section id="faq">
     <h2>Questions</h2>
     <p class="sub">Straight answers, including the unflattering ones.</p>
-    <details><summary>How do I block apps on my iPhone with Clam?</summary><p>Pick the apps once. Then tap Clam up, choose a length from 5 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed.</p></details>
+    <details><summary>How do I block apps on my iPhone with Clam?</summary><p>Pick the apps once. Then tap Clam up, choose a length from 15 minutes to 4 hours, and lock your phone. Until the timer ends, the apps you picked open to a block screen instead of a feed.</p></details>
     <details><summary>Can Clam block TikTok, Instagram and YouTube?</summary><p>Yes. You choose from Apple's own app picker, so any app on your iPhone can go on the list: TikTok, Instagram, YouTube, X, games, whatever it is for you. You can change the list any time.</p></details>
     <details><summary>Is it real blocking, or a reminder I can tap past?</summary><p>Real blocking. Clam uses Apple's Screen Time API, the same system behind the built-in app limits. The block screen has one button, and it says OK, I'll wait. There is no ignore-limit button.</p></details>
     <details><summary>Can I just delete the app to get around it?</summary><p>Yes. Every blocker on iOS has that limit, and any that claims otherwise is lying. Clam adds friction, not walls: a 10-second hold to quit and a streak you'll lose.</p></details>
     <details><summary>What if I need a locked app during a session?</summary><p>Hold the give up button for 10 seconds. The session ends, your apps unlock, and your streak resets. That's the deal.</p></details>
-    <details><summary>Does Clam see what I do in my apps?</summary><p>No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are, can't read anything inside them, and never sends anything off your phone. There's no account and no server.</p></details>
+    <details><summary>Does Clam see what I do in my apps?</summary><p>No. Apple's Screen Time framework gives Clam opaque tokens for the apps you pick. Clam can't see which apps they are and can't read anything inside them. Your app list, sessions and streak never leave your phone. There's no account and no server of ours. The only thing sent off the device is anonymous usage counts, described in the privacy policy.</p></details>
     <details><summary>Why does it need Screen Time permission?</summary><p>That's the only way to actually lock apps on iOS. Clam asks for it once, for you alone (not a family or child setting), and uses it only during a session you started.</p></details>
     <details><summary>How much does Clam cost, and which iPhones does it work on?</summary><p>The yearly plan is $19.99 with a 7-day free trial. Monthly is $3.99. Lifetime is $29.99, paid once. Clam works on any iPhone running iOS 17 or later. The countdown shows on the Lock Screen, and in the Dynamic Island on iPhones that have one.</p></details>
     <p class="fine">Something else? Email <a href="mailto:support@getclam.app">support@getclam.app</a>.</p>

@@ -226,7 +226,7 @@ private struct DurationChip: View {
     }
 }
 
-/// Wheel picker for any length from 5 minutes to 4 hours, in 5-minute steps.
+/// Wheel picker for any length from 15 minutes to 4 hours, in 5-minute steps.
 struct DurationPickerSheet: View {
     @Binding var minutes: Int
     @Environment(\.dismiss) private var dismiss

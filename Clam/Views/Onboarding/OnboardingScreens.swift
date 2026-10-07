@@ -315,7 +315,7 @@ struct PermissionScreen: View {
             title: screenTime.isAuthorized ? "Clam is allowed to lock your apps." : "Let Clam lock the apps you picked.",
             subtitle: screenTime.isAuthorized
                 ? "Everything stays on your phone. Clam never sees what you do in them."
-                : "iOS will ask for Screen Time access. Clam uses it only to lock the apps you chose during a session. Nothing leaves your phone.",
+                : "iOS will ask for Screen Time access. Clam uses it only to lock the apps you chose during a session. Your app list never leaves your phone.",
             cta: screenTime.isAuthorized ? "Continue" : "Allow Screen Time",
             ctaLoading: requesting,
             onCTA: {
@@ -331,7 +331,7 @@ struct PermissionScreen: View {
             VStack(alignment: .leading, spacing: 14) {
                 PermissionRow(symbol: "lock.fill", text: "Locks only the apps you chose, only during a session.")
                 PermissionRow(symbol: "eye.slash.fill", text: "Can't read your messages, browsing or anything inside apps.")
-                PermissionRow(symbol: "iphone", text: "Runs entirely on this phone. No account, no cloud.")
+                PermissionRow(symbol: "iphone", text: "Runs on this phone. No account, no sign-in.")
             }
         }
         .onAppear { screenTime.refreshAuthorization() }
