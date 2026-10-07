@@ -6,9 +6,9 @@ final class FocusSessionTests: XCTestCase {
     /// floor as the picker. A 2-minute Siri session used to be startable.
     func testShortRequestsAreRaisedToTheMonitorableFloor() {
         XCTAssertEqual(SessionManager.monitorableMinutes(2, isTaste: false),
-                       ScreenTimeManager.minimumMonitoredMinutes)
+                       SessionLimits.minimumMonitoredMinutes)
         XCTAssertEqual(SessionManager.monitorableMinutes(1, isTaste: false),
-                       ScreenTimeManager.minimumMonitoredMinutes)
+                       SessionLimits.minimumMonitoredMinutes)
         XCTAssertEqual(SessionManager.monitorableMinutes(50, isTaste: false), 50)
         XCTAssertEqual(SessionManager.monitorableMinutes(9999, isTaste: false), 240)
     }
@@ -35,11 +35,11 @@ final class FocusSessionTests: XCTestCase {
     /// on the app being alive at the end, and a killed app would leave the shield up.
     func testEverySelectableDurationIsMonitorable() {
         for minutes in DurationPickerSheet.options {
-            XCTAssertGreaterThanOrEqual(minutes, ScreenTimeManager.minimumMonitoredMinutes,
+            XCTAssertGreaterThanOrEqual(minutes, SessionLimits.minimumMonitoredMinutes,
                                         "\(minutes)m is shorter than the monitor's minimum window")
         }
         for preset in [25, 50, 90] {
-            XCTAssertGreaterThanOrEqual(preset, ScreenTimeManager.minimumMonitoredMinutes)
+            XCTAssertGreaterThanOrEqual(preset, SessionLimits.minimumMonitoredMinutes)
         }
     }
 

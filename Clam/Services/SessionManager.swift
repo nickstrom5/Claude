@@ -33,9 +33,9 @@ final class SessionManager: ObservableObject {
     /// One chokepoint for duration. Anything the monitor extension cannot schedule would rely on
     /// the app being alive at the end, so a real session is never shorter than its minimum. The
     /// taste session is exempt: it runs for 60 seconds with the user watching, during onboarding.
-    static func monitorableMinutes(_ minutes: Int, isTaste: Bool) -> Int {
+    nonisolated static func monitorableMinutes(_ minutes: Int, isTaste: Bool) -> Int {
         guard !isTaste else { return minutes }
-        return min(max(minutes, ScreenTimeManager.minimumMonitoredMinutes), 240)
+        return min(max(minutes, SessionLimits.minimumMonitoredMinutes), SessionLimits.maximumMinutes)
     }
 
     func start(minutes requested: Int, isTaste: Bool = false) {
