@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Clam: App Blocker for iPhone. Block Distracting Apps</title>
-<meta name="description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
+<meta name="description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, nothing to sign up for.">
 <link rel="canonical" href="https://getclam.app/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#121217">
@@ -15,7 +15,7 @@
 <meta name="apple-itunes-app" content="app-id=APP_ID">
 -->
 <meta property="og:title" content="Clam: App Blocker for iPhone. Block Distracting Apps">
-<meta property="og:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
+<meta property="og:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, nothing to sign up for.">
 <meta property="og:url" content="https://getclam.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clam">
@@ -26,7 +26,7 @@
 <meta property="og:image:alt" content="Clam, an app blocker for iPhone. Your apps stay shut. One tap, real blocking, timer on your Lock Screen.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Clam: App Blocker for iPhone. Block Distracting Apps">
-<meta name="twitter:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, no tracking.">
+<meta name="twitter:description" content="Clam is an app blocker for iPhone. Pick your distracting apps once, tap one button, and they stay locked until the timer ends. No account, nothing to sign up for.">
 <meta name="twitter:image" content="https://getclam.app/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
@@ -49,7 +49,7 @@
   .skip:focus { left: 0; z-index: 10; }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
   .top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; padding: 22px 0; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; text-decoration: none; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; text-decoration: none; min-height: 44px; }
   .logo svg { width: 28px; height: 28px; }
   .top nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
   /* 44px tall, Apple's minimum tap target. */
@@ -67,6 +67,7 @@
   .card p { margin: 6px 0 0; color: var(--muted); }
   footer { padding: 40px 0 60px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--raised); }
   footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  footer nav a { display: inline-flex; align-items: center; min-height: 44px; } /* 44px tall, Apple's minimum tap target */
   footer a { color: var(--faint); }
   footer a:hover { color: var(--fg); }
   footer .guides { margin-top: 10px; }
@@ -183,6 +184,7 @@
    "offers": [
     {
      "@type": "Offer",
+       "availability": "https://schema.org/PreOrder",
      "name": "Yearly",
      "price": "19.99",
      "priceCurrency": "USD",
@@ -190,6 +192,7 @@
     },
     {
      "@type": "Offer",
+       "availability": "https://schema.org/PreOrder",
      "name": "Monthly",
      "price": "3.99",
      "priceCurrency": "USD",
@@ -197,6 +200,7 @@
     },
     {
      "@type": "Offer",
+       "availability": "https://schema.org/PreOrder",
      "name": "Lifetime",
      "price": "29.99",
      "priceCurrency": "USD",
@@ -341,7 +345,7 @@
     <p class="sub">Setup is a few questions and one permission. Then it's the button.</p>
     <ul class="shots">
       <li><figure><img src="/screenshots/web-apps.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam setup screen asking which apps steal the most from you, with four apps selected to lock"><figcaption>Choose the apps to lock. Change them any time.</figcaption></figure></li>
-      <li><figure><img src="/screenshots/web-permission.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam permission screen: locks only the apps you chose, can't read messages or browsing, runs entirely on this phone"><figcaption>One Screen Time permission. Nothing leaves the phone.</figcaption></figure></li>
+      <li><figure><img src="/screenshots/web-permission.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam permission screen: locks only the apps you chose, can't read messages or browsing, runs entirely on this phone"><figcaption>One Screen Time permission. Your app list stays on the phone.</figcaption></figure></li>
       <li><figure><img src="/screenshots/web-hours.png" width="540" height="1173" loading="lazy" decoding="async" alt="Clam setup screen with a slider asking how many hours a day you are on your phone, set to 4.5 hours"><figcaption>Tell it your daily hours to see what a year adds up to.</figcaption></figure></li>
     </ul>
   </section>
@@ -386,7 +390,7 @@
     <h2>Private by design</h2>
     <p class="sub">An app that watches your apps is the last thing you should need in order to use your phone less.</p>
     <div class="grid2">
-      <div class="card"><h3>No account, no server</h3><p>Your app list, sessions and streak live on your iPhone and are deleted with the app.</p></div>
+      <div class="card"><h3>No account, no server of ours</h3><p>Your app list, sessions and streak live on your iPhone and are deleted with the app.</p></div>
       <div class="card"><h3>Clam can't see your apps</h3><p>Apple hands Clam opaque tokens for the apps you pick. It can't read which apps they are or anything inside them.</p></div>
     </div>
     <p class="fine">The full version is short: read the <a href="/privacy.html">Clam privacy policy</a>.</p>
