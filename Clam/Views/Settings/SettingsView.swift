@@ -81,11 +81,32 @@ struct SettingsView: View {
                     Button("Done") { dismiss() }
                 }
             }
+            .alert("Unlock everything?", isPresented: $confirmUnlock) {
+                Button("Unlock", role: .destructive) { unlockEverything() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Your apps come back right away and any running session ends without counting.")
+            }
             .familyActivityPicker(isPresented: $showPicker, selection: $screenTime.selection)
             .sheet(isPresented: $showPaywall) {
                 PaywallView(context: .home, onFinished: { showPaywall = false })
             }
         }
+    }
+
+    /// Belt and braces: clear the shield, stop the monitor, and wipe the session keys so a
+    /// restore cannot bring the block back.
+    private func unlockEverything() {
+        screenTime.clearShield()
+        screenTime.cancelShieldRemoval()
+        let defaults = AppGroup.defaults
+        for key in [AppGroup.Key.activeSessionEnd, AppGroup.Key.activeSessionMinutes,
+                    AppGroup.Key.activeSessionStart, AppGroup.Key.activeSessionIsTaste,
+                    AppGroup.Key.finishedWhileAway] {
+            defaults.removeObject(forKey: key)
+        }
+        Analytics.track(.manualUnlock)
+        dismiss()
     }
 }
 

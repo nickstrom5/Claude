@@ -109,8 +109,11 @@ final class ScreenTimeManager: ObservableObject {
         guard !Self.isSimulator else { return }
         let floor = start.addingTimeInterval(Double(Self.minimumMonitoredMinutes * 60))
         let monitoredEnd = max(end, floor)
-        let units: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
-        let cal = Calendar.current
+        let units: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .timeZone]
+        // Without an explicit zone these components float: crossing a time zone mid-session (a
+        // flight is an on-brand case here) re-resolves the end and can push it hours later.
+        var cal = Calendar.current
+        cal.timeZone = TimeZone(secondsFromGMT: 0) ?? cal.timeZone
         let schedule = DeviceActivitySchedule(
             intervalStart: cal.dateComponents(units, from: start),
             intervalEnd: cal.dateComponents(units, from: monitoredEnd),

@@ -48,7 +48,7 @@ final class AppState: ObservableObject {
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")
         answers = Self.load(OnboardingAnswers.self, forKey: "onboardingAnswers", from: defaults) ?? OnboardingAnswers()
         stats = Self.load(Stats.self, forKey: "stats", from: defaults) ?? Stats()
-        history = Self.load([FocusSession].self, forKey: "history", from: defaults) ?? []
+        history = Self.loadArray(FocusSession.self, forKey: "history", from: defaults) ?? []
         let minutes = defaults.integer(forKey: "preferredMinutes")
         preferredMinutes = minutes == 0 ? 25 : minutes
     }
@@ -107,5 +107,22 @@ final class AppState: ObservableObject {
     private static func load<T: Decodable>(_ type: T.Type, forKey key: String, from defaults: UserDefaults) -> T? {
         guard let data = defaults.data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(type, from: data)
+    }
+
+    /// Decodes an array element by element so one unreadable row costs that row, not the whole
+    /// history. Losing every past session on upgrade would reset the week chart and best day.
+    private static func loadArray<T: Decodable>(_ type: T.Type, forKey key: String, from defaults: UserDefaults) -> [T]? {
+        guard let data = defaults.data(forKey: key) else { return nil }
+        if let exact = try? JSONDecoder().decode([T].self, from: data) { return exact }
+        guard let lenient = try? JSONDecoder().decode([Lenient<T>].self, from: data) else { return nil }
+        return lenient.compactMap(\.value)
+    }
+
+    /// Wrapper that turns a failed element decode into nil instead of failing the array.
+    private struct Lenient<T: Decodable>: Decodable {
+        let value: T?
+        init(from decoder: Decoder) throws {
+            value = try? T(from: decoder)
+        }
     }
 }

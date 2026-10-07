@@ -25,6 +25,8 @@ enum AnalyticsEvent: String {
     case sessionStartedFromIntent = "session_started_from_intent"
     case sessionCompleted = "session_completed"
     case sessionAbandoned = "session_abandoned"
+    /// User pressed the Settings escape hatch to clear a block.
+    case manualUnlock = "manual_unlock"
     case shareTapped = "share_tapped"
     case supportTapped = "support_tapped"
     case achievementEarned = "achievement_earned"

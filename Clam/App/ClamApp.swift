@@ -44,6 +44,7 @@ struct ClamApp: App {
 struct RootView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var sessions: SessionManager
+    @EnvironmentObject private var screenTime: ScreenTimeManager
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var sizeClass
 
@@ -69,6 +70,9 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.35), value: appState.hasCompletedOnboarding)
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
+                // Screen Time access can be revoked in Settings while we are backgrounded.
+                // Without this the app keeps claiming it will lock apps and silently does not.
+                screenTime.refreshAuthorization()
                 sessions.refresh()
                 appState.consumePendingIntent()
             }

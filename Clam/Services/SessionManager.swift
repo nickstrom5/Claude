@@ -30,8 +30,17 @@ final class SessionManager: ObservableObject {
 
     // MARK: - Start / end
 
-    func start(minutes: Int, isTaste: Bool = false) {
+    /// One chokepoint for duration. Anything the monitor extension cannot schedule would rely on
+    /// the app being alive at the end, so a real session is never shorter than its minimum. The
+    /// taste session is exempt: it runs for 60 seconds with the user watching, during onboarding.
+    static func monitorableMinutes(_ minutes: Int, isTaste: Bool) -> Int {
+        guard !isTaste else { return minutes }
+        return min(max(minutes, ScreenTimeManager.minimumMonitoredMinutes), 240)
+    }
+
+    func start(minutes requested: Int, isTaste: Bool = false) {
         guard active == nil else { return }
+        let minutes = Self.monitorableMinutes(requested, isTaste: isTaste)
         let session = FocusSession(start: Date(), plannedMinutes: minutes, isTaste: isTaste)
         active = session
         lastFinished = nil
@@ -39,7 +48,9 @@ final class SessionManager: ObservableObject {
         screenTime.applyShield()
         screenTime.scheduleShieldRemoval(start: session.start, end: session.plannedEnd)
         defaults.set(ISO8601DateFormatter().string(from: session.plannedEnd), forKey: AppGroup.Key.activeSessionEnd)
+        defaults.set(ISO8601DateFormatter().string(from: session.start), forKey: AppGroup.Key.activeSessionStart)
         defaults.set(minutes, forKey: AppGroup.Key.activeSessionMinutes)
+        defaults.set(isTaste, forKey: AppGroup.Key.activeSessionIsTaste)
 
         startLiveActivity(for: session)
         scheduleCompletionNotification(at: session.plannedEnd)
@@ -80,6 +91,21 @@ final class SessionManager: ObservableObject {
     /// If the app was killed mid-session, pick up where we left off (or close it out).
     func restoreIfNeeded() {
         guard !ScreenshotMode.isActive, active == nil else { return }
+
+        // The monitor extension ended a session while we were not running. Record it properly
+        // rather than losing the streak, the result card and the analytics event.
+        if let handoff = defaults.dictionary(forKey: AppGroup.Key.finishedWhileAway) {
+            defaults.removeObject(forKey: AppGroup.Key.finishedWhileAway)
+            if var session = Self.session(from: handoff) {
+                session.end = session.plannedEnd
+                session.completed = true
+                screenTime.clearShield()
+                screenTime.cancelShieldRemoval()
+                finish(session)
+                return
+            }
+        }
+
         guard let endString = defaults.string(forKey: AppGroup.Key.activeSessionEnd),
               let end = ISO8601DateFormatter().date(from: endString) else {
             // No session is stored, so nothing should be shielded. If something still is, a
@@ -90,8 +116,13 @@ final class SessionManager: ObservableObject {
         }
 
         let minutes = defaults.integer(forKey: AppGroup.Key.activeSessionMinutes)
-        let start = end.addingTimeInterval(-TimeInterval(minutes * 60))
-        var session = FocusSession(start: start, plannedMinutes: minutes)
+        let isTaste = defaults.bool(forKey: AppGroup.Key.activeSessionIsTaste)
+        // Prefer the stored start: inferring it from the end would be wrong for a session the
+        // monitor extended to its minimum window.
+        let start = defaults.string(forKey: AppGroup.Key.activeSessionStart)
+            .flatMap { ISO8601DateFormatter().date(from: $0) }
+            ?? end.addingTimeInterval(-TimeInterval(minutes * 60))
+        var session = FocusSession(start: start, plannedMinutes: minutes, isTaste: isTaste)
 
         if end <= Date() {
             session.end = end
@@ -100,9 +131,24 @@ final class SessionManager: ObservableObject {
         } else {
             active = session
             screenTime.applyShield()
+            // Re-arm the safety net. If the first attempt failed, or the schedule was lost with
+            // the process, the shield would otherwise have nothing to remove it.
+            screenTime.scheduleShieldRemoval(start: session.start, end: end)
             activity = Activity<ClamActivityAttributes>.activities.first
             scheduleCompletion(at: end)
         }
+    }
+
+    /// Rebuilds a session from the dictionary the monitor extension leaves behind.
+    private static func session(from handoff: [String: Any]) -> FocusSession? {
+        guard let endString = handoff["end"] as? String,
+              let end = ISO8601DateFormatter().date(from: endString) else { return nil }
+        let minutes = handoff["minutes"] as? Int ?? 0
+        let start = (handoff["start"] as? String).flatMap { ISO8601DateFormatter().date(from: $0) }
+            ?? end.addingTimeInterval(-TimeInterval(minutes * 60))
+        return FocusSession(start: start,
+                            plannedMinutes: minutes,
+                            isTaste: handoff["isTaste"] as? Bool ?? false)
     }
 
     // MARK: - Private
@@ -114,6 +160,9 @@ final class SessionManager: ObservableObject {
         screenTime.cancelShieldRemoval()
         defaults.removeObject(forKey: AppGroup.Key.activeSessionEnd)
         defaults.removeObject(forKey: AppGroup.Key.activeSessionMinutes)
+        defaults.removeObject(forKey: AppGroup.Key.activeSessionStart)
+        defaults.removeObject(forKey: AppGroup.Key.activeSessionIsTaste)
+        defaults.removeObject(forKey: AppGroup.Key.finishedWhileAway)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["clam.sessionEnd"])
         endLiveActivity()
         appState.record(session)

@@ -20,5 +20,14 @@ enum AppGroup {
         static let streak = "streak"
         /// Minutes requested by the Siri / Shortcuts / Action Button intent, consumed on next foreground.
         static let pendingSessionMinutes = "pendingSessionMinutes"
+        /// True while the active session is the 60-second onboarding taste. Without this the
+        /// session cannot be rebuilt correctly after the app is killed.
+        static let activeSessionIsTaste = "activeSessionIsTaste"
+        /// ISO-8601 start date of the active session, so a restore uses the real start rather
+        /// than inferring one from the end and the planned length.
+        static let activeSessionStart = "activeSessionStart"
+        /// Written by the monitor extension when it ends a session the app was not alive for.
+        /// The app consumes it on next launch and records the session properly.
+        static let finishedWhileAway = "finishedWhileAway"
     }
 }
