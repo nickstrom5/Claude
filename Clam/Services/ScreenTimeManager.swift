@@ -96,15 +96,15 @@ final class ScreenTimeManager: ObservableObject {
     // MARK: - Safety net
 
     private static let monitorName = DeviceActivityName("clam.session")
-    /// DeviceActivity refuses schedules shorter than this. Shorter sessions rely on the in-app timer only.
-    static let minimumMonitoredMinutes = 15
+    /// DeviceActivity refuses schedules shorter than this. Defined in Shared so the intent,
+    /// which compiles into the widget extension, reads the same number.
+    static let minimumMonitoredMinutes = SessionLimits.minimumMonitoredMinutes
 
-    /// Asks iOS to call the monitor extension when the session ends, so the shield is cleared even
-    /// if the app is suspended or killed before the timer fires.
-    /// The monitor extension is what clears the shield when the app is dead. DeviceActivity
-    /// refuses windows shorter than 15 minutes, so a short session gets a 15-minute window
-    /// instead of none: the app clears the shield on time in the normal case, and this caps
-    /// how long a shield can survive when it doesn't.
+    /// Asks iOS to call the monitor extension when the session ends, so the shield is cleared
+    /// even if the app is suspended or killed before the timer fires. DeviceActivity refuses
+    /// windows shorter than the minimum, so a short session gets a minimum-length window rather
+    /// than none: the app clears the shield on time normally, and this caps how long a shield
+    /// can survive when it does not.
     func scheduleShieldRemoval(start: Date, end: Date) {
         guard !Self.isSimulator else { return }
         let floor = start.addingTimeInterval(Double(Self.minimumMonitoredMinutes * 60))
