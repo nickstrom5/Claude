@@ -62,6 +62,10 @@ open Clam.xcodeproj
 - [x] Install the Xcode 27.1 beta (needs macOS 26.6) from developer.apple.com/download.
 - [x] Small-screen pass: 13 screens on a 390x844 phone (`screenshots/small/`, captured by CI).
       No clipping anywhere. Widest fixed element in the app is 300pt, so a 375pt screen has room.
+- [ ] Recapture the screens: Settings gained the analytics switch, so `screenshots/settings.png`
+      and the small/duo copies of it are stale. Run the Screenshots workflow, or
+      `scripts/capture-screens.sh` locally. The three `docs/screenshots/web-*.png` the site uses
+      are from other screens, so the site is unaffected.
 - [ ] Run the true small phone locally once: `scripts/capture-screens.sh --device "QA iPhone SE" --no-tests --out screenshots/se`
 - [ ] iPhone 18 Pro pass: `scripts/capture-screens.sh --device "iPhone 18 Pro"` (needs Xcode 27, so not on CI).
 - [x] Folded pose captured on the Duo simulator (13 screens, `screenshots/duo/closed-*.png`), one
