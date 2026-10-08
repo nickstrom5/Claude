@@ -89,6 +89,8 @@ open Clam.xcodeproj
 - [ ] Analytics: create a free PostHog project, paste the `phc_…` key into `Clam/App/Config.swift`.
       Build a funnel in PostHog from `onboarding_started` → `taste_session_completed` → `paywall_shown`
       → `trial_started` → `paid`. That funnel is the business.
+- [ ] Same visit, set PostHog's event retention to 12 months. `docs/privacy.html` states that
+      number, so it has to be true before the key goes in. Leave session replay off.
 
 ## Day of launch
 

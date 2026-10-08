@@ -73,8 +73,10 @@ Price: choose the US price and let Apple's pricing equalize other territories.
 ## 7. App Privacy (App Store Connect → Clam → App Privacy)
 
 Answer honestly for the analytics setup in `Config.swift`:
-- Data collected: **Product Interaction** and **Crash Data** (PostHog lifecycle + funnel events)
+- Data collected: **Product Interaction** only, the funnel events in `Analytics.swift`
   → "Analytics" purpose, **not** linked to identity, **not** used for tracking.
+  Not Crash Data: nothing collects crashes, and `Clam/Resources/PrivacyInfo.xcprivacy`
+  declares Product Interaction alone. These answers and that file must agree.
 - Everything else: not collected. No contact info, no identifiers, no usage of apps the user
   locks (Apple's Screen Time tokens are opaque and never leave the device).
 - Privacy policy URL: https://getclam.app/privacy.html
