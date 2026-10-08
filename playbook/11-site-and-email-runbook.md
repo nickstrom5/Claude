@@ -88,7 +88,7 @@ Cost: the domain only (~$15/yr for .app at Cloudflare). Everything else is free.
   validator.schema.org.
 - Do not add `aggregateRating` or review markup until real App Store ratings exist, and then only
   with the real numbers.
-- The site screenshots come from `docs/screenshots/`. Several current captures have the iOS
+- The site screenshots come from `screenshots/`. Several current captures have the iOS
   notification permission alert on top of them; recapture (dismiss the alert first) before using the
   home, session, result or paywall screens on the site, then add them to `shots` in
   `scripts/make-brand.swift`.

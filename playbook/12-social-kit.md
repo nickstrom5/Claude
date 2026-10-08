@@ -141,7 +141,7 @@ subreddit per week maximum.
 
 ## 9. Device images
 
-The landing page shows the real result screen (`docs/screenshots/share.png`, downscaled to
+The landing page shows the real result screen (`screenshots/share.png`, downscaled to
 `docs/brand/hero-share.png`) in a CSS iPhone frame. iPhone Duo device images wait until Apple
 publishes Duo frames in Apple Design Resources and the Xcode 27.1 simulator produces real
 outer/inner-display captures; earlier Duo attempts are in git history if needed.

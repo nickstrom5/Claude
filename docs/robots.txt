@@ -1,12 +1,4 @@
 User-agent: *
 Allow: /
 
-# docs/ is the published site, but the Screenshots workflow also commits raw simulator
-# captures here. Only the three sized web-* images are part of the site; the rest are build
-# artifacts and should not turn up in Google Images.
-Disallow: /screenshots/
-Allow: /screenshots/web-apps.png
-Allow: /screenshots/web-hours.png
-Allow: /screenshots/web-permission.png
-
 Sitemap: https://getclam.app/sitemap.xml

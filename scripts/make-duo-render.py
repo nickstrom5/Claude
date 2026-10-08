@@ -3,11 +3,11 @@
 
     python3 scripts/make-duo-render.py            (needs Pillow: pip install pillow)
 
-Folded render  -> docs/brand/duo-folded.png   from docs/screenshots/duo/closed-session.png
-Open render    -> docs/brand/duo-open.png     from docs/screenshots/duo/home.png
+Folded render  -> docs/brand/duo-folded.png   from screenshots/duo/closed-session.png
+Open render    -> docs/brand/duo-open.png     from screenshots/duo/home.png
 
 The open render is skipped while the inner-display capture is still blank, so rerun this
-after `scripts/capture-screens.sh` has produced a real docs/screenshots/duo/home.png.
+after `scripts/capture-screens.sh` has produced a real screenshots/duo/home.png.
 Both renders are transparent PNGs: the site and the portfolio page put their own
 background behind them.
 """
@@ -19,10 +19,10 @@ try:
 except ModuleNotFoundError:
     sys.exit("Pillow is not installed. Either run\n"
              "    python3 -m pip install --user --break-system-packages pillow\n"
-             "or just commit and push docs/screenshots/duo and let CI build the render.")
+             "or just commit and push screenshots/duo and let CI build the render.")
 
 ROOT = Path(__file__).resolve().parent.parent
-SHOTS = ROOT / "docs" / "screenshots" / "duo"
+SHOTS = ROOT / "screenshots" / "duo"
 OUT = ROOT / "docs" / "brand"
 
 BODY = (38, 38, 46)        # titanium casing

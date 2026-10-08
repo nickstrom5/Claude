@@ -17,6 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # docs/ is served verbatim by GitHub Pages, so anything that lands there is public.
+      # Raw simulator captures belong in the repo-root screenshots/ folder; only the three
+      # sized web-*.png the landing page references are site files.
+      - name: docs/ holds site files only
+        run: |
+          stray=$(find docs/screenshots -type f ! -name 'web-*.png' 2>/dev/null || true)
+          [ -z "$stray" ] || { echo "these are build artifacts, not site files:"; echo "$stray"; exit 1; }
+          ls docs/screenshots
+
       - name: Show Xcode
         run: xcodebuild -version
 

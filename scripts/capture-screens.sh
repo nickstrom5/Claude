@@ -6,7 +6,7 @@
 #   scripts/capture-screens.sh --device "iPhone 18"         # QA on a regular iPhone
 #   scripts/capture-screens.sh --list                       # what simulators are available
 #
-# Captures go to docs/screenshots/<slug>/ (duo, iphone-18, ...) plus small-* thumbnails.
+# Captures go to screenshots/<slug>/ (duo, iphone-18, ...) plus small-* thumbnails.
 # A blank capture is detected with sips alone (no Pillow), retried on the device's other
 # display, then relaunched; if it still fails the app's log is printed.
 # CI runs this with --ci (screenshots.yml, "duo" job) once the runner image ships Xcode 27.
@@ -77,7 +77,7 @@ if [ -z "$DEVICE_ID" ]; then
 fi
 DEVICE="$DEVICE_NAME"
 SLUG=$(echo "$DEVICE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-'); [ "$SLUG" = "iphone-duo" ] && SLUG=duo
-[ -n "$OUT" ] || OUT="docs/screenshots/$SLUG"
+[ -n "$OUT" ] || OUT="screenshots/$SLUG"
 echo "Simulator: $DEVICE [$DEVICE_ID] -> $OUT"
 
 # 3. Generate, build, test.

@@ -60,15 +60,15 @@ open Clam.xcodeproj
 ## Before submission
 
 - [x] Install the Xcode 27.1 beta (needs macOS 26.6) from developer.apple.com/download.
-- [x] Small-screen pass: 13 screens on a 390x844 phone (`docs/screenshots/small/`, captured by CI).
+- [x] Small-screen pass: 13 screens on a 390x844 phone (`screenshots/small/`, captured by CI).
       No clipping anywhere. Widest fixed element in the app is 300pt, so a 375pt screen has room.
-- [ ] Run the true small phone locally once: `scripts/capture-screens.sh --device "QA iPhone SE" --no-tests --out docs/screenshots/se`
+- [ ] Run the true small phone locally once: `scripts/capture-screens.sh --device "QA iPhone SE" --no-tests --out screenshots/se`
 - [ ] iPhone 18 Pro pass: `scripts/capture-screens.sh --device "iPhone 18 Pro"` (needs Xcode 27, so not on CI).
-- [x] Folded pose captured on the Duo simulator (13 screens, `docs/screenshots/duo/closed-*.png`), one
+- [x] Folded pose captured on the Duo simulator (13 screens, `screenshots/duo/closed-*.png`), one
       layout bug found and fixed (result screen clipped its icon on the short outer display).
 - [~] Open pose: blocked. The Xcode 27.1 beta simulator cannot be unfolded (see 01-strategy).
       Retry on a later beta or on hardware, then `python3 scripts/make-duo-render.py` for the
-      second website render. Commit `docs/screenshots/duo/`. Look for: text or the
+      second website render. Commit `screenshots/duo/`. Look for: text or the
       280pt session ring clipped on the outer display, the 560pt column centered on the inner display, the paywall
       plan rows and onboarding cards not stretched. Take App Store screenshot #1 from the open home screen.
 - [ ] With an Apple Watch paired: start a session, lock the phone, raise the wrist. Does the Live

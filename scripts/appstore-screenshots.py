@@ -2,7 +2,7 @@
 """Build the six App Store screenshots (6.9-inch, 1320x2868) from simulator captures.
 
 Usage:  python3 scripts/appstore-screenshots.py            (needs Pillow: pip install pillow)
-Reads docs/screenshots/*.png, writes playbook/app-store/NN-name.png. Each frame is a dark
+Reads screenshots/*.png, writes playbook/app-store/NN-name.png. Each frame is a dark
 background, a caption in the brand yellow at the top, and the capture in a device-style
 rounded frame below. Captions come from playbook/06-app-store-listing.md.
 """
@@ -10,7 +10,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "docs" / "screenshots"
+SRC = ROOT / "screenshots"
 OUT = ROOT / "playbook" / "app-store"
 W, H = 1320, 2868
 BG = (18, 18, 23)

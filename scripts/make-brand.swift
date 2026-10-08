@@ -124,7 +124,7 @@ for (size, name) in [(180, "apple-touch-icon.png"), (192, "icon-192.png"), (512,
 }
 
 // ---- Sized screenshot copies for the landing page (540 px wide = 2x of the 270 px display size). ----
-// Sources are the simulator captures in docs/screenshots/. `cover` paints over a strip (in source
+// Sources are the simulator captures in screenshots/. `cover` paints over a strip (in source
 // pixels, top-left origin) with the screen's background: the "apps" capture carries a simulator-only
 // debug note that never appears on a real iPhone.
 let shots: [(name: String, cover: CGRect?)] = [
@@ -133,7 +133,7 @@ let shots: [(name: String, cover: CGRect?)] = [
     ("hours", nil),
 ]
 for shot in shots {
-    let src = load("\(root)/docs/screenshots/\(shot.name).png")
+    let src = load("\(root)/screenshots/\(shot.name).png")
     let w = 540
     let h = Int((CGFloat(src.height) * CGFloat(w) / CGFloat(src.width)).rounded())
     let ctx = context(w, h)

@@ -10,16 +10,16 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `playbook/01-strategy.md` first
 - CI (`.github/workflows/build.yml`) does exactly this on `macos-26`. Keep it green.
 - Screens: launch with `-screenshot <hook|hours|apps|triggers|reveal|permission|taste|result|paywall|home|session|settings|share>`
   to open one screen with seeded data (`Clam/App/ScreenshotMode.swift`). The `Screenshots` workflow captures all of
-  them in the simulator and commits PNGs to `docs/screenshots/`. Look there before and after UI changes.
-  Its `duo` job captures on the iPhone Duo simulator into `docs/screenshots/duo/` when the runner image has Xcode 27,
-  and its `small` job captures on the smallest iPhone the runner has into `docs/screenshots/small/` as a layout guard.
+  them in the simulator and commits PNGs to `screenshots/`. Look there before and after UI changes.
+  Its `duo` job captures on the iPhone Duo simulator into `screenshots/duo/` when the runner image has Xcode 27,
+  and its `small` job captures on the smallest iPhone the runner has into `screenshots/small/` as a layout guard.
   The runner has no SE, so the smallest there is 390x844; a true 375x667 phone has to be run locally.
   Locally, with Xcode 27.1: `scripts/capture-screens.sh` builds, tests and captures all 13 screens on any simulator
   (`--device "iPhone 18"`, `--pose closed` after folding a Duo, `--list` to see what's installed). Blank frames are
   detected with `sips` alone, retried on the device's other display, then reported with the app log.
 
 - Site images: `swift scripts/make-brand.swift` regenerates `docs/og.png`, the favicons, manifest icons and the sized
-  screenshots in `docs/screenshots/web-*.png` from the app icon and the simulator captures. The site is plain static HTML
+  screenshots in `docs/screenshots/web-*.png` from the app icon and the captures in `screenshots/`. The site is plain static HTML
   in `docs/` (no build step); SEO rules are in `playbook/11-site-and-email-runbook.md` section 9.
 
 ## Runtime caveats
@@ -37,3 +37,6 @@ iOS app (SwiftUI, iOS 17+). Read `README.md` and `playbook/01-strategy.md` first
 ## Public vs private
 - `docs/` is the published website (GitHub Pages serves every file in it). Only site files go there.
 - Strategy and launch notes live in `playbook/`, never in `docs/`: anything in `docs/` is readable by anyone who guesses the URL.
+- Raw simulator captures live in `screenshots/` at the repo root, not in `docs/`. The only screenshots in `docs/`
+  are the three sized `docs/screenshots/web-*.png` the landing page references; `build.yml` fails if anything else
+  turns up there.

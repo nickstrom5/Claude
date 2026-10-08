@@ -1,7 +1,7 @@
 name: Screenshots
 
 # Boots a simulator, launches the app on every screen with seeded data, and commits the PNGs
-# to docs/screenshots/. Run it from the Actions tab (workflow_dispatch) whenever the UI changes.
+# to screenshots/. Run it from the Actions tab (workflow_dispatch) whenever the UI changes.
 
 on:
   workflow_dispatch:
@@ -59,7 +59,7 @@ jobs:
       - name: Capture every screen
         run: |
           python3 -m venv .venv && .venv/bin/pip install --quiet pillow
-          mkdir -p docs/screenshots crashlogs
+          mkdir -p screenshots crashlogs
           brightness() { .venv/bin/python -c "from PIL import Image, ImageStat; import sys; print(int(ImageStat.Stat(Image.open(sys.argv[1]).convert('L')).mean[0]))" "$1"; }
           for s in hook hours apps triggers reveal permission taste result paywall home session settings share; do
             for attempt in 1 2 3; do
@@ -67,8 +67,8 @@ jobs:
               sleep 1
               xcrun simctl launch "$DEVICE" app.getclam.clam -screenshot "$s" >/dev/null
               sleep 8
-              xcrun simctl io "$DEVICE" screenshot "docs/screenshots/$s.png" >/dev/null
-              mean=$(brightness "docs/screenshots/$s.png")
+              xcrun simctl io "$DEVICE" screenshot "screenshots/$s.png" >/dev/null
+              mean=$(brightness "screenshots/$s.png")
               if [ "$mean" -ge 6 ]; then echo "captured $s (attempt $attempt, brightness $mean)"; break; fi
               echo "  $s: blank frame on attempt $attempt (brightness $mean); app log follows"
               xcrun simctl spawn "$DEVICE" log show --last 20s --predicate 'process == "Clam"' --style compact 2>/dev/null | tail -30 | tee -a "crashlogs/$s-attempt$attempt.log" || true
@@ -77,13 +77,13 @@ jobs:
           find ~/Library/Logs/DiagnosticReports -name "Clam*" -newer build.log -exec cp {} crashlogs/ \; 2>/dev/null || true
           ls crashlogs || true
           # Downscaled copies for quick review (skip existing thumbnails).
-          cd docs/screenshots && rm -f small-*.png && for f in *.png; do sips -Z 600 "$f" --out "small-$f" >/dev/null; done
+          cd screenshots && rm -f small-*.png && for f in *.png; do sips -Z 600 "$f" --out "small-$f" >/dev/null; done
 
       - name: Commit screenshots
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/screenshots
+          git add screenshots
           git commit -m "Screenshots from simulator ($DEVICE) [skip ci]" || { echo "no changes"; exit 0; }
           # The branch may have moved while the simulator ran; rebase our one commit on top and retry.
           for attempt in 1 2 3 4; do
@@ -100,7 +100,7 @@ jobs:
         with:
           name: screenshots
           path: |
-            docs/screenshots
+            screenshots
             crashlogs
           if-no-files-found: ignore
 
@@ -130,12 +130,12 @@ jobs:
       - name: Build and capture
         run: |
           brew install xcodegen
-          scripts/capture-screens.sh --device "${{ steps.dev.outputs.name }}" --no-tests --out docs/screenshots/small
+          scripts/capture-screens.sh --device "${{ steps.dev.outputs.name }}" --no-tests --out screenshots/small
 
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/screenshots/small
+          git add screenshots/small
           git commit -m "Smallest-iPhone screenshots [skip ci]" || { echo "no changes"; exit 0; }
           for attempt in 1 2 3 4; do
             git fetch origin ${{ github.ref_name }}
@@ -172,7 +172,7 @@ jobs:
         if: steps.xc.outputs.found == 'true'
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/screenshots/duo
+          git add screenshots/duo
           git commit -m "iPhone Duo simulator screenshots [skip ci]" || { echo "no changes"; exit 0; }
           for attempt in 1 2 3 4; do
             git fetch origin ${{ github.ref_name }}
