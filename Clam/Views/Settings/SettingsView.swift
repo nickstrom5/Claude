@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var showPicker = false
     @State private var showPaywall = false
     @State private var confirmUnlock = false
+    @State private var analyticsOn = !Analytics.isOptedOut
 
     var body: some View {
         NavigationStack {
@@ -70,6 +71,18 @@ struct SettingsView: View {
                     Button("Unlock everything now", role: .destructive) { confirmUnlock = true }
                 } footer: {
                     Text("Clears the block immediately and ends any running session. Use this if your apps are still locked when they shouldn't be.")
+                }
+
+                Section {
+                    Toggle("Anonymous analytics", isOn: $analyticsOn)
+                        .onChange(of: analyticsOn) { _, on in
+                            Analytics.isOptedOut = !on
+                            Analytics.installSinks()
+                        }
+                } header: {
+                    Text("Privacy")
+                } footer: {
+                    Text("Counts like \"session started\" so we can tell which parts of Clam work. Never which apps you lock. Turn it off and nothing leaves your phone.")
                 }
 
                 HelpSection()

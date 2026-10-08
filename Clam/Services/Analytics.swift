@@ -42,8 +42,25 @@ protocol AnalyticsSink {
 enum Analytics {
     static var sink: AnalyticsSink = ConsoleAnalytics()
 
+    /// The opt-out the privacy policy promises. One gate in front of the sink, so turning it
+    /// off stops every event rather than the ones someone remembered to guard.
+    static var isOptedOut: Bool {
+        get { AppGroup.defaults.bool(forKey: AppGroup.Key.analyticsOptOut) }
+        set { AppGroup.defaults.set(newValue, forKey: AppGroup.Key.analyticsOptOut) }
+    }
+
     static func track(_ event: AnalyticsEvent, _ properties: [String: Any] = [:]) {
+        guard !isOptedOut else { return }
         sink.track(event, properties)
+    }
+
+    /// Console always; PostHog only when a key is set and the user has not opted out, so an
+    /// opted-out device never even initialises the SDK. Called at launch and again when the
+    /// Settings switch moves, which is why it has to be safe to call twice.
+    static func installSinks() {
+        var sinks: [AnalyticsSink] = [ConsoleAnalytics()]
+        if let postHog = PostHogAnalytics.start() { sinks.append(postHog) }
+        sink = CompositeAnalytics(sinks: sinks)
     }
 }
 

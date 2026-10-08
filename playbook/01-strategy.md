@@ -163,6 +163,12 @@ Events are already defined in `Clam/Services/Analytics.swift`. Funnel to watch w
 The ratio that decides everything: **taste_session_completed / onboarding_started.** If people
 do the 60-second session, they convert. If they drop before it, fix the screens before it.
 
+Settings carries an **Anonymous analytics** switch. It moves no funnel metric and is not a
+feature in the sense of section 4; it is there because the privacy policy promises an off
+switch and `docs/privacy.html` now says where to find it. It gates `Analytics.track`, and
+PostHog's own lifecycle autocapture is off so nothing can route around the gate. Expect a
+small, unmeasurable undercount in every number above, which is the correct trade.
+
 ## 8. Risks and how we handle them
 
 | Risk | Mitigation |

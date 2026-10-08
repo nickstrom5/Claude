@@ -29,5 +29,8 @@ enum AppGroup {
         /// Written by the monitor extension when it ends a session the app was not alive for.
         /// The app consumes it on next launch and records the session properly.
         static let finishedWhileAway = "finishedWhileAway"
+        /// True when the user turned analytics off in Settings. Checked before every event,
+        /// in the app and in any extension that ever reports one.
+        static let analyticsOptOut = "analyticsOptOut"
     }
 }
