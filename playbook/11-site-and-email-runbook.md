@@ -10,8 +10,17 @@ Cost: the domain only (~$15/yr for .app at Cloudflare). Everything else is free.
 
 ## 2. Site files (in the repo, folder `/docs`)
 - `docs/index.html` landing page (hero, how it works, pricing, FAQ, footer links)
-- `docs/privacy.html` privacy policy
-- `docs/terms.html` terms (must cover auto-renewing subscriptions and the cancel-24h rule)
+- `docs/privacy.html` privacy policy. Must keep naming: who the controller is and how to reach
+  them, PostHog as the only processor and that events go to its US cloud, the legal basis,
+  retention for on-device data / events / support email, the rights section with the
+  supervisory-authority route and the California no-sale line, and where the in-app analytics
+  switch lives. Do not reinstate an off-switch claim without checking the switch still exists
+  (`Analytics.isOptedOut`, Settings → Privacy).
+- `docs/terms.html` terms. Must cover auto-renewing subscriptions and the cancel-24h rule, who
+  the user is contracting with, that Apple is the seller of record, and that local consumer law
+  wins where it conflicts.
+- If the business is ever incorporated, the controller name in both pages changes in one place
+  each, and a postal address becomes worth adding.
 - `docs/CNAME` one line containing DOMAIN
 - Landing page has one App Store button driven by a JS constant `APP_STORE_URL = ""`:
   empty shows "Get early access" (mailto), set shows "Download on the App Store".
